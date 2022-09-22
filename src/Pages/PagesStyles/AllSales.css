@@ -1,0 +1,110 @@
+.search-by {
+    margin-top: var(--m-padding);
+    margin-bottom: var(--l-padding);
+}
+
+.search-by span {
+    margin-inline: var(--m-padding);
+    background-color: var(--lighter-grey);
+    padding: var(--m-padding);
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.active-span {
+    background-color: var(--secondary) !important;
+    color: var(--bg);
+}
+
+
+.orders-table {
+    width: 100%;
+}
+
+.order-tr a {
+    width: 100%;
+    display: block;
+}
+
+.orders-table tr th {
+    padding: var(--m-padding);
+    font-weight: 500;
+    /* transition: all 0.2s; */
+    cursor: pointer;
+}
+
+.orders-table thead tr th {
+    cursor: default;
+}
+
+.order-total {
+    font-weight: 900 !important;
+}
+
+.order-total-before-discount {
+    color: var(--grey);
+    text-decoration: line-through;
+}
+
+.order-id {
+    width: 100px;
+    max-width: 100px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.not-found-search-value {
+    color: var(--primary);
+}
+
+/* SINGLE ORDER PAGE */
+.order-date {
+    color: var(--grey);
+}
+
+.order-table {
+    width: 100%;
+    margin-top: var(--m-padding);
+}
+
+.credentials-total-wrapper {
+    margin-top: var(--l-padding);
+}
+
+.customer-credential {
+    padding-top: var(--m-padding);
+    font-weight: 500;
+    font-size: 18px;
+}
+
+@media (hover:hover) {
+    .orders-table tr:hover {
+        background-color: black;
+    }
+
+    .orders-table tr:hover th {
+        color: white;
+    }
+
+    .orders-table thead tr:hover {
+        background-color: inherit;
+    }
+
+    .orders-table thead tr:hover th {
+        color: var(--grey);
+    }
+
+}
+
+@media screen and (max-width: 768px) {
+    .credentials-total-wrapper {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .customer-credentials {
+        margin-bottom: var(--l-padding);
+    }
+}

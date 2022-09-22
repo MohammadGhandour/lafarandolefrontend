@@ -1,0 +1,199 @@
+.product-link {
+    color: var(--danger);
+    padding-left: var(--padding);
+    font-weight: 900;
+    text-decoration: underline;
+}
+
+.ui-form {
+    margin-top: 20px;
+    display: flex;
+    align-items: flex-start;
+}
+
+.barcode-image-wrapper {
+    margin: 0 auto;
+    position: relative;
+    width: 300px;
+    justify-content: flex-start;
+}
+
+.barcode-input-wrapper {
+    width: 100%;
+}
+
+.barcode-image {
+    margin-top: var(--padding);
+    width: calc(300px - var(--padding)) !important;
+    height: 40px;
+}
+
+.barcode-input:focus,
+.barcode-input:active {
+    outline: none !important;
+}
+
+.barcode-input {
+    all: unset;
+    width: calc(100% - var(--padding));
+    padding: var(--m-padding);
+    border-bottom: 1px solid var(--light-grey);
+    text-align: center;
+}
+
+.product-error {
+    color: var(--danger);
+}
+
+@media screen and (min-width: 992px) {
+    .barcode-input-wrapper {
+        margin-left: calc(calc(var(--l-padding) + var(--m-padding)) * -1);
+        width: calc(100% - var(--l-padding));
+    }
+}
+
+.ui-form .product-image-wrapper {
+    min-width: 300px;
+    max-height: 350px;
+    margin-right: 20px;
+    border-radius: 5px;
+    position: relative;
+}
+
+.product-image-wrapper label {
+    display: block;
+    width: 100%;
+    background-color: var(--very-light-grey);
+    cursor: pointer;
+    border-radius: inherit;
+}
+
+.ui-form img {
+    width: 100%;
+    max-height: 300px;
+    object-fit: cover;
+    border-radius: inherit;
+}
+
+.actual-image-wrapper {
+    position: relative;
+    border-radius: inherit;
+}
+
+.product-image-wrapper .fa-trash-can {
+    position: absolute;
+    width: 30px;
+    aspect-ratio: 1;
+    background-color: var(--danger);
+    font-size: 18px;
+    color: var(--bg);
+    right: 0;
+    top: 0;
+    border-radius: inherit;
+    cursor: pointer;
+    z-index: 9;
+}
+
+.empty-image-to-upload {
+    width: 100%;
+    height: 300px;
+    margin-right: 20px;
+    justify-content: center;
+}
+
+.empty-image-to-upload i {
+    font-size: 54px;
+    margin-bottom: 15px;
+}
+
+.image-to-upload-input {
+    display: none;
+}
+
+.form-inputs-wrapper {
+    width: 80%;
+    margin-left: 20px;
+}
+
+.input-wrapper {
+    position: relative;
+    margin-bottom: 15px;
+    gap: 5px;
+}
+
+.form-input:focus {
+    outline: 1px solid var(--secondary);
+}
+
+.form-input {
+    all: unset;
+    width: calc(100% - var(--l-padding));
+    padding: var(--m-padding);
+    border-radius: 5px;
+    outline: 1px solid var(--light-grey);
+}
+
+.barcode-error-input {
+    border-bottom: 1px solid var(--light-danger);
+}
+
+.error-input {
+    outline: 1px solid var(--light-danger);
+}
+
+.large-input {
+    width: 100%;
+}
+
+.small-input {
+    width: calc(120px - var(--m-padding));
+}
+
+.price-after-discount {
+    width: 50px;
+    padding: var(--m-padding);
+    border-bottom: 1px solid var(--secondary);
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.row-inputs {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+.ui-form label {
+    font-size: 14px;
+    opacity: 0.8;
+}
+
+.form-btns {
+    gap: 10px;
+}
+
+
+@media screen and (max-width: 992px) {
+    .ui-form {
+        flex-direction: column;
+    }
+
+    .ui-form .product-image-wrapper {
+        width: 320px;
+        margin: auto;
+    }
+
+    .product-image-wrapper label i {
+        font-size: 36px;
+    }
+
+    .form-inputs-wrapper {
+        margin-top: 20px;
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .barcode-image {
+        width: calc(320px - var(--padding)) !important;
+    }
+}

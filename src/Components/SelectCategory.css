@@ -1,0 +1,33 @@
+.select-category {
+    background-color: var(--bg);
+    outline: 2px solid var(--secondary);
+    border: none;
+    border-radius: 5px;
+    padding: var(--m-padding);
+    font-weight: 700;
+}
+
+.select-category-single-product {
+    width: 110px;
+    background-color: var(--bg);
+    outline: 1px solid var(--light-grey);
+    border: none;
+    border-radius: 5px;
+    padding: var(--m-padding);
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.select-gender-single-product {
+    width: 110px;
+    background-color: var(--bg);
+    outline: 1px solid var(--light-grey);
+    border: none;
+    border-radius: 5px;
+    padding: 11px var(--m-padding);
+    font-weight: 700;
+}
+
+.ui-form select:focus {
+    outline: 1px solid var(--secondary);
+}

@@ -1,0 +1,6 @@
+.single-customer-wrapper {
+    background-color: var(--very-light-grey);
+    color: var(--primary);
+    padding: var(--padding);
+    margin-bottom: var(--m-padding);
+}

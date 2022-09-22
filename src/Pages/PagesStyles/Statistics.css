@@ -1,0 +1,16 @@
+.statistics-page {
+    gap: var(--l-padding);
+    flex-wrap: wrap;
+}
+
+.bar-chart {
+    width: 45%;
+    height: 350px;
+    min-width: 350px;
+}
+
+@media screen and (max-width: 768px) {
+    .bar-chart {
+        width: 100%;
+    }
+}
