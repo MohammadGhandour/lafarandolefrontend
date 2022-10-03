@@ -82,8 +82,7 @@ function Products() {
     } else {
         return (
             <div className='full-page'>
-                Hello worldddddd
-                {/* <div className='fixed-page-header'>
+                <div className='fixed-page-header'>
                     <section className='flex-between'>
                         <SearchInput productsData={productsData} />
                         <div className='flex-center all-products-btns'>
@@ -129,7 +128,7 @@ function Products() {
                     nextLinkClassName='next-btn'
                     disabledClassName='disabled-pagination-btn'
                     activeClassName='active-pagination-btn'
-                /> */}
+                />
             </div>
         )
     }

@@ -43,7 +43,7 @@ function Order() {
                 <table className='order-table'>
                     <OrderThead />
                     <tbody className='order-tbody'>
-                        {JSON.parse(order.cart).map(product => (
+                        {order.cart.map(product => (
                             <SingleProductInOrder
                                 key={product.id}
                                 product={product} />

@@ -18,7 +18,7 @@ function SingleProductInTable({ product }) {
             <th className='single-product-in-table-name'>{product.name}</th>
             <th>{product.size}</th>
             <th>{product.quantity}</th>
-            <th>{product.price} $</th>
+            <th>{product.priceAfterDiscount} $</th>
         </tr>
     )
 }

@@ -25,19 +25,21 @@ function SalesMode() {
     const [noProductTitle, setNoProductTitle] = useState(noProductText);
     const [cart, setCart] = useState(savedCart ? savedCart : []);
     const [inputDisabled, setInputDisabled] = useState(false);
-    const [discountCurrency, setDiscountCurrency] = useState('USD');
+    const [discountCurrency, setDiscountCurrency] = useState('%');
     const [discountValue, setDiscountValue] = useState(savedDiscount ? savedDiscount : 0);
     const [finalTotal, setFinalTotal] = useState(0);
     const [finalTotalBeforeDiscount, setFinalTotalBeforeDiscount] = useState(0);
-    const currencyExchange = 29;
+    const currencyExchange = 38000;
     const [customerName, setCustomerName] = useState('');
     const [customerNumber, setCustomerNumber] = useState('');
 
     function toggleCurrency() {
         if (discountCurrency === 'USD') {
             setDiscountCurrency('LBP');
+        } else if (discountCurrency === 'LBP') {
+            setDiscountCurrency('%');
         } else {
-            setDiscountCurrency('USD');
+            setDiscountCurrency('USD')
         }
     }
 
@@ -113,10 +115,16 @@ function SalesMode() {
 
     useEffect(() => {
         let total = cart.reduce((total, item) => ((total + item.quantity * item.priceAfterDiscount)), 0);
-        setFinalTotal(total - (discountCurrency === 'USD' ? discountValue : (discountValue / currencyExchange).toFixed(2)));
+        setFinalTotal(
+            (
+                discountCurrency === 'USD' ? total - discountValue
+                    : discountCurrency === '%' && discountValue ? (total - (discountValue / 100 * total))
+                        : total - (discountValue / currencyExchange).toFixed(2)
+            )
+        );
 
         let totalBeforeDiscount = cart.reduce((totalBeforeDiscount, item) => ((totalBeforeDiscount + item.quantity * item.price)), 0);
-        setFinalTotalBeforeDiscount(totalBeforeDiscount - (discountCurrency === 'USD' ? discountValue : (discountValue / currencyExchange).toFixed(2)));
+        setFinalTotalBeforeDiscount(totalBeforeDiscount);
     }, [cart, discountValue, discountCurrency]);
 
     function checkout(e) {
