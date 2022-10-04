@@ -44,7 +44,7 @@ function Products() {
     }, [productsData, dispatch])
 
     const [currentPage, setCurrentPage] = useState(0);
-    const productsPerPage = 10;
+    const productsPerPage = 50;
 
     const indexOfLastProduct = currentPage * productsPerPage;
     const currentProducts = products ? products.slice(indexOfLastProduct, indexOfLastProduct + productsPerPage) : null;
