@@ -1,4 +1,5 @@
 export const generalSizes = [
+    "One-Size",
     "XXS",
     "XS",
     "S",
