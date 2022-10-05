@@ -43,7 +43,7 @@ function CartFooter({
                         <span className='currency-toggler' onClick={toggleCurrency}>({discountCurrency})</span>
                     </label>
                     <input
-                        type='number' className='discount-input' value={discountValue} min='0' max={finalTotal}
+                        type='number' className='discount-input' value={discountValue} min='0' max={discountCurrency === 'USD' ? finalTotalBeforeDiscount : ''}
                         id='discount-input' onChange={(e) => setDiscountValue(e.target.value)} />
                 </div>
                 <div className='row total-wrapper flex-between'>
