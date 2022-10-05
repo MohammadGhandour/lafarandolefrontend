@@ -18,6 +18,8 @@ function Products() {
 
     const [productsData, setProductsData] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [allProductsCost, setAllProductsCost] = useState(0);
+    const [allProductsPrice, setAllProductsPrice] = useState(0);
 
     useEffect(() => {
         axios.get(`${api}/products`, { headers: headers })
@@ -25,6 +27,16 @@ function Products() {
                 let productsData = response.data;
                 setProductsData(productsData);
                 setLoading(false);
+
+                let allProductsCostVar = productsData.reduce((allProductsCostVar, item) => (
+                    (allProductsCostVar + Number(item.cost))
+                ), 0);
+                setAllProductsCost(allProductsCostVar);
+
+                let allProductsPriceVar = productsData.reduce((allProductsCostVar, item) => (
+                    (allProductsCostVar + Number(item.price))
+                ), 0);
+                setAllProductsPrice(allProductsPriceVar);
             })
             .catch(err => {
                 console.log(err);
@@ -100,6 +112,7 @@ function Products() {
                         </div>
                     </section>
                     <h3 className='products-length'>{products ? products.length : ''} REGISTERED PRODUCTS</h3>
+                    {/* <h3>Cost of all products: {allProductsCost.toFixed(2)} --- Price of all products: {allProductsPrice.toFixed(2)} --- Profit: {(allProductsPrice - allProductsCost).toFixed(2)}</h3> */}
                 </div>
 
                 <table className='all-products-table'>
