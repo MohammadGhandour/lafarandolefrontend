@@ -130,11 +130,15 @@ function SalesMode() {
     function checkout(e) {
         if (window.confirm("Are you sure you'd like to submit this order ?")) {
             e.preventDefault();
+            let cost = cart.reduce((totalCost, item) => ((totalCost + item.quantity * item.cost)), 0);
             const order =
             {
                 cart: cart,
                 totalBeforeDiscount: finalTotalBeforeDiscount,
                 total: finalTotal,
+                cost: cost,
+                discount: `${discountValue}${discountCurrency}`,
+                profit: Number(finalTotal - cost),
                 customerName: customerName,
                 customerNumber: customerNumber
             }

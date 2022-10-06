@@ -59,6 +59,25 @@
     color: var(--primary);
 }
 
+.single-order-in-list {
+    position: relative;
+}
+
+.order-discount {
+    all: unset;
+    position: absolute;
+    right: 0;
+    background-color: var(--danger);
+    color: white;
+    font-size: 14px;
+    width: 20px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 /* SINGLE ORDER PAGE */
 .order-date {
     color: var(--grey);
@@ -77,6 +96,16 @@
     padding-top: var(--m-padding);
     font-weight: 500;
     font-size: 18px;
+}
+
+.order-cost {
+    margin-top: var(--l-padding);
+    padding-top: var(--m-padding);
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.order-profit {
+    color: rgb(39, 149, 108);
 }
 
 @media (hover:hover) {

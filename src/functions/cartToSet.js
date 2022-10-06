@@ -15,6 +15,7 @@ export function cartToSet(product, cart, type) {
                     quantity: 1,
                     size: product.size,
                     price: product.price,
+                    cost: product.cost,
                     priceAfterDiscount: product.priceAfterDiscount,
                     inStock: product.inStock
                 }, ...current]
@@ -36,6 +37,7 @@ export function cartToSet(product, cart, type) {
                         quantity: 1,
                         size: product.size,
                         price: product.price,
+                        cost: product.cost,
                         priceAfterDiscount: product.priceAfterDiscount,
                         inStock: product.inStock
                     }, ...current]

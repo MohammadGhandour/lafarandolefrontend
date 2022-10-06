@@ -29,12 +29,12 @@ function Products() {
                 setLoading(false);
 
                 let allProductsCostVar = productsData.reduce((allProductsCostVar, item) => (
-                    (allProductsCostVar + Number(item.cost))
+                    (allProductsCostVar + (Number(item.cost) * Number(item.quantity)))
                 ), 0);
                 setAllProductsCost(allProductsCostVar);
 
                 let allProductsPriceVar = productsData.reduce((allProductsCostVar, item) => (
-                    (allProductsCostVar + Number(item.price))
+                    (allProductsCostVar + (Number(item.price) * Number(item.quantity)))
                 ), 0);
                 setAllProductsPrice(allProductsPriceVar);
             })

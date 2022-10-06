@@ -9,6 +9,7 @@ function AllSalesThead() {
                 <th>items</th>
                 <th style={{ textDecoration: "line-through" }}>subtotal</th>
                 <th>total</th>
+                <th>profit</th>
                 <th>customer name</th>
             </tr>
         </thead>

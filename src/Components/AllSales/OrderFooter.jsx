@@ -1,6 +1,18 @@
 import React from 'react';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 function OrderFooter({ order }) {
+    const [thereIsDiscount, setThereIsDiscount] = useState(false);
+
+    useEffect(() => {
+        if (order.totalBeforeDiscount === order.total) {
+            setThereIsDiscount(false);
+        } else {
+            setThereIsDiscount(true);
+        }
+    }, [])
+
     return (
         <div className='flex-between credentials-total-wrapper'>
             <div className='customer-credentials'>
@@ -13,17 +25,30 @@ function OrderFooter({ order }) {
                     <span>{order.customerNumber ? order.customerNumber : 'no-number'}</span>
                 </div>
             </div>
-            <div className='row total-wrapper discount-total-wrapper flex-between'>
-                <span>Total</span>
-                <div>
-                    {Number(order.total) !== Number(order.totalBeforeDiscount) &&
-                        <div className='total total-before-discount'>
-                            {Number(order.totalBeforeDiscount)} $
+            <div className='total-wrapper discount-total-wrapper'>
+                {thereIsDiscount && <div className='flex-between'>
+                    <span>Subtotal:</span>
+                    <div>
+                        <div className='fs-20 total-before-discount'>
+                            {order.totalBeforeDiscount} $
                         </div>
-                    }
-                    <div className='total'>
-                        {order.total} $
                     </div>
+                </div>}
+                {thereIsDiscount && <div className='flex-between'>
+                    <span>Discount:</span>
+                    <div className='total'>-{order.discount}</div>
+                </div>}
+                <div className='flex-between'>
+                    <span>Total:</span>
+                    <div className='fs-20'>{order.total} $</div>
+                </div>
+                <div className='flex-between order-cost'>
+                    <span>Cost:</span>
+                    <div className='total'>{order.cost} $</div>
+                </div>
+                <div className='flex-between'>
+                    <span>Profit:</span>
+                    <div className='fs-20 order-profit'>{order.profit} $</div>
                 </div>
             </div>
         </div>
