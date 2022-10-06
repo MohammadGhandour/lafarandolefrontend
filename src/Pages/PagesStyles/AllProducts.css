@@ -10,6 +10,11 @@
     transition: all 0.2s;
 }
 
+.quantity-0 {
+    background-color: var(--danger) !important;
+    color: var(--bg);
+}
+
 /* .single-product-in-table th {
     min-width: 60px;
 } */
@@ -18,6 +23,7 @@
     width: 50px;
     height: 50px;
     aspect-ratio: 1;
+    background-color: var(--very-light-grey);
 }
 
 .single-product-in-table img {

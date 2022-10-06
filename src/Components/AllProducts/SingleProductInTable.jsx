@@ -11,7 +11,7 @@ function SingleProductInTable({ product }) {
     }
 
     return (
-        <tr className='single-product-in-table' onClick={goProduct}>
+        <tr className={Number(product.quantity) === 0 ? 'single-product-in-table quantity-0' : 'single-product-in-table'} onClick={goProduct}>
             <th className='product-in-table-img-wrapper'>
                 <img src={product.photo ? product.photo : logo} alt={product.name} />
             </th>
