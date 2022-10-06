@@ -1,0 +1,36 @@
+.add-user-backdrop {
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.1);
+    width: 100%;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+}
+
+.add-user-form {
+    width: 65%;
+    margin: auto;
+    margin-top: 100px;
+    background-color: #eee;
+    border-radius: 5px;
+    padding: var(--l-padding);
+}
+
+.add-user-form input {
+    width: 100%;
+    outline: none;
+    border: none;
+    padding: var(--m-padding);
+    border-radius: 5px;
+    margin-bottom: var(--l-padding);
+    font-size: 16px;
+}
+
+@media screen and (max-width: 768px) {
+    .add-user-form {
+        width: 80%;
+    }
+}

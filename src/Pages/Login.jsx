@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import './PagesStyles/Credentials.css';
 import image from '../assets/bw-clothes.webp';
-import LoginRegisterLinks from '../Components/Credentials/LoginRegisterLinks';
+// import LoginRegisterLinks from '../Components/Credentials/LoginRegisterLinks';
 import axios from 'axios';
 import { api } from '../Config/Config';
 
@@ -45,7 +45,7 @@ function Login() {
     return (
         <div className='container-wrapper'>
             <div className='credentials-container'>
-                <LoginRegisterLinks active='login' />
+                <h2 className='login-logo text-center'>LAFARANDOLE</h2>
                 <img src={image} alt='clothes' />
                 <form className='credentials-form flex-column-center' onSubmit={login}>
                     <div className='credentials-error-message'>{errorMessage}</div>

@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./Components/Header/Header";
 import Home from "./Pages/Home";
 import Login from "./Pages/Login";
-import Register from "./Pages/Register";
 import "./GeneralStyles/App.css";
 import LeftNav from "./Components/LeftNav";
 import AllProducts from "./Pages/AllProducts";
@@ -58,7 +57,6 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Login />} />
-            <Route path="/register" element={<Register />} />
           </Routes>
         </BrowserRouter>
       }
