@@ -20,6 +20,15 @@ nav {
     background-color: rgba(238, 238, 238, 0.95);
 }
 
+.fa-arrow-left {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: var(--danger);
+    color: var(--bg);
+}
+
 .nav-link {
     padding: var(--m-padding) var(--l-padding);
     width: 100%;

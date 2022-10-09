@@ -32,7 +32,7 @@ function AddProduct() {
         category: productToDuplicate && productToDuplicate.category ? productToDuplicate.category : '',
         size: productToDuplicate && productToDuplicate.size ? productToDuplicate.size : '',
         gender: productToDuplicate && productToDuplicate.gender ? productToDuplicate.gender : '',
-        quantity: productToDuplicate && productToDuplicate.quantity ? productToDuplicate.quantity : 0,
+        quantity: productToDuplicate && productToDuplicate.quantity ? productToDuplicate.quantity : 1,
         cost: productToDuplicate && productToDuplicate.cost ? productToDuplicate.cost : 0,
         price: productToDuplicate && productToDuplicate.price ? productToDuplicate.price : 0,
         discount: productToDuplicate && productToDuplicate.discount ? productToDuplicate.discount : 0,

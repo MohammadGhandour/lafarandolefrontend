@@ -81,7 +81,6 @@ function SalesMode() {
 
     useEffect(() => {
         localStorage.setItem('cart', JSON.stringify(cart));
-        localStorage.setItem('discount', JSON.stringify(discountValue));
     }, [cart, discountValue])
 
     function handleSubmit(e) {

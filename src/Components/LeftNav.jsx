@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import "./LeftNav.css";
 import useWindowDimensions from '../Hooks/useWindowDimensions';
 
@@ -8,6 +8,7 @@ function LeftNav({ openNavbar, setOpenNavbar }) {
     const { width } = useWindowDimensions();
     const backdropRef = useRef(null);
     const location = useLocation();
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (width > 992) {
@@ -29,6 +30,7 @@ function LeftNav({ openNavbar, setOpenNavbar }) {
         <div className={openNavbar ? 'backdrop' : ''} ref={backdropRef} onClick={outsideClickCloseNav}>
             <nav className={openNavbar && width < 992 ? 'mobile-nav' : ''}>
                 <ul className='flex-column-start'>
+                    <i className="fa-solid fa-arrow-left nav-link" onClick={() => navigate(-1)}></i>
                     <NavLink to='/statistics' className='nav-link'>
                         <i className="fa-solid fa-gauge icon-margin-right"></i>Dashboard
                     </NavLink>

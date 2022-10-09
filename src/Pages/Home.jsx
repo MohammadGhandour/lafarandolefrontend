@@ -48,6 +48,7 @@ function Home() {
                             }
                         })
                     });
+                    // console.log(ordersDates2);
                     setOrdersData({
                         labels: ordersDates2.map(data => data.date),
                         datasets: [

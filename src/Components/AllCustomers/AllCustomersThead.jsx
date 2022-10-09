@@ -8,6 +8,7 @@ function AllCustomersThead() {
                 <th>Phone Nb.</th>
                 <th>No. Of Orders</th>
                 <th>Revenue</th>
+                <th>Profit</th>
             </tr>
         </thead>
     )

@@ -82,6 +82,10 @@ tbody tr:nth-child(odd) {
     object-fit: cover;
 }
 
+.exchange-icon-wrapper {
+    width: 50px;
+}
+
 .p-i-c-photo {
     width: 60px;
     aspect-ratio: 1;

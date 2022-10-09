@@ -24,4 +24,4 @@ function SingleProductInOrder({ product }) {
     )
 }
 
-export default SingleProductInOrder
+export default SingleProductInOrder;

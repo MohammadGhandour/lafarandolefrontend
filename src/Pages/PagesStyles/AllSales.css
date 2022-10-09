@@ -17,6 +17,23 @@
     color: var(--bg);
 }
 
+.all-sales-statistics {
+    background-color: rgba(128, 128, 128, 0.8);
+    color: black;
+}
+
+.all-sales-statistics th {
+    cursor: default !important;
+}
+
+.all-sales-statistics .order-total-before-discount {
+    color: black;
+}
+
+.back-green-profit {
+    background-color: rgb(39, 149, 108);
+    color: white;
+}
 
 .orders-table {
     width: 100%;
@@ -78,7 +95,19 @@
     justify-content: center;
 }
 
+.orders-per-day {
+    padding-block: 50px;
+}
+
 /* SINGLE ORDER PAGE */
+.orders-of-the-day {
+    background-color: rgb(161, 161, 161, 0.4) !important;
+}
+
+.orders-of-the-day th {
+    cursor: default !important;
+}
+
 .order-date {
     color: var(--grey);
 }
@@ -125,6 +154,13 @@
         color: var(--grey);
     }
 
+    tr.orders-of-the-day:hover th {
+        color: rgb(39, 149, 108) !important;
+    }
+
+    tr.orders-of-the-day:hover th.back-green-profit {
+        color: white !important;
+    }
 }
 
 @media screen and (max-width: 768px) {

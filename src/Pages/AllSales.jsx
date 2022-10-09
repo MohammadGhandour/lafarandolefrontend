@@ -7,20 +7,48 @@ import Loader from '../Components/Loader';
 import { api } from '../Config/Config';
 import { headers } from '../Config/Headers';
 import "./PagesStyles/AllSales.css";
+import moment from 'moment';
+import AllSalesStatistics from '../Components/AllSales/AllSalesStatistics';
 
 function AllSales() {
 
     const [loading, setLoading] = useState(true);
-    const [orders, setOrders] = useState([]);
+    const [days, setDays] = useState([]);
     const [filteredOrders, setFilteredOrders] = useState();
+    const [unfilteredOrders, setUnfilteredOrders] = useState([]);
     const [searchValue, setSearchValue] = useState('');
 
     useEffect(() => {
         axios.get(`${api}/orders`, { headers: headers })
             .then(response => {
                 let orders = response.data;
-                setOrders(orders);
+                setUnfilteredOrders(orders);
                 setLoading(false);
+                // FILTER ORDERS ARRAYS
+                let ordersDates = orders.map(order => moment(order.createdAt).format('L'));
+                ordersDates = ordersDates.reduce(
+                    (acc, order) =>
+                        acc.includes(order) ? acc : acc.concat(order),
+                    []
+                );
+                let days = [];
+                // eslint-disable-next-line
+                ordersDates.map(date => {
+                    var singleDay = {};
+                    singleDay['date'] = date;
+                    singleDay['orders'] = [];
+                    days.push(singleDay);
+                })
+                // eslint-disable-next-line
+                days.map(day => {
+                    // eslint-disable-next-line
+                    orders.map(order => {
+                        if (moment(order.createdAt).format('L') === day.date) {
+                            day.orders = [...day.orders, order];
+                        }
+                    })
+                })
+                setDays(days);
             })
             .catch(err => {
                 console.log(err);
@@ -29,8 +57,10 @@ function AllSales() {
     }, [loading, setLoading]);
 
     useEffect(() => {
-        setFilteredOrders(orders.filter(order => order.customerName.includes(searchValue) || order.id.toString().includes(searchValue)))
-    }, [searchValue, orders]);
+        if (unfilteredOrders && unfilteredOrders.length > 0) {
+            setFilteredOrders(unfilteredOrders.filter(order => order.customerName.toLowerCase().includes(searchValue.toLowerCase()) || order.id.toString().includes(searchValue)))
+        }
+    }, [searchValue, unfilteredOrders, setUnfilteredOrders]);
 
     if (loading) {
         return (
@@ -38,7 +68,7 @@ function AllSales() {
                 <Loader />
             </div>
         )
-    } else if (orders && orders.length < 1) {
+    } else if (days && days.length < 1) {
         return (
             <div className='full-page'>
                 <ErrorMessage classes='no-items-message'>No registered sales yet.</ErrorMessage>
@@ -61,20 +91,29 @@ function AllSales() {
                         onChange={(e) => setSearchValue(e.target.value)}
                     />
                 </div>
-                <h3 style={{ marginTop: 20 }}>{orders.length} REGISTERED ORDERS</h3>
+                <h3 style={{ marginTop: 20 }}>{unfilteredOrders.length} REGISTERED ORDERS</h3>
                 <table className='orders-table'>
                     <AllSalesThead />
-                    {filteredOrders.length > 0 ?
+                    {!searchValue && < AllSalesStatistics orders={unfilteredOrders} />}
+                    {!searchValue && unfilteredOrders.length > 0 && days.length > 0 ?
+                        <tbody>
+                            {
+                                days.map(day => (
+                                    day.orders.map((order, i) => (
+                                        <SingleOrder key={order.id} order={order} i={i} ordersOfTheDay={i === 0 ? day.orders : null} />
+                                    ))
+                                ))
+                            }
+                        </tbody>
+                        :
                         <tbody>
                             {filteredOrders.map(order => (
                                 <SingleOrder key={order.id} order={order} />
                             ))}
                         </tbody>
-                        :
-                        ''
                     }
                 </table>
-                {filteredOrders.length < 1 &&
+                {searchValue && filteredOrders.length < 1 &&
                     <h2 className='not-found-product text-center'>There no order related to
                         <span className='not-found-search-value'> " {searchValue} "</span>
                     </h2>
