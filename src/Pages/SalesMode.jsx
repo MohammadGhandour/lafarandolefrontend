@@ -10,11 +10,12 @@ import CartFooter from '../Components/SalesMode/CartFooter';
 import { useNavigate } from 'react-router-dom';
 import SingleProductInCart from '../Components/SalesMode/SingleProductInCart';
 import { headers } from '../Config/Headers';
+import BarcodeGetProduct from '../Components/BarcodeGetProduct';
+import { calculateTotal } from '../functions/calculateTotal';
 
 function SalesMode() {
 
     const savedCart = JSON.parse(localStorage.getItem('cart'));
-    const savedDiscount = JSON.parse(localStorage.getItem('discount'));
 
     const navigate = useNavigate();
 
@@ -26,7 +27,7 @@ function SalesMode() {
     const [cart, setCart] = useState(savedCart ? savedCart : []);
     const [inputDisabled, setInputDisabled] = useState(false);
     const [discountCurrency, setDiscountCurrency] = useState('%');
-    const [discountValue, setDiscountValue] = useState(savedDiscount ? savedDiscount : 0);
+    const [discountValue, setDiscountValue] = useState(0);
     const [finalTotal, setFinalTotal] = useState(0);
     const [finalTotalBeforeDiscount, setFinalTotalBeforeDiscount] = useState(0);
     const currencyExchange = 38000;
@@ -81,49 +82,17 @@ function SalesMode() {
 
     useEffect(() => {
         localStorage.setItem('cart', JSON.stringify(cart));
-    }, [cart, discountValue])
-
-    function handleSubmit(e) {
-        e.preventDefault();
-        setInputDisabled(true);
-        axios.get(`${api}/products/product-by-barcode/${productBarcode}`, { headers: headers })
-            .then((res) => {
-                setInputDisabled(false);
-                let product = res.data;
-                setProductBarcode('');
-                const productAlreadyInCart = cart.find((item) => item.id === product.id);
-                if (!productAlreadyInCart && product.inStock > 0) {
-                    setNoProductTitle(noProductText);
-                    setCart(cartToSet(product, cart, undefined));
-                } else if (productAlreadyInCart && productAlreadyInCart.quantity < product.inStock) {
-                    setNoProductTitle(noProductText);
-                    setCart(cartToSet(product, cart, undefined));
-                } else if (productAlreadyInCart && productAlreadyInCart.quantity >= product.inStock) {
-                    setNoProductTitle('Product out of stock');
-                } else if (!productAlreadyInCart && product.inStock <= 0) {
-                    setNoProductTitle('Product out of stock');
-                }
-            })
-            .catch(err => {
-                console.log(err);
-                setInputDisabled(false);
-                setProductBarcode('');
-                setNoProductTitle(err.response.data.error);
-            })
-    }
+    }, [cart])
 
     useEffect(() => {
-        let total = cart.reduce((total, item) => ((total + item.quantity * item.priceAfterDiscount)), 0);
-        setFinalTotal(
-            (
-                discountCurrency === 'USD' ? total - discountValue
-                    : discountCurrency === '%' && discountValue ? (total - (discountValue / 100 * total))
-                        : total - (discountValue / currencyExchange).toFixed(2)
-            )
+        calculateTotal(
+            cart,
+            setFinalTotal,
+            discountCurrency,
+            discountValue,
+            currencyExchange,
+            setFinalTotalBeforeDiscount
         );
-
-        let totalBeforeDiscount = cart.reduce((totalBeforeDiscount, item) => ((totalBeforeDiscount + item.quantity * item.price)), 0);
-        setFinalTotalBeforeDiscount(totalBeforeDiscount);
     }, [cart, discountValue, discountCurrency]);
 
     function checkout(e) {
@@ -139,14 +108,12 @@ function SalesMode() {
                 discount: `${discountValue}${discountCurrency}`,
                 profit: Number(finalTotal - cost),
                 customerName: customerName,
-                customerNumber: customerNumber
+                customerNumber: customerNumber,
             }
-
             const customer = {
                 customerName: customerName,
                 customerNumber: customerNumber
             }
-
             axios.post(`${api}/orders`, order, { headers: headers })
                 .then(res => {
                     localStorage.removeItem('cart');
@@ -178,17 +145,17 @@ function SalesMode() {
 
     return (
         <div className='full-page'>
-            <form className='sales-mode-form' onSubmit={handleSubmit}>
-                <input
-                    type='number'
-                    ref={barcodeSearchScannerRef}
-                    id='scanner-input'
-                    className={inputDisabled ? 'input-disabled' : ''}
-                    value={productBarcode}
-                    autoFocus
-                    disabled={inputDisabled ? true : false}
-                    onInput={(e) => setProductBarcode(e.target.value)} />
-            </form>
+            <BarcodeGetProduct
+                setInputDisabled={setInputDisabled}
+                productBarcode={productBarcode}
+                setProductBarcode={setProductBarcode}
+                cart={cart}
+                setCart={setCart}
+                setNoProductTitle={setNoProductTitle}
+                noProductText={noProductText}
+                inputDisabled={inputDisabled}
+                barcodeSearchScannerRef={barcodeSearchScannerRef}
+            />
             {cart.length > 0 &&
                 <div className='delete-btn' onClick={emptyCart}>
                     <i className='fa-solid fa-trash icon-margin-right'></i>
@@ -222,7 +189,8 @@ function SalesMode() {
                             customerName={customerName}
                             setCustomerName={setCustomerName}
                             customerNumber={customerNumber}
-                            setCustomerNumber={setCustomerNumber} />
+                            setCustomerNumber={setCustomerNumber}
+                            submitButton='Submit' />
                     </form>
                 </div>
             }

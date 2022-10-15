@@ -25,7 +25,7 @@ function SingleProductPage() {
     const productId = params.productId;
 
     useEffect(() => {
-        axios.get(`${api}/products/${productId}`, { headers: headers })
+        axios.get(`${api}/products/byId/${productId}`, { headers: headers })
             .then(res => {
                 setProduct(res.data);
             })

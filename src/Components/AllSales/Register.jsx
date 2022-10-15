@@ -18,7 +18,7 @@ function Register({ modalOpen, setModalOpen, users }) {
                 error.classList.remove("bounce");
             }, 500);
         }
-    }, [errorMessage])
+    }, [errorMessage, modalOpen]);
 
     function register(e) {
         e.preventDefault();
@@ -49,8 +49,8 @@ function Register({ modalOpen, setModalOpen, users }) {
     return (
         <div>
             {modalOpen &&
-                <div className='add-user-backdrop' ref={backdropRef} onClick={closeModal}>
-                    <form className='add-user-form flex-column-center' onSubmit={register}>
+                <div className='modal-backdrop' ref={backdropRef} onClick={closeModal}>
+                    <form className='modal-form flex-column-center' onSubmit={register}>
                         <div className='credentials-error-message'>{errorMessage}</div>
                         <input type='text' placeholder='Username' autoComplete='off'
                             value={username} onChange={(e) => setUsername(e.target.value)} />

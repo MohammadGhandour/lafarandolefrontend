@@ -9,9 +9,9 @@ function SearchInput({ productsData }) {
     useEffect(() => {
         dispatch({
             type: "SET_PRODUCTS", payload: productsData.filter(
-                product => product.name.includes(productName) || product.barcode.toString() === (productName))
+                product => productName.split(' ').every(word => product.name.toLowerCase().includes(word)) || productName.split(' ').every(word => product.barcode.toLowerCase().includes(word)))
         })
-    }, [productsData, productName, dispatch])
+    }, [productName, productsData, dispatch]);
 
     return (
         <div className='flex search-input-wrapper'>

@@ -2,7 +2,7 @@ import React from 'react'
 
 function AllCustomersThead() {
     return (
-        <thead>
+        <thead className='thead'>
             <tr>
                 <th>Name</th>
                 <th>Phone Nb.</th>

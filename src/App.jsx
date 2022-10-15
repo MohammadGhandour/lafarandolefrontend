@@ -15,6 +15,7 @@ import SalesMode from "./Pages/SalesMode";
 import PriceMode from "./Pages/PriceMode";
 import Order from "./Pages/Order";
 import Customer from "./Pages/Customer";
+import Exchange from "./Pages/Exchange";
 
 function App() {
 
@@ -50,6 +51,7 @@ function App() {
               <Route path="/product/:productId" element={<SingleProductPage />} />
               <Route path="/add-product" element={<AddProduct />} />
               <Route path="/order/:id" element={<Order />} />
+              <Route path="/exchange/:id" element={<Exchange />} />
             </Routes>
           </div>
         </BrowserRouter>

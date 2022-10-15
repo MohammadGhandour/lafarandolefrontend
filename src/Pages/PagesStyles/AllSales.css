@@ -31,7 +31,7 @@
 }
 
 .back-green-profit {
-    background-color: rgb(39, 149, 108);
+    background-color: var(--profit-green);
     color: white;
 }
 
@@ -44,14 +44,14 @@
     display: block;
 }
 
-.orders-table tr th {
+.orders-table tr th:not(.none-th) {
     padding: var(--m-padding);
     font-weight: 500;
     /* transition: all 0.2s; */
     cursor: pointer;
 }
 
-.orders-table thead tr th {
+.orders-table .thead tr th {
     cursor: default;
 }
 
@@ -99,7 +99,6 @@
     padding-block: 50px;
 }
 
-/* SINGLE ORDER PAGE */
 .orders-of-the-day {
     background-color: rgb(161, 161, 161, 0.4) !important;
 }
@@ -112,33 +111,8 @@
     color: var(--grey);
 }
 
-.order-table {
-    width: 100%;
-    margin-top: var(--m-padding);
-}
-
-.credentials-total-wrapper {
-    margin-top: var(--l-padding);
-}
-
-.customer-credential {
-    padding-top: var(--m-padding);
-    font-weight: 500;
-    font-size: 18px;
-}
-
-.order-cost {
-    margin-top: var(--l-padding);
-    padding-top: var(--m-padding);
-    border-top: 1px solid rgba(0, 0, 0, 0.2);
-}
-
-.order-profit {
-    color: rgb(39, 149, 108);
-}
-
 @media (hover:hover) {
-    .orders-table tr:hover {
+    .orders-table tr:not(.none-tr):hover {
         background-color: black;
     }
 
@@ -146,30 +120,19 @@
         color: white;
     }
 
-    .orders-table thead tr:hover {
+    .orders-table .thead tr:hover {
         background-color: inherit;
     }
 
-    .orders-table thead tr:hover th {
+    .orders-table .thead tr:hover th {
         color: var(--grey);
     }
 
     tr.orders-of-the-day:hover th {
-        color: rgb(39, 149, 108) !important;
+        color: var(--profit-green) !important;
     }
 
     tr.orders-of-the-day:hover th.back-green-profit {
         color: white !important;
-    }
-}
-
-@media screen and (max-width: 768px) {
-    .credentials-total-wrapper {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .customer-credentials {
-        margin-bottom: var(--l-padding);
     }
 }

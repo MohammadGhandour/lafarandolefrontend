@@ -8,15 +8,17 @@ function AllSalesStatistics({ orders }) {
     const itemsSold = orders?.reduce((items, item) => ((items + item.itemsNumber)), 0)
 
     return (
-        <tr className='single-order-in-list all-sales-statistics'>
-            < th className='order-id' >-</th>
-            <th>All Time</th>
-            <th>{itemsSold}</th>
-            <th className='order-total order-total-before-discount'>{totalBeforeDiscount} $</th>
-            <th className='order-total'>{total} $</th>
-            <th className='back-green-profit'>{profit} $</th>
-            <th>-</th>
-        </tr >
+        <thead>
+            <tr className='single-order-in-list all-sales-statistics'>
+                < th className='order-id' >-</th>
+                <th>All Time</th>
+                <th>{itemsSold}</th>
+                <th className='order-total order-total-before-discount'>{totalBeforeDiscount} $</th>
+                <th className='order-total'>{total} $</th>
+                <th className='back-green-profit'>{profit} $</th>
+                <th>-</th>
+            </tr >
+        </thead>
     )
 }
 

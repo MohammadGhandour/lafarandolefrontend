@@ -20,7 +20,7 @@ nav {
     background-color: rgba(238, 238, 238, 0.95);
 }
 
-.fa-arrow-left {
+nav .fa-arrow-left {
     display: flex;
     align-items: center;
     justify-content: center;

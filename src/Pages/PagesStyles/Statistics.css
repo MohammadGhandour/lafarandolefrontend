@@ -3,14 +3,88 @@
     flex-wrap: wrap;
 }
 
+.bar-charts-container {
+    flex-wrap: wrap;
+}
+
+.statistic-row {
+    border-bottom: 1px solid var(--primary);
+    width: 100%;
+    padding-block: calc(var(--l-padding) * 2);
+}
+
 .bar-chart {
     width: 45%;
     height: 350px;
     min-width: 350px;
 }
 
+.pie-chart {
+    width: 35%;
+}
+
+.statistics-page h2,
+.statistics-page h3 {
+    width: 100%;
+}
+
+/* AVERAGES PAGES */
+.averages {
+    padding: var(--m-padding);
+    box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.2);
+    background-color: var(--bg);
+    gap: var(--l-padding);
+    padding-bottom: var(--l-padding);
+    border-radius: 5px;
+    border-bottom: none;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    position: relative;
+}
+
+.averages::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: calc(var(--l-padding) * -2);
+    width: 100%;
+    height: 1px;
+    background-color: black;
+}
+
+.averages h1 {
+    width: auto;
+    color: #008080;
+}
+
+.averages p {
+    color: var(--grey);
+    width: auto;
+    font-weight: 500;
+}
+
+.average-profit h1 {
+    color: var(--profit-green);
+}
+
+@media screen and (max-width: 1200px) {
+    .pie-chart {
+        width: 80%;
+    }
+
+    .averages {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
 @media screen and (max-width: 768px) {
     .bar-chart {
         width: 100%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .averages {
+        grid-template-columns: repeat(1, 1fr);
     }
 }

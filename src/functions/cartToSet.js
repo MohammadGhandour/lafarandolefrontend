@@ -10,6 +10,7 @@ export function cartToSet(product, cart, type) {
             current => [
                 {
                     id: product.id,
+                    barcode: product.barcode,
                     photo: product.photo,
                     name: product.name,
                     quantity: 1,
@@ -32,6 +33,7 @@ export function cartToSet(product, cart, type) {
                 current => [
                     {
                         id: product.id,
+                        barcode: product.barcode,
                         photo: product.photo,
                         name: product.name,
                         quantity: 1,

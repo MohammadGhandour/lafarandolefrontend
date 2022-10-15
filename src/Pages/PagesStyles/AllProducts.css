@@ -124,7 +124,7 @@
     }
 
     .single-product-in-table:hover {
-        background-color: var(--bg);
+        background-color: var(--bg) !important;
     }
 }
 

@@ -11,8 +11,20 @@ function SingleOrder({ order, i, ordersOfTheDay }) {
 
     return (
         <>
-            {i === 0 && <br />}
-            {i === 0 && <br />}
+            {i === 0 &&
+                <tr className='none-tr'>
+                    <th className='none-th'>
+                        <br />
+                    </th>
+                </tr>
+            }
+            {i === 0 &&
+                <tr className='none-tr'>
+                    <th className='none-th'>
+                        <br />
+                    </th>
+                </tr>
+            }
             {
                 i === 0 &&
                 <tr className='orders-of-the-day'>

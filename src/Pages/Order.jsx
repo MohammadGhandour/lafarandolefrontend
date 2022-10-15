@@ -6,8 +6,9 @@ import { api } from '../Config/Config';
 import moment from 'moment';
 import SingleProductInOrder from '../Components/AllSales/SingleProductInOrder';
 import OrderThead from '../Components/SalesMode/OrderThead';
-import OrderFooter from '../Components/AllSales/OrderFooter';
+import OrderFooter from '../Components/Order/OrderFooter';
 import { headers } from '../Config/Headers';
+import './PagesStyles/Order.css';
 
 function Order() {
 

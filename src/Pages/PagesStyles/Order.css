@@ -1,0 +1,63 @@
+.order-table {
+    width: 100%;
+    margin-top: var(--m-padding);
+}
+
+.credentials-total-wrapper {
+    margin-top: var(--l-padding);
+}
+
+.customer-credential {
+    padding-top: var(--m-padding);
+    font-weight: 500;
+    font-size: 18px;
+}
+
+.order-cost {
+    margin-top: var(--l-padding);
+    padding-top: var(--m-padding);
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.order-profit {
+    color: var(--profit-green);
+}
+
+.order-footer-btns {
+    margin-top: var(--l-padding);
+    gap: var(--l-padding);
+}
+
+/* EXCHANGE */
+.product-in-order-exchange {
+    position: relative;
+    height: auto;
+}
+
+.checkbox-container {
+    height: 50px;
+}
+
+input[type=checkbox] {
+    width: 100%;
+    max-width: 30px;
+    aspect-ratio: 1;
+    cursor: pointer;
+    margin-bottom: 0 !important;
+}
+
+.checkbox:focus {
+    border: none;
+    outline: none !important;
+}
+
+@media screen and (max-width: 768px) {
+    .credentials-total-wrapper {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .customer-credentials {
+        margin-bottom: var(--l-padding);
+    }
+}

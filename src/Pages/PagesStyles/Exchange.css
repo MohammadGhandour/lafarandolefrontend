@@ -1,0 +1,36 @@
+.exchange-form {
+    position: relative;
+    width: 100%;
+    margin: auto;
+    background-color: #eee;
+    border-radius: 5px;
+    padding: var(--l-padding);
+    margin-bottom: var(--m-padding);
+    /* border-bottom: 2px solid black; */
+}
+
+.exchange-page h2 {
+    margin-bottom: var(--l-padding);
+}
+
+.exchange-page .total-wrapper:nth-child(4) {
+    margin-bottom: var(--m-padding);
+}
+
+.exchange-total-0 {
+    background-color: var(--danger);
+    color: var(--bg);
+}
+
+.exchange-total-filled {
+    background-color: var(--profit-green);
+    color: var(--bg);
+}
+
+.negative-difference {
+    color: var(--danger);
+}
+
+.positive-difference {
+    color: var(--profit-green);
+}

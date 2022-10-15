@@ -39,7 +39,7 @@ function Customer() {
                 <h2>{route.customerName}</h2>
                 <h3>{orders.length} REGISTERED ORDERS</h3>
                 <table className='orders-table'>
-                    <thead>
+                    <thead className='thead'>
                         <tr>
                             <th>id</th>
                             <th>date</th>

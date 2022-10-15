@@ -1,4 +1,4 @@
-.add-user-backdrop {
+.modal-backdrop {
     position: fixed;
     background-color: rgba(0, 0, 0, 0.1);
     width: 100%;
@@ -10,7 +10,7 @@
     align-items: center;
 }
 
-.add-user-form {
+.modal-form {
     width: 65%;
     margin: auto;
     margin-top: 100px;
@@ -19,7 +19,7 @@
     padding: var(--l-padding);
 }
 
-.add-user-form input {
+.modal-form input {
     width: 100%;
     outline: none;
     border: none;
@@ -30,7 +30,7 @@
 }
 
 @media screen and (max-width: 768px) {
-    .add-user-form {
-        width: 80%;
+    .modal-form {
+        width: 90%;
     }
 }

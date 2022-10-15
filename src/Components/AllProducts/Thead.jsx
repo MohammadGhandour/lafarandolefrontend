@@ -2,7 +2,7 @@ import React from 'react'
 
 function Thead() {
     return (
-        <thead>
+        <thead className='thead'>
             <tr>
                 <th>Photo</th>
                 <th>Name</th>
