@@ -19,6 +19,35 @@
     min-width: 350px;
 }
 
+.sort-orders-statistics-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    border-radius: 5px;
+    outline: 1px solid var(--dark-cyan);
+    font-weight: 500;
+}
+
+.sort-orders-statistics {
+    white-space: nowrap;
+    padding: var(--m-padding);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.sort-orders-statistics.active {
+    color: white;
+    background-color: var(--dark-cyan);
+}
+
+@media (hover:hover) {
+    .sort-orders-statistics:hover {
+        color: white;
+        background-color: var(--dark-cyan);
+    }
+}
+
 .pie-chart {
     width: 35%;
 }
@@ -54,7 +83,7 @@
 
 .averages h1 {
     width: auto;
-    color: #008080;
+    color: var(--dark-cyan);
 }
 
 .averages p {

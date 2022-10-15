@@ -5,16 +5,20 @@ import { api } from '../../Config/Config';
 import { headers } from '../../Config/Headers';
 
 function StatisticsAverages({ orders }) {
+    const [customers, setCustomers] = useState([]);
     const [averageProductsPerOder, setAverageProductsPerOder] = useState(0);
     const [averageOrderPerCustomer, setAverageOrderPerCustomer] = useState(0);
     const [averagePricePerOrder, setAveragePricePerOrder] = useState(0);
     const [averageProfitPerOrder, setAverageProfitPerOrder] = useState(0);
+    const [totalSold, setTotalSold] = useState(0);
+    const [totalProfit, setTotalProfit] = useState(0);
 
 
     useEffect(() => {
         axios.get(`${api}/customers`, { headers: headers })
             .then(res => {
                 const customers = res.data;
+                setCustomers(res.data);
                 setAverageOrderPerCustomer(Number(orders.current.length / customers.length).toFixed(2))
             })
             .catch(err => {
@@ -24,9 +28,13 @@ function StatisticsAverages({ orders }) {
         const itemsSold = orders.current?.reduce((items, order) => ((items + order.itemsNumber)), 0);
         const priceSold = orders.current?.reduce((items, order) => ((items + Number(order.total))), 0);
         const profitSold = orders.current?.reduce((items, order) => ((items + Number(order.profit))), 0);
+        const totalSold = orders.current?.reduce((items, order) => ((items + Number(order.total))), 0);
+        const totalProfit = orders.current?.reduce((items, order) => ((items + Number(order.profit))), 0);
         setAverageProductsPerOder(Number(itemsSold / orders.current.length).toFixed(2));
         setAveragePricePerOrder(Number(priceSold / orders.current.length).toFixed(2));
         setAverageProfitPerOrder(Number(profitSold / orders.current.length).toFixed(2));
+        setTotalSold(Number(totalSold.toFixed(2)));
+        setTotalProfit(Number(totalProfit.toFixed(2)));
     }, [orders]);
 
     return (
@@ -46,6 +54,22 @@ function StatisticsAverages({ orders }) {
             <div className='average flex-column-center average-profit'>
                 <h1 className='text-center'>{averageProfitPerOrder} $</h1>
                 <p>Average profit per order</p>
+            </div>
+            <div className='average flex-column-center'>
+                <h1 className='text-center'>{orders.current.length}</h1>
+                <p>Number of orders</p>
+            </div>
+            <div className='average flex-column-center'>
+                <h1 className='text-center'>{customers.length}</h1>
+                <p>Number of customers</p>
+            </div>
+            <div className='average flex-column-center'>
+                <h1 className='text-center'>{totalSold} $</h1>
+                <p>Total sold</p>
+            </div>
+            <div className='average flex-column-center average-profit'>
+                <h1 className='text-center'>{totalProfit} $</h1>
+                <p>Total profit sold</p>
             </div>
         </div>
     )

@@ -20,6 +20,7 @@
   --blue: #0EA5E9;
   --darker-blue: #0075FF;
   --profit-green: rgb(39, 149, 108);
+  --dark-cyan: #008080;
 
   --width: 95%;
   --icon-margin: 10px;
@@ -161,6 +162,42 @@ a,
   z-index: 3;
   height: 100vh;
   transition: all 0.2s;
+}
+
+.mb {
+  margin-bottom: var(--padding);
+}
+
+.mt {
+  margin-top: var(--padding);
+}
+
+.mb-m {
+  margin-bottom: var(--m-padding);
+}
+
+.mt-m {
+  margin-top: var(--m-padding);
+}
+
+.mb-l {
+  margin-bottom: var(--l-padding);
+}
+
+.mt-l {
+  margin-top: var(--l-padding);
+}
+
+.gap {
+  gap: var(--padding);
+}
+
+.gap-m {
+  gap: var(--m-padding);
+}
+
+.gap-l {
+  gap: var(--l-padding);
 }
 
 /* BUTTONS */

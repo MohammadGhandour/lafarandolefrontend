@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import "./Header.css";
 
 function Header({ openNavbar, setOpenNavbar }) {
@@ -26,7 +26,7 @@ function Header({ openNavbar, setOpenNavbar }) {
             <div className='header-container flex-between'>
                 <div className='header-left flex'>
                     <i className="fa-solid fa-bars icon-margin-right" onClick={toggleNavbar}></i>
-                    <h2 className='header-logo'>LAFARANDOLE</h2>
+                    <Link to='/'><h2 className='header-logo'>LAFARANDOLE</h2></Link>
                 </div>
                 <div className='username-logout-wrapper flex'>
                     {location !== '/price-mode' &&

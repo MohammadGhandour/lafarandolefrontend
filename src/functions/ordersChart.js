@@ -1,8 +1,48 @@
 import moment from "moment";
 
-export function getOrdersChart(orders, setOrdersData, setOrdersNumbersData) {
+export function getOrdersChart(orders, setOrdersData, setOrdersNumbersData, sortBy) {
     if (orders.current.length > 0) {
-        const ordersDates = orders.current.map(order => moment(order.createdAt).format('L'));
+        const lastWeekOrders = orders.current.filter(
+            (order) =>
+                moment(order.createdAt).week() === moment().week() &&
+                moment(order.createdAt).year() === moment().year()
+        );
+        const todayOrders = orders.current.filter(
+            (order) =>
+                moment(order.createdAt).day() === moment().day() &&
+                moment(order.createdAt).week() === moment().week() &&
+                moment(order.createdAt).year() === moment().year()
+        );
+        const yesterdayOrders = moment().day() === 1 ? orders.current.filter(
+            (order) =>
+                moment(order.createdAt).day() === 7 &&
+                moment(order.createdAt).week() === (moment().week() - 1) &&
+                moment(order.createdAt).year() === moment().year()
+        ) : orders.current.filter(
+            (order) =>
+                moment(order.createdAt).day() === (moment().day() - 1) &&
+                moment(order.createdAt).week() === moment().week() &&
+                moment(order.createdAt).year() === moment().year()
+        );
+        let ordersDates = [];
+        if (sortBy) {
+            switch (sortBy) {
+                case 'Today':
+                    ordersDates = todayOrders.map(order => moment(order.createdAt).format('L'));
+                    break
+                case 'Yesterday':
+                    ordersDates = yesterdayOrders.map(order => moment(order.createdAt).format('L'));
+                    break
+                case 'Last Week':
+                    ordersDates = lastWeekOrders.map(order => moment(order.createdAt).format('L'));
+                    break
+                case 'All Time':
+                    ordersDates = orders.current.map(order => moment(order.createdAt).format('L'));
+                    break
+                default: ordersDates = orders.current.map(order => moment(order.createdAt).format('L'));
+            }
+        }
+        console.log(ordersDates);
         const ordersDates1 = ordersDates.reduce(
             (acc, order) =>
                 acc.includes(order) ? acc : acc.concat(order),
