@@ -125,6 +125,11 @@
 
     .single-product-in-table:hover {
         background-color: var(--bg) !important;
+        color: var(--primary) !important;
+    }
+
+    .quantity-0:hover {
+        color: var(--danger) !important;
     }
 }
 
