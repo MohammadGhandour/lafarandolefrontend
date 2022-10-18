@@ -62,6 +62,9 @@ function CategoryStatistics() {
                     })
                 });
 
+                categoriesPerQuantity.sort((a, b) => b.quantitySold - a.quantitySold);
+                // console.log(categoriesPerQuantity);
+
                 // console.log(categoriesPerPrice);
 
 

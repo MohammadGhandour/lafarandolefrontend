@@ -9,7 +9,7 @@ function SearchInput({ productsData }) {
     useEffect(() => {
         dispatch({
             type: "SET_PRODUCTS", payload: productsData.filter(
-                product => productName.split(' ').every(word => product.name.toLowerCase().includes(word)) || productName.split(' ').every(word => product.barcode.toLowerCase().includes(word)))
+                product => productName.toLowerCase().split(' ').every(word => product.name.toLowerCase().includes(word)) || productName.split(' ').every(word => product.barcode.toLowerCase().includes(word)))
         })
     }, [productName, productsData, dispatch]);
 

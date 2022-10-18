@@ -11,15 +11,18 @@ function BarCharts({ orders }) {
     const [ordersData, setOrdersData] = useState([]);
     const [ordersNumbersData, setOrdersNumbersData] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [sortBy, setSortBy] = useState('All Time');
+    const [sortBy, setSortBy] = useState('This Month');
 
-    useEffect(() => {
-        getOrdersChart(orders, setOrdersData, setOrdersNumbersData);
-        setLoading(false);
-    }, [orders]);
+    // useEffect(() => {
+    //     getOrdersChart(orders, setOrdersData, setOrdersNumbersData);
+    //     setLoading(false);
+    // }, [orders]);
 
     useEffect(() => {
         getOrdersChart(orders, setOrdersData, setOrdersNumbersData, sortBy);
+        setLoading(false);
+        console.log(ordersData);
+        // eslint-disable-next-line
     }, [orders, sortBy]);
 
     const ordersRevenueOptions = {
@@ -36,7 +39,7 @@ function BarCharts({ orders }) {
             x: {
                 type: 'time',
                 time: {
-                    unit: 'day'
+                    unit: sortBy === 'This Month' ? 'day' : 'month'
                 }
             }
         }
@@ -56,7 +59,7 @@ function BarCharts({ orders }) {
             x: {
                 type: 'time',
                 time: {
-                    unit: 'day'
+                    unit: sortBy === 'This Month' ? 'day' : 'month'
                 }
             }
         }
@@ -70,13 +73,12 @@ function BarCharts({ orders }) {
                 <div className='flex-center'>
                     <h2>Sales:</h2>
                     <div className="sort-orders-statistics-wrapper">
-                        <div className={sortBy === 'Today' ? 'sort-orders-statistics active' : 'sort-orders-statistics'} onClick={() => setSortBy('Today')}>Today</div>
-                        <div className={sortBy === 'Yesterday' ? 'sort-orders-statistics active' : 'sort-orders-statistics'} onClick={() => setSortBy('Yesterday')}>Yesterday</div>
-                        <div className={sortBy === 'Last Week' ? 'sort-orders-statistics active' : 'sort-orders-statistics'} onClick={() => setSortBy('Last Week')}>Last Week</div>
-                        <div className={sortBy === 'All Time' ? 'sort-orders-statistics active' : 'sort-orders-statistics'} onClick={() => setSortBy('All Time')}>All Time</div>
+                        <div className={sortBy === 'This Month' ? 'sort-orders-statistics active' : 'sort-orders-statistics'} onClick={() => setSortBy('This Month')}>This Month</div>
+                        <div className={sortBy === 'This Year' ? 'sort-orders-statistics active' : 'sort-orders-statistics'} onClick={() => setSortBy('This Year')}>This Year</div>
+                        {/* <div className={sortBy === 'Today' ? 'sort-orders-statistics active' : 'sort-orders-statistics'} onClick={() => setSortBy('Today')}>Today</div> */}
                     </div>
                 </div>
-                <div className='flex-center'>
+                <div className='bars-container'>
                     <div className='bar-chart'>
                         <Bar data={ordersData} options={ordersRevenueOptions} />
                     </div>

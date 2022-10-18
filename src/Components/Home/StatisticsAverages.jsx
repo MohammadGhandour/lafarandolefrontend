@@ -40,22 +40,6 @@ function StatisticsAverages({ orders }) {
     return (
         <div className='statistic-row averages'>
             <div className='average flex-column-center'>
-                <h1 className='text-center'>{averageProductsPerOder}</h1>
-                <p>Average product per order</p>
-            </div>
-            <div className='average flex-column-center'>
-                <h1 className='text-center'>{averageOrderPerCustomer}</h1>
-                <p>Average order per customer</p>
-            </div>
-            <div className='average flex-column-center'>
-                <h1 className='text-center'>{averagePricePerOrder} $</h1>
-                <p>Average price per order</p>
-            </div>
-            <div className='average flex-column-center average-profit'>
-                <h1 className='text-center'>{averageProfitPerOrder} $</h1>
-                <p>Average profit per order</p>
-            </div>
-            <div className='average flex-column-center'>
                 <h1 className='text-center'>{orders.current.length}</h1>
                 <p>Number of orders</p>
             </div>
@@ -70,6 +54,22 @@ function StatisticsAverages({ orders }) {
             <div className='average flex-column-center average-profit'>
                 <h1 className='text-center'>{totalProfit} $</h1>
                 <p>Total profit sold</p>
+            </div>
+            <div className='average flex-column-center'>
+                <h1 className='text-center'>{averageProductsPerOder}</h1>
+                <p>Average product per order</p>
+            </div>
+            <div className='average flex-column-center'>
+                <h1 className='text-center'>{averageOrderPerCustomer}</h1>
+                <p>Average order per customer</p>
+            </div>
+            <div className='average flex-column-center'>
+                <h1 className='text-center'>{averagePricePerOrder} $</h1>
+                <p>Average price per order</p>
+            </div>
+            <div className='average flex-column-center average-profit'>
+                <h1 className='text-center'>{averageProfitPerOrder} $</h1>
+                <p>Average profit per order</p>
             </div>
         </div>
     )

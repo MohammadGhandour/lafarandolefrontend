@@ -28,8 +28,8 @@ function SingleOrder({ order, i, ordersOfTheDay }) {
             {
                 i === 0 &&
                 <tr className='orders-of-the-day'>
-                    <th className='order-id' >-</th >
-                    <th>{moment(order.createdAt).format('ll')}</th>
+                    <th className='order-id' >-</th>
+                    <th>{moment(order.createdAt).format('llll').split(',')[0]}, {moment(order.createdAt).format('ll')}</th>
                     <th>{itemsSoldToday}</th>
                     <th className='order-total order-total-before-discount'>
                         {Number(totalBeforeDiscountToday) === Number(totalToday) ? '' : `${totalBeforeDiscountToday} $`}
