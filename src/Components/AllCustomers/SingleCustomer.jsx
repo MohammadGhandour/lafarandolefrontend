@@ -15,10 +15,7 @@ function SingleCustomer({ customer }) {
         axios.get(`${api}/orders/customerOrders/${customer.customerNumber}`, { headers: headers })
             .then(res => {
                 const customerOrders = res.data;
-                let totalProfit = 0;
-                for (let i = 0; i < customerOrders.length; i++) {
-                    totalProfit += Number(customerOrders[i].profit);
-                }
+                let totalProfit = customerOrders.reduce((totalProfit, order) => (totalProfit + Number(order.profit)), 0)
                 setTotalProfit(totalProfit);
             })
             .catch(err => {
@@ -38,7 +35,7 @@ function SingleCustomer({ customer }) {
             <th>{customer.customerNumber}</th>
             <th>{customer.numberOfOrders}</th>
             <th>{customer.totalOfAllOrders} $</th>
-            <th className='back-green-profit'>{totalProfit ? totalProfit : ''} $</th>
+            <th className='back-green-profit'>{totalProfit ? totalProfit.toFixed(2) : ''} $</th>
         </tr>
     )
 }

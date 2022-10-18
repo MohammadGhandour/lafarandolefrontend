@@ -14,22 +14,42 @@ function AllCustomers() {
     const [loading, setLoading] = useState(true);
     const [searchValue, setSearchValue] = useState('');
     const [filteredCustomer, setFilteredCustomer] = useState([]);
+    const [sortBy, setSortBy] = useState('amount');
+    const [rawCustomers, setRawCustomers] = useState([]);
 
     useEffect(() => {
         axios.get(`${api}/customers`, { headers: headers })
             .then(res => {
                 setCustomers(res.data);
+                if (rawCustomers.length < 1) {
+                    setRawCustomers(res.data);
+                }
                 setLoading(false);
             })
             .catch(err => {
                 console.log(err);
                 setLoading(false);
             })
-    }, []);
+    }, [rawCustomers]);
 
     useEffect(() => {
-        setFilteredCustomer(customers.filter(customer => customer.customerName.includes(searchValue) || customer.customerNumber.includes(searchValue)));
+        if (searchValue) {
+            setFilteredCustomer(customers.filter(customer => customer.customerName.toLowerCase().includes(searchValue.toLowerCase()) || customer.customerNumber.includes(searchValue)));
+        } else {
+            setFilteredCustomer(customers);
+        }
     }, [searchValue, customers]);
+
+    function amount() {
+        setSortBy('amount');
+        setFilteredCustomer(rawCustomers);
+    }
+
+    function nbOfOrders() {
+        setSortBy('nbOfOrders');
+        setFilteredCustomer(customers.sort((a, b) => b.numberOfOrders - a.numberOfOrders));
+
+    }
 
     if (loading) {
         return (
@@ -61,6 +81,10 @@ function AllCustomers() {
                         value={searchValue}
                         onChange={(e) => setSearchValue(e.target.value)}
                     />
+                </div>
+                <div className="switch-customer">
+                    <div className={sortBy === 'amount' ? 'switch-button active' : 'switch-button'} onClick={amount}>Amount</div>
+                    <div className={sortBy === 'nbOfOrders' ? 'switch-button active' : 'switch-button'} onClick={nbOfOrders}>Nb of orders</div>
                 </div>
                 <h3 style={{ marginTop: 20 }}>{customers.length} REGISTERED CUSTOMERS</h3>
                 <table className='orders-table'>

@@ -4,3 +4,34 @@
     padding: var(--padding);
     margin-bottom: var(--m-padding);
 }
+
+.switch-customer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary);
+    border-radius: 5px;
+    outline: 1px solid var(--dark-cyan);
+    font-weight: 500;
+    margin-top: var(--m-padding);
+    width: min-content;
+}
+
+.switch-button {
+    white-space: nowrap;
+    padding: var(--m-padding);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.switch-button.active {
+    background-color: var(--dark-cyan);
+    color: var(--bg);
+}
+
+@media (hover:hover) {
+    .switch-button:hover {
+        background-color: var(--dark-cyan);
+        color: var(--bg);
+    }
+}
