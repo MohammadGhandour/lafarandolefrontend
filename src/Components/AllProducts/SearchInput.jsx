@@ -27,6 +27,7 @@ function SearchInput({ productsData }) {
                 value={productName}
                 onChange={(e) => setProductName(e.target.value)}
             />
+            <i className="flex-center fa-solid fa-magnifying-glass fa-times" onClick={() => setProductName('')}></i>
         </div>
     )
 }

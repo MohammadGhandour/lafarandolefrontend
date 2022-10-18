@@ -62,8 +62,7 @@ tbody tr:nth-child(odd):not(.none-tr) {
 
 
 
-.fa-trash-can,
-.fa-times {
+.fa-trash-can {
     color: var(--danger);
     transition: all 0.2s;
     cursor: pointer;
@@ -103,8 +102,7 @@ tbody tr:nth-child(odd):not(.none-tr) {
 
 @media (hover:hover) {
 
-    .fa-trash-can:hover,
-    .fa-times:hover {
+    .fa-trash-can:hover {
         color: var(--bg);
         background-color: var(--dark-danger);
     }
