@@ -81,6 +81,7 @@ function AllCustomers() {
                         value={searchValue}
                         onChange={(e) => setSearchValue(e.target.value)}
                     />
+                    <i className="flex-center fa-solid fa-magnifying-glass fa-times" onClick={() => setSearchValue('')}></i>
                 </div>
                 <div className="switch-customer">
                     <div className={sortBy === 'amount' ? 'switch-button active' : 'switch-button'} onClick={amount}>Amount</div>

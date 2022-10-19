@@ -90,6 +90,7 @@ function AllSales() {
                         value={searchValue}
                         onChange={(e) => setSearchValue(e.target.value)}
                     />
+                    <i className="flex-center fa-solid fa-magnifying-glass fa-times" onClick={() => setSearchValue('')}></i>
                 </div>
                 <h3 style={{ marginTop: 20 }}>{unfilteredOrders.length} REGISTERED ORDERS</h3>
                 <table className='orders-table'>
