@@ -14,7 +14,9 @@ function CartFooter({
     setCustomerNumber,
     submitButton,
     isExchangePage,
-    totalProductsToExchange
+    totalProductsToExchange,
+    orderLocation,
+    setOrderLocation
 }) {
 
     const difference = totalProductsToExchange - finalTotal < 0.5;
@@ -101,6 +103,14 @@ function CartFooter({
                             value={customerNumber}
                             onChange={(e) => setCustomerNumber(e.target.value)} />
                     </div>
+                    <select
+                        name="order_location"
+                        className='select-order-location'
+                        value={orderLocation}
+                        onChange={(e) => setOrderLocation(e.target.value)}>
+                        <option value="Ghaziyeh Store">Ghaziyeh Store</option>
+                        <option value="Instagram Delivery">Instagram Delivery</option>
+                    </select>
                 </div>
                 <div className='col flex-column discount-total-wrapper'>
                     <div className='row flex-column-start'>

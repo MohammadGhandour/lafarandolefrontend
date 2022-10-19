@@ -30,6 +30,7 @@ function SalesMode() {
     const [discountValue, setDiscountValue] = useState(0);
     const [finalTotal, setFinalTotal] = useState(0);
     const [finalTotalBeforeDiscount, setFinalTotalBeforeDiscount] = useState(0);
+    const [orderLocation, setOrderLocation] = useState('Ghaziyeh Store');
     const currencyExchange = 38000;
     const [customerName, setCustomerName] = useState('');
     const [customerNumber, setCustomerNumber] = useState('');
@@ -107,6 +108,7 @@ function SalesMode() {
                 cost: cost,
                 discount: `${discountValue}${discountCurrency}`,
                 profit: Number(finalTotal - cost),
+                orderLocation: orderLocation,
                 customerName: customerName,
                 customerNumber: customerNumber,
             }
@@ -155,6 +157,8 @@ function SalesMode() {
                 noProductText={noProductText}
                 inputDisabled={inputDisabled}
                 barcodeSearchScannerRef={barcodeSearchScannerRef}
+                orderLocation={orderLocation}
+                setOrderLocation={setOrderLocation}
             />
             {cart.length > 0 &&
                 <div className='delete-btn' onClick={emptyCart}>

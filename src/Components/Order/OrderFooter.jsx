@@ -27,6 +27,10 @@ function OrderFooter({ order }) {
                         <i className="fa-solid fa-phone icon-margin-right"></i>
                         <span>{order.customerNumber ? order.customerNumber : 'no-number'}</span>
                     </div>
+                    <div className="customer-credential">
+                        {order.orderLocation === 'Instagram Delivery' ? <i className="fa-brands fa-instagram icon-margin-right"></i> : <i className="fa-solid fa-store icon-margin-right"></i>}
+                        <span>{order.orderLocation}</span>
+                    </div>
                 </div>
                 <div className='total-wrapper discount-total-wrapper'>
                     {thereIsDiscount && <div className='flex-between'>
