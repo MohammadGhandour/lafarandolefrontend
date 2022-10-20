@@ -21,7 +21,6 @@ function BarCharts({ orders }) {
     useEffect(() => {
         getOrdersChart(orders, setOrdersData, setOrdersNumbersData, sortBy);
         setLoading(false);
-        console.log(ordersData);
         // eslint-disable-next-line
     }, [orders, sortBy]);
 
@@ -75,7 +74,6 @@ function BarCharts({ orders }) {
                     <div className="sort-orders-statistics-wrapper">
                         <div className={sortBy === 'This Month' ? 'sort-orders-statistics active' : 'sort-orders-statistics'} onClick={() => setSortBy('This Month')}>This Month</div>
                         <div className={sortBy === 'This Year' ? 'sort-orders-statistics active' : 'sort-orders-statistics'} onClick={() => setSortBy('This Year')}>This Year</div>
-                        {/* <div className={sortBy === 'Today' ? 'sort-orders-statistics active' : 'sort-orders-statistics'} onClick={() => setSortBy('Today')}>Today</div> */}
                     </div>
                 </div>
                 <div className='bars-container'>

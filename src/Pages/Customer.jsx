@@ -36,8 +36,9 @@ function Customer() {
     } else {
         return (
             <div className='full-page'>
-                <h2>{route.customerName}</h2>
-                <h3>{orders.length} REGISTERED ORDERS</h3>
+                <h2>{orders[orders.length - 1].customerName}</h2>
+                <h2 className='mt'>{orders[orders.length - 1].customerNumber}</h2>
+                <h3 className='mt-l'>{orders.length} REGISTERED ORDERS</h3>
                 <table className='orders-table'>
                     <thead className='thead'>
                         <tr>

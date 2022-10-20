@@ -15,7 +15,6 @@ export function getOrdersChart(orders, setOrdersData, setOrdersNumbersData, sort
         { 10: Date.parse('2022-11-1 00:00:00 GMT+3'), thisMonthOrders: 0, totalThisMonth: 0, monthDate: '' },
         { 11: Date.parse('2022-12-1 00:00:00 GMT+3'), thisMonthOrders: 0, totalThisMonth: 0, monthDate: '' },
     ]
-    console.log(moment().month());
     if (orders.current.length > 0) {
         const thisMonthOrders = orders.current.filter(
             (order) =>
@@ -103,8 +102,6 @@ export function getOrdersChart(orders, setOrdersData, setOrdersNumbersData, sort
                     }
                 })
             });
-            console.log('months');
-            console.log('months', months);
             setOrdersData({
                 labels: months.map(data => Object.values(data)[0]),
                 datasets: [

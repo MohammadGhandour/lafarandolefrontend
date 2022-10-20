@@ -18,7 +18,9 @@ function Products() {
 
     const [productsData, setProductsData] = useState([]);
     const [loading, setLoading] = useState(true);
+    // eslint-disable-next-line
     const [allProductsCost, setAllProductsCost] = useState(0);
+    // eslint-disable-next-line
     const [allProductsPrice, setAllProductsPrice] = useState(0);
 
     useEffect(() => {

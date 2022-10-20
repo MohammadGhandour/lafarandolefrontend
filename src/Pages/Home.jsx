@@ -32,8 +32,8 @@ function Home() {
                 <div className='full-page statistics-page flex-center'>
                     <StatisticsAverages orders={orders} />
                     <BarCharts orders={orders} />
-                    <h2>Categories sold:</h2>
-                    <CategoryStatistics />
+                    <h2>Donuts <i className="fa-solid fa-cookie"></i>:</h2>
+                    <CategoryStatistics orders={orders} />
                 </div>
             </>
         )

@@ -1,6 +1,5 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom';
 import Register from '../Components/AllSales/Register';
 import Loader from '../Components/Loader';
 import { api } from '../Config/Config'
@@ -11,7 +10,6 @@ function AllUsers() {
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [modalOpen, setModalOpen] = useState(false);
-    const navigate = useNavigate();
 
     useEffect(() => {
         axios.get(`${api}/users`, { headers: headers })

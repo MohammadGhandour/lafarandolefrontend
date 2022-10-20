@@ -55,10 +55,6 @@
     }
 }
 
-.pie-chart {
-    width: 35%;
-}
-
 .statistics-page h2,
 .statistics-page h3 {
     width: 100%;
@@ -103,13 +99,21 @@
     color: var(--profit-green);
 }
 
-@media screen and (max-width: 1200px) {
-    .pie-chart {
-        width: 80%;
-    }
+/* DONUT CHARTS */
+.donut-charts-wrapper {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
 
+@media screen and (max-width: 1200px) {
     .averages {
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    .donut-charts-wrapper {
+        grid-template-columns: repeat(1, 1fr);
+        place-items: center;
     }
 }
 
