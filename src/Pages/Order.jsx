@@ -38,7 +38,7 @@ function Order() {
         return (
             <div className='full-page'>
                 <div className='flex-between'>
-                    <h3># {order._id}</h3>
+                    <h3># {order.id}</h3>
                     <h4 className='order-date'>{moment(order.createdAt).format('lll')}</h4>
                 </div>
                 <table className='order-table'>

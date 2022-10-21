@@ -54,12 +54,12 @@ function ProductsSoldPerPrice({ rawProductsSold, itemsSold, totalItemsSold }) {
         )
     } else {
         return (
-            <Doughnut
-                data={productsSoldPerPrice}
-                plugins={plugins}
-                options={options(itemsSold, 'Products sold per price', totalItemsSold)}
-                height={400}
-                width={400} />
+            <div className='donut'>
+                <Doughnut
+                    data={productsSoldPerPrice}
+                    plugins={plugins}
+                    options={options(itemsSold, 'Products sold per price', totalItemsSold)} />
+            </div>
         )
     }
 }

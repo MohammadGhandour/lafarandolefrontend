@@ -56,13 +56,12 @@ function OrdersPerLocation({ orders }) {
         <div>Loading....</div>
     } else {
         return (
-            <Doughnut
-                data={donutOrdersData}
-                plugins={plugins}
-                options={options(orders.current.length, 'Orders Location')}
-                width={400}
-                height={400}
-            />
+            <div className='donut'>
+                <Doughnut
+                    data={donutOrdersData}
+                    plugins={plugins}
+                    options={options(orders.current.length, 'Orders Location')} />
+            </div>
         )
     }
 

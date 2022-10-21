@@ -37,7 +37,7 @@ function CategoryStatistics({ orders }) {
         )
     } else {
         return (
-            <div className='statistic-row donut-charts-wrapper'>
+            <div className='donut-charts-wrapper'>
                 <ProductsSoldPerQuantity
                     rawProductsSold={rawProductsSold}
                     itemsSold={itemsSold} />

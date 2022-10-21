@@ -13,11 +13,6 @@ function BarCharts({ orders }) {
     const [loading, setLoading] = useState(true);
     const [sortBy, setSortBy] = useState('This Month');
 
-    // useEffect(() => {
-    //     getOrdersChart(orders, setOrdersData, setOrdersNumbersData);
-    //     setLoading(false);
-    // }, [orders]);
-
     useEffect(() => {
         getOrdersChart(orders, setOrdersData, setOrdersNumbersData, sortBy);
         setLoading(false);
@@ -70,7 +65,7 @@ function BarCharts({ orders }) {
         return (
             <div className='statistic-row bar-charts-container flex-column gap-l'>
                 <div className='flex-center'>
-                    <h2>Sales:</h2>
+                    <h2>Sales</h2>
                     <div className="sort-orders-statistics-wrapper">
                         <div className={sortBy === 'This Month' ? 'sort-orders-statistics active' : 'sort-orders-statistics'} onClick={() => setSortBy('This Month')}>This Month</div>
                         <div className={sortBy === 'This Year' ? 'sort-orders-statistics active' : 'sort-orders-statistics'} onClick={() => setSortBy('This Year')}>This Year</div>

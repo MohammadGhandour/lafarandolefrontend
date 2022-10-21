@@ -16,12 +16,12 @@
 .bars-container {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     flex-wrap: wrap;
 }
 
 .bar-chart {
-    width: 45%;
+    width: 50%;
     height: 350px;
     min-width: 350px;
 }
@@ -102,8 +102,25 @@
 /* DONUT CHARTS */
 .donut-charts-wrapper {
     width: 100%;
+    /* display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap; */
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    border-bottom: 1px solid var(--primary);
+    padding-bottom: calc(var(--l-padding) * 2);
+}
+
+.donut {
+    width: 400px;
+    min-width: 350px;
+}
+
+@media screen and (max-width: 1500px) {
+    .donut-charts-wrapper {
+        grid-template-columns: repeat(2, 1fr);
+        place-items: center;
+    }
 }
 
 @media screen and (max-width: 1200px) {
@@ -112,14 +129,18 @@
     }
 
     .donut-charts-wrapper {
+        justify-content: center;
         grid-template-columns: repeat(1, 1fr);
-        place-items: center;
+    }
+
+    .donut {
+        width: 70%;
     }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 992px) {
     .bar-chart {
-        width: 90%;
+        width: 100%;
     }
 }
 

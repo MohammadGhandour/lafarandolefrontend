@@ -1,6 +1,7 @@
 export const options = (itemsSold, title, totalItemsSold) => {
     return {
-        responsive: false,
+        responsive: true,
+        // maintainAspectRatio: true,
         plugins: {
             legend: {
                 display: true,
@@ -13,15 +14,18 @@ export const options = (itemsSold, title, totalItemsSold) => {
                 display: true,
                 text: title,
                 position: 'bottom',
+                font: {
+                    size: 14
+                },
                 padding: {
-                    bottom: 0
+                    bottom: title === 'Orders Location' ? 0 : 0
                 }
             },
             datalabels: {
                 color: 'white',
                 font: {
                     weight: 900,
-                    size: 10
+                    size: 14
                 },
                 formatter: function (value, ctx) {
                     if (title === 'Products sold per price') {
