@@ -12,14 +12,39 @@ function StatisticsAverages({ orders }) {
     const [averageProfitPerOrder, setAverageProfitPerOrder] = useState(0);
     const [totalSold, setTotalSold] = useState(0);
     const [totalProfit, setTotalProfit] = useState(0);
+    const [averageDifference, setAverageDifference] = useState(0);
 
 
     useEffect(() => {
+        let returnedCustomersArray = [];
+
         axios.get(`${api}/customers`, { headers: headers })
             .then(res => {
                 const customers = res.data;
                 setCustomers(res.data);
-                setAverageOrderPerCustomer(Number(orders.current.length / customers.length).toFixed(2))
+                setAverageOrderPerCustomer(Number(orders.current.length / customers.length).toFixed(2));
+
+
+                // eslint-disable-next-line
+                customers.map(customer => {
+                    if (customer.numberOfOrders > 1) {
+                        axios.get(`${api}/orders/customerOrders/${customer.customerNumber}`, { headers: headers })
+                            .then(res => {
+                                const diffTime = Math.abs(new Date(res.data[0].createdAt) - new Date(res.data[res.data.length - 1].createdAt));
+                                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                                returnedCustomersArray.push(
+                                    {
+                                        'customer': customer.customerNumber,
+                                        'difference': diffDays / (customer.numberOfOrders > 2 ? (customer.numberOfOrders - 1) : 1)
+                                    }
+                                );
+                                setAverageDifference((returnedCustomersArray?.reduce((items, customer) => ((items + customer.difference)), 0)) / returnedCustomersArray.length);
+                            })
+                            .catch(err => {
+                                console.log(err);
+                            })
+                    }
+                })
             })
             .catch(err => {
                 console.log(err);
@@ -35,6 +60,7 @@ function StatisticsAverages({ orders }) {
         setAverageProfitPerOrder(Number(profitSold / orders.current.length).toFixed(2));
         setTotalSold(Number(totalSold.toFixed(2)));
         setTotalProfit(Number(totalProfit.toFixed(2)));
+        // eslint-disable-next-line
     }, [orders]);
 
     return (
@@ -70,6 +96,10 @@ function StatisticsAverages({ orders }) {
             <div className='average flex-column-center average-profit'>
                 <h1 className='text-center'>{averageProfitPerOrder} $</h1>
                 <p>Average profit per order</p>
+            </div>
+            <div className='average flex-column-center'>
+                <h1 className='text-center'>{averageDifference} days</h1>
+                <p>Average repurchase time</p>
             </div>
         </div>
     )

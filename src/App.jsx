@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Header from "./Components/Header/Header";
-import Home from "./Pages/Home";
+import Dashboard from "./Pages/Dashboard";
 import Login from "./Pages/Login";
 import "./GeneralStyles/App.css";
 import LeftNav from "./Components/LeftNav";
@@ -40,7 +40,7 @@ function App() {
               openNavbar={openNavbar}
               setOpenNavbar={setOpenNavbar} />
             <Routes>
-              <Route path="/statistics" element={<Home />} />
+              <Route path="/statistics" element={<Dashboard />} />
               <Route path="/sales-mode" element={<SalesMode />} />
               <Route path="/price-mode" element={<PriceMode />} />
               <Route path="/" element={<AllProducts />} />

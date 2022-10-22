@@ -1,14 +1,14 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { api } from '../../Config/Config';
-import { headers } from '../../Config/Headers';
+import { api } from '../../../Config/Config';
+import { headers } from '../../../Config/Headers';
 import 'chartjs-adapter-moment';
 import ProductsSoldPerPrice from './ProductsSoldPerPrice';
 import ProductsSoldPerQuantity from './ProductsSoldPerQuantity';
 import OrdersPerLocation from './OrdersPerLocation';
 
 
-function CategoryStatistics({ orders }) {
+function Donuts({ orders }) {
 
     const [loading, setLoading] = useState(true);
     const [itemsSold, setItemsSold] = useState(0);
@@ -51,4 +51,4 @@ function CategoryStatistics({ orders }) {
     }
 }
 
-export default CategoryStatistics;
+export default Donuts;

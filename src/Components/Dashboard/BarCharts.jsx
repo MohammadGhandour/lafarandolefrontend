@@ -5,6 +5,7 @@ import { Chart as ChartJS } from "chart.js/auto";
 import 'chartjs-adapter-moment';
 import { getOrdersChart } from '../../functions/ordersChart';
 import { useEffect } from 'react';
+import AverageRevenuePerDayOfTheWeek from './AverageRevenuePerDayOfTheWeek';
 
 function BarCharts({ orders }) {
 
@@ -18,6 +19,7 @@ function BarCharts({ orders }) {
         setLoading(false);
         // eslint-disable-next-line
     }, [orders, sortBy]);
+
 
     const ordersRevenueOptions = {
         maintainAspectRatio: false,
@@ -78,6 +80,7 @@ function BarCharts({ orders }) {
                     <div className='bar-chart'>
                         <Bar data={ordersNumbersData} options={ordersNumberOptions} />
                     </div>
+                    <AverageRevenuePerDayOfTheWeek orders={orders} />
                 </div>
             </div>
         )

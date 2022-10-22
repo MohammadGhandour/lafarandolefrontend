@@ -4,8 +4,8 @@ import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
 import 'chartjs-adapter-moment';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
-import { options } from './chartsUtils/donutsOptions';
-import { backgroundColors } from './chartsUtils/backgroundColors';
+import { options } from '../chartsUtils/donutsOptions';
+import { backgroundColors } from '../chartsUtils/backgroundColors';
 
 function ProductsSoldPerPrice({ rawProductsSold, itemsSold, totalItemsSold }) {
 

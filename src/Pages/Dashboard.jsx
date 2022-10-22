@@ -5,11 +5,11 @@ import Loader from '../Components/Loader';
 import './PagesStyles/Statistics.css';
 import { headers } from '../Config/Headers';
 import { useRef } from 'react';
-import CategoryStatistics from '../Components/Home/CategoryStatistics';
-import StatisticsAverages from '../Components/Home/StatisticsAverages';
-import BarCharts from '../Components/Home/BarCharts';
+import StatisticsAverages from '../Components/Dashboard/StatisticsAverages';
+import BarCharts from '../Components/Dashboard/BarCharts';
+import Donuts from '../Components/Dashboard/Donuts/Donuts';
 
-function Home() {
+function Dashboard() {
     const [loading, setLoading] = useState(true);
 
     const orders = useRef([]);
@@ -33,7 +33,7 @@ function Home() {
                     <StatisticsAverages orders={orders} />
                     <BarCharts orders={orders} />
                     <h2>Donuts</h2>
-                    <CategoryStatistics orders={orders} />
+                    <Donuts orders={orders} />
                 </div>
             </>
         )
@@ -50,4 +50,4 @@ function Home() {
     }
 }
 
-export default Home;
+export default Dashboard;
