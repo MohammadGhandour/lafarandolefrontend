@@ -31,14 +31,15 @@ function AllUsers() {
         )
     } else {
         return (
-            <div className='full-page' style={{ display: 'flex', flexDirection: 'column' }}>
-                <button
-                    className='primary-btn'
-                    style={{ marginBottom: 20, alignSelf: 'flex-end' }}
-                    onClick={() => setModalOpen(true)}>
-                    Add user
-                </button>
-                <h3 style={{ marginBottom: 20 }}>{users.length} REGISTERED USER{users.length > 1 ? 'S' : ''}</h3>
+            <div className='full-page'>
+                <div className="flex-between mb-l">
+                    <h3>{users.length} REGISTERED USER{users.length > 1 ? 'S' : ''}</h3>
+                    <button
+                        className='primary-btn'
+                        onClick={() => setModalOpen(true)}>
+                        Add user
+                    </button>
+                </div>
                 {users.map(user => (
                     <div className='single-customer-wrapper flex-between' key={user.id}>
                         <h2>{user.username}</h2>

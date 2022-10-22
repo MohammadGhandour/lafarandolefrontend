@@ -83,11 +83,13 @@ function AllCustomers() {
                     />
                     <i className="flex-center fa-solid fa-magnifying-glass fa-times" onClick={() => setSearchValue('')}></i>
                 </div>
-                <div className="switch-customer">
-                    <div className={sortBy === 'amount' ? 'switch-button active' : 'switch-button'} onClick={amount}>Amount</div>
-                    <div className={sortBy === 'nbOfOrders' ? 'switch-button active' : 'switch-button'} onClick={nbOfOrders}>Nb of orders</div>
+                <div className="flex-between mt-l mb-l">
+                    <h3>{customers.length} REGISTERED CUSTOMERS</h3>
+                    <div className="switch-customer">
+                        <div className={sortBy === 'amount' ? 'switch-button active' : 'switch-button'} onClick={amount}>Amount</div>
+                        <div className={sortBy === 'nbOfOrders' ? 'switch-button active' : 'switch-button'} onClick={nbOfOrders}>Nb of orders</div>
+                    </div>
                 </div>
-                <h3 style={{ marginTop: 20 }}>{customers.length} REGISTERED CUSTOMERS</h3>
                 <table className='orders-table'>
                     <AllCustomersThead />
                     {filteredCustomer.length > 0 ?

@@ -13,9 +13,8 @@
     border-radius: 5px;
     outline: 1px solid var(--dark-cyan);
     font-weight: 500;
-    margin-top: var(--m-padding);
     width: min-content;
-    margin-left: calc(100% - 185px);
+    height: 100%;
 }
 
 .switch-button {

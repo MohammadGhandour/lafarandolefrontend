@@ -17,11 +17,14 @@ function AllSales() {
     const [filteredOrders, setFilteredOrders] = useState();
     const [unfilteredOrders, setUnfilteredOrders] = useState([]);
     const [searchValue, setSearchValue] = useState('');
+    const [sortBy, setSortBy] = useState('default');
+    const [rawOrders, setRawOrders] = useState([]);
 
     useEffect(() => {
         axios.get(`${api}/orders`, { headers: headers })
             .then(response => {
                 let orders = response.data;
+                setRawOrders(response.data);
                 setUnfilteredOrders(orders);
                 setLoading(false);
                 // FILTER ORDERS ARRAYS
@@ -62,6 +65,24 @@ function AllSales() {
         }
     }, [searchValue, unfilteredOrders, setUnfilteredOrders]);
 
+    function sortDefault() {
+        setSortBy('default');
+    }
+
+    function instagramOrders() {
+        setSortBy('Instagram Delivery');
+        setFilteredOrders(rawOrders.filter(order => {
+            return order.orderLocation === 'Instagram Delivery'
+        }));
+    }
+
+    function ghaziyehOrders() {
+        setSortBy('Ghaziyeh Store');
+        setFilteredOrders(rawOrders.filter(order => {
+            return order.orderLocation === 'Ghaziyeh Store'
+        }));
+    }
+
     if (loading) {
         return (
             <div className='full-page'>
@@ -92,11 +113,18 @@ function AllSales() {
                     />
                     <i className="flex-center fa-solid fa-magnifying-glass fa-times" onClick={() => setSearchValue('')}></i>
                 </div>
-                <h3 style={{ marginTop: 20 }}>{unfilteredOrders.length} REGISTERED ORDERS</h3>
+                <div className='flex-between mt-l mb-l'>
+                    <h3>{unfilteredOrders.length} REGISTERED ORDERS</h3>
+                    <div className="switch-customer">
+                        <div className={sortBy === 'default' ? 'switch-button active' : 'switch-button'} onClick={sortDefault}>Last added</div>
+                        <div className={sortBy === 'Instagram Delivery' ? 'switch-button active' : 'switch-button'} onClick={instagramOrders}>Instagram Delivery</div>
+                        <div className={sortBy === 'Ghaziyeh Store' ? 'switch-button active' : 'switch-button'} onClick={ghaziyehOrders}>Ghaziyeh Store</div>
+                    </div>
+                </div>
                 <table className='orders-table'>
                     <AllSalesThead />
-                    {!searchValue && < AllSalesStatistics orders={unfilteredOrders} />}
-                    {!searchValue && unfilteredOrders.length > 0 && days.length > 0 ?
+                    {!searchValue && sortBy === 'default' && < AllSalesStatistics orders={unfilteredOrders} />}
+                    {!searchValue && unfilteredOrders.length > 0 && sortBy === 'default' && days.length > 0 ?
                         <tbody>
                             {
                                 days.map(day => (
