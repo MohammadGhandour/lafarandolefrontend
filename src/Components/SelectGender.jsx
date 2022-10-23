@@ -2,20 +2,18 @@ import { useEffect } from "react";
 import { useProductsContext } from "../Hooks/useProductsContext";
 import './SelectCategory.css';
 
-function SelectGender({ productsData, gender, setGender, bothSelectFieldFilled }) {
+function SelectGender({ productsData, gender, setGender }) {
 
     const { dispatch } = useProductsContext();
 
     useEffect(() => {
-        if (!bothSelectFieldFilled) {
-            if (gender) {
-                const categorisedProducts = productsData.filter((product) => product.gender === gender);
-                dispatch({ type: 'SET_PRODUCTS', payload: categorisedProducts })
-            } else {
-                dispatch({ type: 'SET_PRODUCTS', payload: productsData })
-            }
+        if (gender) {
+            const categorisedProducts = productsData.filter((product) => product.gender === gender);
+            dispatch({ type: 'SET_PRODUCTS', payload: categorisedProducts })
+        } else {
+            dispatch({ type: 'SET_PRODUCTS', payload: productsData })
         }
-    }, [gender, dispatch, bothSelectFieldFilled, productsData]);
+    }, [gender, dispatch, productsData]);
 
     return (
         <select

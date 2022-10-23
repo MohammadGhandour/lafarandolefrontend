@@ -45,11 +45,12 @@
 
 .all-products-btns {
     gap: var(--m-padding);
+    flex-wrap: wrap;
 }
 
 .search-input-wrapper {
     position: relative;
-    width: 60%;
+    width: 40%;
 }
 
 .search-input-wrapper input {

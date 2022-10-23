@@ -13,6 +13,7 @@ import "./PagesStyles/AllProducts.css";
 import Thead from '../Components/AllProducts/Thead';
 import SingleProductInTable from '../Components/AllProducts/SingleProductInTable';
 import { headers } from '../Config/Headers';
+import SelectSize from '../Components/SelectSize';
 
 function Products() {
 
@@ -49,8 +50,9 @@ function Products() {
     const { products, dispatch } = useProductsContext();
     const [category, setCategory] = useState('');
     const [gender, setGender] = useState('');
+    const [size, setSize] = useState('');
     //eslint-disable-next-line
-    const [bothSelectFieldFilled, setBothSelectFieldFilled] = useState(false);
+    const [allFilled, setAllFilled] = useState(false);
 
     useEffect(() => {
         dispatch({ type: "SET_PRODUCTS", payload: productsData })
@@ -70,22 +72,37 @@ function Products() {
     }
 
     useEffect(() => {
-        if (category && gender) {
-            setBothSelectFieldFilled(true);
-            const categorisedProducts =
-                productsData.filter((product) => product.gender === gender && product.category === category);
+        if (category && gender && size) {
+            setAllFilled(true);
+            const categorisedProducts = productsData.filter((product) =>
+                product.gender === gender &&
+                product.category === category &&
+                product.size === size
+            );
             dispatch({ type: 'SET_PRODUCTS', payload: categorisedProducts })
         } else {
-            setBothSelectFieldFilled(false);
-            if (!category && gender) {
-                const categorisedProducts = productsData.filter((product) => product.gender === gender);
+            setAllFilled(false);
+            if (!category && gender && size) {
+                const categorisedProducts = productsData.filter((product) =>
+                    product.gender === gender &&
+                    product.size === size
+                );
                 dispatch({ type: 'SET_PRODUCTS', payload: categorisedProducts })
-            } else if (category && !gender) {
-                const categorisedProducts = productsData.filter((product) => product.category === category);
+            } else if (category && !gender && size) {
+                const categorisedProducts = productsData.filter((product) =>
+                    product.category === category &&
+                    product.size === size
+                );
+                dispatch({ type: 'SET_PRODUCTS', payload: categorisedProducts })
+            } else if (category && gender && !size) {
+                const categorisedProducts = productsData.filter((product) =>
+                    product.category === category &&
+                    product.gender === gender
+                );
                 dispatch({ type: 'SET_PRODUCTS', payload: categorisedProducts })
             }
         }
-    }, [category, gender, bothSelectFieldFilled, dispatch, productsData])
+    }, [category, gender, size, dispatch, productsData])
 
     if (loading) {
         return (
@@ -103,13 +120,15 @@ function Products() {
                             <SelectCategory
                                 productsData={productsData}
                                 category={category}
-                                setCategory={setCategory}
-                                bothSelectFieldFilled={bothSelectFieldFilled} />
+                                setCategory={setCategory} />
                             <SelectGender
                                 productsData={productsData}
                                 gender={gender}
-                                setGender={setGender}
-                                bothSelectFieldFilled={bothSelectFieldFilled} />
+                                setGender={setGender} />
+                            <SelectSize
+                                productsData={productsData}
+                                size={size}
+                                setSize={setSize} />
                             <NavLink to='/add-product' className='primary-btn'>Add product</NavLink>
                         </div>
                     </section>

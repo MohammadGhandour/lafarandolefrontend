@@ -3,20 +3,18 @@ import { productCategories } from "../Arrays/productsCategories";
 import { useProductsContext } from "../Hooks/useProductsContext";
 import './SelectCategory.css';
 
-function SelectCategory({ productsData, category, setCategory, bothSelectFieldFilled }) {
+function SelectCategory({ productsData, category, setCategory }) {
 
     const { dispatch } = useProductsContext();
 
     useEffect(() => {
-        if (!bothSelectFieldFilled) {
-            if (category) {
-                const categorisedProducts = productsData.filter((product) => product.category === category);
-                dispatch({ type: 'SET_PRODUCTS', payload: categorisedProducts })
-            } else {
-                dispatch({ type: 'SET_PRODUCTS', payload: productsData })
-            }
+        if (category) {
+            const categorisedProducts = productsData.filter((product) => product.category === category);
+            dispatch({ type: 'SET_PRODUCTS', payload: categorisedProducts })
+        } else {
+            dispatch({ type: 'SET_PRODUCTS', payload: productsData })
         }
-    }, [category, dispatch, bothSelectFieldFilled, productsData]);
+    }, [category, dispatch, productsData]);
 
     return (
         <select
