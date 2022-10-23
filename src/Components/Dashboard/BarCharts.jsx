@@ -6,6 +6,7 @@ import 'chartjs-adapter-moment';
 import { getOrdersChart } from '../../functions/ordersChart';
 import { useEffect } from 'react';
 import AverageRevenuePerDayOfTheWeek from './AverageRevenuePerDayOfTheWeek';
+import moment from 'moment';
 
 function BarCharts({ orders }) {
 
@@ -38,6 +39,15 @@ function BarCharts({ orders }) {
                     unit: sortBy === 'This Month' ? 'day' : 'month'
                 }
             }
+        },
+        plugins: {
+            tooltip: {
+                callbacks: {
+                    beforeTitle: function (ctx) {
+                        return moment(new Date(ctx[0].label)).format('dddd')
+                    }
+                }
+            }
         }
     }
 
@@ -56,6 +66,15 @@ function BarCharts({ orders }) {
                 type: 'time',
                 time: {
                     unit: sortBy === 'This Month' ? 'day' : 'month'
+                }
+            }
+        },
+        plugins: {
+            tooltip: {
+                callbacks: {
+                    beforeTitle: function (ctx) {
+                        return moment(new Date(ctx[0].label)).format('dddd')
+                    }
                 }
             }
         }

@@ -12,13 +12,13 @@ function AverageRevenuePerDayOfTheWeek({ orders }) {
 
     useEffect(() => {
         let days = [
-            { 'day': 1, 'orders': [], 'total': 0, 'numberOfOrders': 0, 'numberOfThisDay': 0 },
-            { 'day': 2, 'orders': [], 'total': 0, 'numberOfOrders': 0, 'numberOfThisDay': 0 },
-            { 'day': 3, 'orders': [], 'total': 0, 'numberOfOrders': 0, 'numberOfThisDay': 0 },
-            { 'day': 4, 'orders': [], 'total': 0, 'numberOfOrders': 0, 'numberOfThisDay': 0 },
-            { 'day': 5, 'orders': [], 'total': 0, 'numberOfOrders': 0, 'numberOfThisDay': 0 },
-            { 'day': 6, 'orders': [], 'total': 0, 'numberOfOrders': 0, 'numberOfThisDay': 0 },
-            { 'day': 0, 'orders': [], 'total': 0, 'numberOfOrders': 0, 'numberOfThisDay': 0 },
+            { 'day': 1, 'orders': [], 'total': 0, 'countDay': 0 },
+            { 'day': 2, 'orders': [], 'total': 0, 'countDay': 0 },
+            { 'day': 3, 'orders': [], 'total': 0, 'countDay': 0 },
+            { 'day': 4, 'orders': [], 'total': 0, 'countDay': 0 },
+            { 'day': 5, 'orders': [], 'total': 0, 'countDay': 0 },
+            { 'day': 6, 'orders': [], 'total': 0, 'countDay': 0 },
+            { 'day': 0, 'orders': [], 'total': 0, 'countDay': 0 },
         ];
         orders.current.map(order => {
             return (
@@ -27,7 +27,6 @@ function AverageRevenuePerDayOfTheWeek({ orders }) {
                     if (moment(order.createdAt).day() === item.day) {
                         item.orders.push(order);
                         item.total += Math.round(Number(order.total));
-                        item.numberOfOrders += 1;
                     }
                 })
             )
@@ -40,7 +39,36 @@ function AverageRevenuePerDayOfTheWeek({ orders }) {
                     - new Date(day.orders[0].createdAt));
                 const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
                 const daysCount = Math.round(diffDays / 7);
-                day.numberOfThisDay = daysCount + 1;
+                day.countDay = daysCount + 1;
+
+                let daysToAdd = 0;
+                const DFTT = new Date() - new Date(day.orders[day.orders.length - 1].createdAt);
+                const DFTD = Math.ceil(DFTT / (1000 * 60 * 60 * 24));
+                if (7 < DFTD && DFTD < 14) {
+                    daysToAdd = 1
+                } else if (14 < DFTD && DFTD < 21) {
+                    daysToAdd = 2
+                } else if (21 < DFTD && DFTD < 28) {
+                    daysToAdd = 3
+                } else if (28 < DFTD && DFTD < 35) {
+                    daysToAdd = 4
+                } else if (35 < DFTD && DFTD < 42) {
+                    daysToAdd = 5
+                } else if (42 < DFTD && DFTD < 49) {
+                    daysToAdd = 6
+                } else if (56 < DFTD && DFTD < 63) {
+                    daysToAdd = 7
+                } else if (63 < DFTD && DFTD < 70) {
+                    daysToAdd = 8
+                } else if (70 < DFTD && DFTD < 77) {
+                    daysToAdd = 9
+                } else if (77 < DFTD && DFTD < 84) {
+                    daysToAdd = 10
+                } else if (84 < DFTD && DFTD < 91) {
+                    daysToAdd = 11
+                }
+
+                day.countDay = day.countDay + daysToAdd;
             }
         });
 
@@ -49,7 +77,7 @@ function AverageRevenuePerDayOfTheWeek({ orders }) {
             datasets: [
                 {
                     label: "Average revenue per day",
-                    data: days.map(item => (item.total / item.numberOfThisDay).toFixed(1)),
+                    data: days.map(item => (item.total / item.countDay).toFixed(1)),
                     backgroundColor: "#008080",
                     pointHitRadius: 16
                 }
