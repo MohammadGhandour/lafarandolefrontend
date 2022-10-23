@@ -12,31 +12,44 @@ function AverageRevenuePerDayOfTheWeek({ orders }) {
 
     useEffect(() => {
         let days = [
-            { 'day': 1, 'total': 0, 'numberOfOrders': 0 },
-            { 'day': 2, 'total': 0, 'numberOfOrders': 0 },
-            { 'day': 3, 'total': 0, 'numberOfOrders': 0 },
-            { 'day': 4, 'total': 0, 'numberOfOrders': 0 },
-            { 'day': 5, 'total': 0, 'numberOfOrders': 0 },
-            { 'day': 6, 'total': 0, 'numberOfOrders': 0 },
-            { 'day': 0, 'total': 0, 'numberOfOrders': 0 },
+            { 'day': 1, 'orders': [], 'total': 0, 'numberOfOrders': 0, 'numberOfThisDay': 0 },
+            { 'day': 2, 'orders': [], 'total': 0, 'numberOfOrders': 0, 'numberOfThisDay': 0 },
+            { 'day': 3, 'orders': [], 'total': 0, 'numberOfOrders': 0, 'numberOfThisDay': 0 },
+            { 'day': 4, 'orders': [], 'total': 0, 'numberOfOrders': 0, 'numberOfThisDay': 0 },
+            { 'day': 5, 'orders': [], 'total': 0, 'numberOfOrders': 0, 'numberOfThisDay': 0 },
+            { 'day': 6, 'orders': [], 'total': 0, 'numberOfOrders': 0, 'numberOfThisDay': 0 },
+            { 'day': 0, 'orders': [], 'total': 0, 'numberOfOrders': 0, 'numberOfThisDay': 0 },
         ];
         orders.current.map(order => {
             return (
                 // eslint-disable-next-line
                 days.map(item => {
                     if (moment(order.createdAt).day() === item.day) {
+                        item.orders.push(order);
                         item.total += Math.round(Number(order.total));
                         item.numberOfOrders += 1;
                     }
                 })
             )
         });
+
+        // eslint-disable-next-line
+        days.map((day, i) => {
+            if (day.orders.length > 1) {
+                const diffTime = Math.abs(new Date(day.orders[day.orders.length - 1].createdAt)
+                    - new Date(day.orders[0].createdAt));
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                const daysCount = Math.round(diffDays / 7);
+                day.numberOfThisDay = daysCount + 1;
+            }
+        });
+
         setOrdersPerDay({
             labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
             datasets: [
                 {
                     label: "Average revenue per day",
-                    data: days.map(item => (item.total / item.numberOfOrders).toFixed(1)),
+                    data: days.map(item => (item.total / item.numberOfThisDay).toFixed(1)),
                     backgroundColor: "#008080",
                     pointHitRadius: 16
                 }
