@@ -1,4 +1,4 @@
-export const options = (itemsSold, title, totalItemsSold) => {
+export const options = (itemsSold, title, totalItemsSold, datalabelsColor) => {
     return {
         responsive: true,
         // maintainAspectRatio: true,
@@ -18,11 +18,11 @@ export const options = (itemsSold, title, totalItemsSold) => {
                     size: 14
                 },
                 padding: {
-                    bottom: title === 'Orders Location' ? 0 : 0
+                    bottom: 0
                 }
             },
             datalabels: {
-                color: 'white',
+                color: datalabelsColor ? datalabelsColor : 'white',
                 font: {
                     weight: 900,
                     size: 14
@@ -30,7 +30,7 @@ export const options = (itemsSold, title, totalItemsSold) => {
                 formatter: function (value, ctx) {
                     if (title === 'Products sold per price') {
                         return Math.round(value * 100 / totalItemsSold) + '%'
-                    } else if (title === 'Products sold per quantity') {
+                    } else if (title === 'Products sold per quantity' || title === 'Products sold per gender') {
                         return Math.round(value * 100 / itemsSold) + '%';
                     } else {
                         return Math.round(value * 100 / itemsSold) + '%'

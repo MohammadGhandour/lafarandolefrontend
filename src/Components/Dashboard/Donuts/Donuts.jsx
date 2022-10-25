@@ -6,6 +6,7 @@ import 'chartjs-adapter-moment';
 import ProductsSoldPerPrice from './ProductsSoldPerPrice';
 import ProductsSoldPerQuantity from './ProductsSoldPerQuantity';
 import OrdersPerLocation from './OrdersPerLocation';
+import ProductsSoldPerGender from './ProductsSoldPerGender';
 
 
 function Donuts({ orders }) {
@@ -45,6 +46,9 @@ function Donuts({ orders }) {
                     rawProductsSold={rawProductsSold}
                     itemsSold={itemsSold}
                     totalItemsSold={totalItemsSold} />
+                <ProductsSoldPerGender
+                    rawProductsSold={rawProductsSold}
+                    itemsSold={itemsSold} />
                 <OrdersPerLocation orders={orders} />
             </div>
         )

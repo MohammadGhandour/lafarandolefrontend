@@ -60,7 +60,7 @@ function OrdersPerLocation({ orders }) {
                 <Doughnut
                     data={donutOrdersData}
                     plugins={plugins}
-                    options={options(orders.current.length, 'Orders Location')} />
+                    options={options(orders.current.length, 'Orders Location', undefined, undefined)} />
             </div>
         )
     }

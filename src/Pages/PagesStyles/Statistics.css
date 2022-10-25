@@ -106,9 +106,10 @@
     justify-content: space-between;
     flex-wrap: wrap; */
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     border-bottom: 1px solid var(--primary);
     padding-bottom: calc(var(--l-padding) * 2);
+    place-items: center;
 }
 
 .donut {
@@ -117,10 +118,10 @@
 }
 
 @media screen and (max-width: 1500px) {
-    .donut-charts-wrapper {
+    /* .donut-charts-wrapper {
         grid-template-columns: repeat(2, 1fr);
         place-items: center;
-    }
+    } */
 }
 
 @media screen and (max-width: 1200px) {
@@ -131,6 +132,7 @@
     .donut-charts-wrapper {
         justify-content: center;
         grid-template-columns: repeat(1, 1fr);
+        gap: var(--l-padding);
     }
 
     .donut {
