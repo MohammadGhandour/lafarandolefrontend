@@ -6,7 +6,8 @@ import ErrorMessage from '../Components/ErrorMessage';
 import Loader from '../Components/Loader';
 import { api } from '../Config/Config';
 import { headers } from '../Config/Headers';
-import "./PagesStyles/Customers.css"
+import "./PagesStyles/Customers.css";
+import moment from 'moment';
 
 function AllCustomers() {
 
@@ -14,15 +15,15 @@ function AllCustomers() {
     const [loading, setLoading] = useState(true);
     const [searchValue, setSearchValue] = useState('');
     const [filteredCustomer, setFilteredCustomer] = useState([]);
-    const [sortBy, setSortBy] = useState('amount');
+    const [sortBy, setSortBy] = useState('lastModified');
     const [rawCustomers, setRawCustomers] = useState([]);
 
     useEffect(() => {
         axios.get(`${api}/customers`, { headers: headers })
             .then(res => {
-                setCustomers(res.data);
+                setCustomers(res.data.slice().sort((a, b) => moment(b.updatedAt) - moment(a.updatedAt)));
                 if (rawCustomers.length < 1) {
-                    setRawCustomers(res.data);
+                    setRawCustomers(res.data.slice().sort((a, b) => moment(b.updatedAt) - moment(a.updatedAt)));
                 }
                 setLoading(false);
             })
@@ -42,13 +43,18 @@ function AllCustomers() {
 
     function amount() {
         setSortBy('amount');
-        setFilteredCustomer(rawCustomers);
+        setFilteredCustomer(customers.sort((a, b) => b.totalOfAllOrders - a.totalOfAllOrders));
     }
 
     function nbOfOrders() {
         setSortBy('nbOfOrders');
         setFilteredCustomer(customers.sort((a, b) => b.numberOfOrders - a.numberOfOrders));
+    }
 
+    function lastModified() {
+        setSortBy('lastModified');
+        const sortedCustomers = customers.slice().sort((a, b) => moment(b.updatedAt) - moment(a.updatedAt));
+        setFilteredCustomer(sortedCustomers);
     }
 
     if (loading) {
@@ -86,6 +92,7 @@ function AllCustomers() {
                 <div className="flex-between mt-l mb-l">
                     <h3>{customers.length} REGISTERED CUSTOMERS</h3>
                     <div className="switch-customer">
+                        <div className={sortBy === 'lastModified' ? 'switch-button active' : 'switch-button'} onClick={lastModified}>Last modified</div>
                         <div className={sortBy === 'amount' ? 'switch-button active' : 'switch-button'} onClick={amount}>Amount</div>
                         <div className={sortBy === 'nbOfOrders' ? 'switch-button active' : 'switch-button'} onClick={nbOfOrders}>Nb of orders</div>
                     </div>
