@@ -6,6 +6,7 @@ function Thead() {
             <tr>
                 <th>Photo</th>
                 <th>Name</th>
+                <th>Category</th>
                 <th>Size</th>
                 <th>Quantity</th>
                 <th>Price</th>

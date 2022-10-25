@@ -16,6 +16,7 @@ function SingleProductInTable({ product }) {
                 <img src={product.photo ? product.photo : logo} alt={product.name} />
             </th>
             <th className='single-product-in-table-name'>{product.name}</th>
+            <th>{product.category}</th>
             <th>{product.size}</th>
             <th>{product.quantity}</th>
             <th>{product.priceAfterDiscount} $</th>
