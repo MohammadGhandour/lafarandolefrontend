@@ -47,7 +47,6 @@
 .orders-table tr th:not(.none-th) {
     padding: var(--m-padding);
     font-weight: 500;
-    /* transition: all 0.2s; */
     cursor: pointer;
 }
 

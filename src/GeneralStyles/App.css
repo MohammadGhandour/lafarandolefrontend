@@ -164,6 +164,8 @@ a,
   transition: all 0.2s;
 }
 
+/* MARGINS */
+
 .mb {
   margin-bottom: var(--padding);
 }
@@ -186,6 +188,31 @@ a,
 
 .mt-l {
   margin-top: var(--l-padding);
+}
+
+/* PADDINGS */
+.pb {
+  padding-bottom: var(--padding);
+}
+
+.pt {
+  padding-top: var(--padding);
+}
+
+.pb-m {
+  padding-bottom: var(--m-padding);
+}
+
+.pt-m {
+  padding-top: var(--m-padding);
+}
+
+.pb-l {
+  padding-bottom: var(--l-padding);
+}
+
+.pt-l {
+  padding-top: var(--l-padding);
 }
 
 .gap {

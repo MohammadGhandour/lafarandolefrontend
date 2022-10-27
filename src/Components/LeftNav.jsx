@@ -50,7 +50,10 @@ function LeftNav({ openNavbar, setOpenNavbar }) {
                         <i className="fa-solid fa-barcode icon-margin-right"></i>Price Mode
                     </NavLink>
                     <NavLink to='/sales-mode' className='nav-link mobile-link'>
-                        <i className="fa-solid fa-bag-shopping icon-margin-right"></i>Sales Mode
+                        <i className="fa-solid fa-cash-register icon-margin-right"></i>Sales Mode
+                    </NavLink>
+                    <NavLink to='/expenses' className='nav-link mobile-link'>
+                        <i className="fa-solid fa-coins icon-margin-right"></i>Expenses
                     </NavLink>
                 </ul>
             </nav>

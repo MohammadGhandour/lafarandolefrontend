@@ -16,6 +16,7 @@ import PriceMode from "./Pages/PriceMode";
 import Order from "./Pages/Order";
 import Customer from "./Pages/Customer";
 import Exchange from "./Pages/Exchange";
+import Expenses from "./Pages/Expenses";
 
 function App() {
 
@@ -52,6 +53,7 @@ function App() {
               <Route path="/add-product" element={<AddProduct />} />
               <Route path="/order/:id" element={<Order />} />
               <Route path="/exchange/:id" element={<Exchange />} />
+              <Route path="/expenses" element={<Expenses />} />
             </Routes>
           </div>
         </BrowserRouter>

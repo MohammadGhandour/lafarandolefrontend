@@ -1,12 +1,10 @@
 .cart {
-    /* padding: var(--l-padding); */
     position: relative;
     margin: auto;
-    /* box-shadow: var(--box-shadow); */
     transition: all 0.2s;
 }
 
-.thead::after {
+.thead:not(.none-thead)::after {
     content: '';
     display: block;
     height: 15px;
@@ -35,9 +33,7 @@ tbody tr:nth-child(odd):not(.none-tr) {
 }
 
 .th-quantity i {
-    /* font-size: 14px; */
     cursor: pointer;
-    /* background-color: var(--blue); */
     padding: var(--padding);
     aspect-ratio: 1;
     width: 25px;
@@ -92,7 +88,6 @@ tbody tr:nth-child(odd):not(.none-tr) {
 
 .p-i-c-name {
     padding-left: var(--padding);
-    /* text-align: left; */
     width: 310px;
 }
 
@@ -108,13 +103,11 @@ tbody tr:nth-child(odd):not(.none-tr) {
     }
 
     .quantity-handler.decrement:hover {
-        /* background-color: var(--danger); */
         color: var(--danger);
     }
 
     .quantity-handler.increment:hover {
         color: var(--blue);
-        /* background-color: var(--secondary); */
     }
 
     .th-quantity i:hover {
@@ -142,7 +135,6 @@ tbody tr:nth-child(odd):not(.none-tr) {
 
 @media screen and (max-width: 650px) {
     .p-i-c-name {
-        /* display: none; */
         width: 30px;
         max-width: 100px;
         overflow: hidden;

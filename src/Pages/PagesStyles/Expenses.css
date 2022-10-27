@@ -1,0 +1,69 @@
+.expenses-form {
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.expenses-form input,
+.expenses-form select {
+    all: unset;
+    padding: var(--m-padding);
+    border-radius: 5px;
+    outline: 1px solid var(--secondary);
+}
+
+.expenses-form select {
+    appearance: auto;
+}
+
+.expense-value-input {
+    width: 10ch !important;
+}
+
+.expense-exchange-input {
+    width: 10ch !important;
+}
+
+.expense-comment-input {
+    flex-grow: 1 !important;
+}
+
+.expenses-table {
+    width: 100%;
+}
+
+.all-time-tr {
+    background-color: var(--secondary) !important;
+    color: var(--bg);
+}
+
+/* .expense-value-in-table {
+    background-color: var(--danger);
+    color: var(--bg);
+} */
+
+@media (hover:hover) {
+    .all-time-tr:hover {
+        background-color: var(--bg) !important;
+        color: var(--danger);
+        outline: 1px solid red;
+        border-radius: 5px;
+    }
+
+    .single-expense-in-table:hover {
+        background-color: var(--secondary) !important;
+        color: var(--bg);
+    }
+}
+
+.expenses-table tr th:not(.none-th) {
+    padding: var(--m-padding);
+    font-weight: 500;
+}
+
+.single-day-in-table {
+    background-color: rgb(161, 161, 161, 0.4) !important;
+}
+
+.expense-comment {
+    max-width: 200px;
+}

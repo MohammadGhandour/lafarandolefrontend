@@ -1,5 +1,5 @@
 import { Field } from "formik";
-import { productCategories } from '../../Arrays/productsCategories'
+import { productCategories } from '../../Arrays/ProductsCategories/productsCategories'
 
 function SelectCategory({ emptyFields }) {
     return (

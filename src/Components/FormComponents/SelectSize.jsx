@@ -1,8 +1,8 @@
 import { Field } from "formik";
-import { babySizes } from "../../Arrays/babySizes";
-import { generalSizes } from "../../Arrays/generalSizes";
-import { kidsSizes } from "../../Arrays/kidsSizes";
-import { numberSizes } from "../../Arrays/numberSizes";
+import { babySizes } from "../../Arrays/Sizes/babySizes";
+import { generalSizes } from "../../Arrays/Sizes/generalSizes";
+import { kidsSizes } from "../../Arrays/Sizes/kidsSizes";
+import { numberSizes } from "../../Arrays/Sizes/numberSizes";
 
 function SelectSize({ emptyFields }) {
     return (
