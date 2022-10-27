@@ -3,6 +3,7 @@ export const expensesCategories = [
     'Ishtirak',
     'Diesel',
     'Inventory',
+    'Cargo',
     'Food',
     'Water',
     'Internet',
