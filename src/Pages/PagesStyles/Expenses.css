@@ -36,10 +36,26 @@
     color: var(--bg);
 }
 
-/* .expense-value-in-table {
+
+.expenses-table tr th:not(.none-th) {
+    padding: var(--m-padding);
+    font-weight: 500;
+}
+
+.single-day-in-table {
+    background-color: rgb(161, 161, 161, 0.4) !important;
+}
+
+.expense-comment {
+    max-width: 200px;
+}
+
+.delete-btn-in-table {
     background-color: var(--danger);
     color: var(--bg);
-} */
+    transition: all 0.2s;
+    cursor: pointer;
+}
 
 @media (hover:hover) {
     .all-time-tr:hover {
@@ -53,17 +69,8 @@
         background-color: var(--secondary) !important;
         color: var(--bg);
     }
-}
 
-.expenses-table tr th:not(.none-th) {
-    padding: var(--m-padding);
-    font-weight: 500;
-}
-
-.single-day-in-table {
-    background-color: rgb(161, 161, 161, 0.4) !important;
-}
-
-.expense-comment {
-    max-width: 200px;
+    .delete-btn-in-table:hover {
+        background-color: var(--dark-danger);
+    }
 }

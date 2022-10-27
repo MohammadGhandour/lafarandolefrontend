@@ -1,7 +1,7 @@
 import React from 'react';
 import SingleExpense from './SingleExpense';
 
-function ExpensesTbody({ days, rawExpenses }) {
+function ExpensesTbody({ days, setExpenses, rawExpenses, setRawExpenses }) {
 
     const totalExpensesPerDay = (array) => {
         return array.reduce((totalExpensesPerDay, expense) => ((totalExpensesPerDay + Number(expense.expenseValue))), 0);
@@ -15,6 +15,7 @@ function ExpensesTbody({ days, rawExpenses }) {
                 <th>-</th>
                 <th>-</th>
                 <th className='expense-value-in-table'>$ {totalExpensesPerDay(rawExpenses).toFixed(2)}</th>
+                <th>-</th>
             </tr>
             <tr className='none-tr'>
                 <th><br /></th>
@@ -32,9 +33,14 @@ function ExpensesTbody({ days, rawExpenses }) {
                         <th>-</th>
                         <th>-</th>
                         <th className='expense-value-in-table'>$ {totalExpensesPerDay(day.expenses).toFixed(2)}</th>
+                        <th className='expense-value-in-table'>-</th>
                     </tr>
                     {day.expenses.map((expense, i) => (
-                        <SingleExpense key={i} expense={expense} />
+                        <SingleExpense key={i}
+                            expense={expense}
+                            setExpenses={setExpenses}
+                            rawExpenses={rawExpenses}
+                            setRawExpenses={setRawExpenses} />
                     ))}
                 </React.Fragment>
             ))}

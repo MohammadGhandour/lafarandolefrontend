@@ -6,7 +6,7 @@ import { api } from '../../Config/Config';
 import { headers } from '../../Config/Headers';
 import { sortArrayOfObjectsPerDay } from '../../functions/sortArrayOfObjectsPerDay';
 
-function AddExpenseForm({ expenses, setExpenses, rawExpenses, setRawExpenses }) {
+function AddExpenseForm({ setExpenses, rawExpenses, setRawExpenses }) {
 
     const [expenseValue, setExpenseValue] = useState(0);
     const [currencyExchange, setCurrencyExchange] = useState(0);

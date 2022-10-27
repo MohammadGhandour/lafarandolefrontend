@@ -9,6 +9,7 @@ function ExpensesThead() {
                 <th>Category</th>
                 <th>Comment</th>
                 <th>Value</th>
+                <th>Delete</th>
             </tr>
         </thead>
     )

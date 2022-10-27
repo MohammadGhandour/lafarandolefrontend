@@ -38,7 +38,11 @@ function AllExpenses({ expenses, setExpenses, rawExpenses, setRawExpenses }) {
                 {expenses.length > 0 &&
                     <table className='expenses-table'>
                         <ExpensesThead />
-                        <ExpensesTbody days={expenses} rawExpenses={rawExpenses} />
+                        <ExpensesTbody
+                            days={expenses}
+                            setExpenses={setExpenses}
+                            rawExpenses={rawExpenses}
+                            setRawExpenses={setRawExpenses} />
                     </table>
                 }
             </div>
