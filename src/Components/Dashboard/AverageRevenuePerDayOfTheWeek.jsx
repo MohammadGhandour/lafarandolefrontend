@@ -44,27 +44,28 @@ function AverageRevenuePerDayOfTheWeek({ orders }) {
                 let daysToAdd = 0;
                 const DFTT = new Date() - new Date(day.orders[day.orders.length - 1].createdAt);
                 const DFTD = Math.ceil(DFTT / (1000 * 60 * 60 * 24));
-                if (7 < DFTD && DFTD < 14) {
+                console.log(DFTD);
+                if (7 < DFTD && DFTD <= 14) {
                     daysToAdd = 1
-                } else if (14 < DFTD && DFTD < 21) {
+                } else if (14 < DFTD && DFTD <= 21) {
                     daysToAdd = 2
-                } else if (21 < DFTD && DFTD < 28) {
+                } else if (21 < DFTD && DFTD <= 28) {
                     daysToAdd = 3
-                } else if (28 < DFTD && DFTD < 35) {
+                } else if (28 < DFTD && DFTD <= 35) {
                     daysToAdd = 4
-                } else if (35 < DFTD && DFTD < 42) {
+                } else if (35 < DFTD && DFTD <= 42) {
                     daysToAdd = 5
-                } else if (42 < DFTD && DFTD < 49) {
+                } else if (42 < DFTD && DFTD <= 49) {
                     daysToAdd = 6
-                } else if (56 < DFTD && DFTD < 63) {
+                } else if (56 < DFTD && DFTD <= 63) {
                     daysToAdd = 7
-                } else if (63 < DFTD && DFTD < 70) {
+                } else if (63 < DFTD && DFTD <= 70) {
                     daysToAdd = 8
-                } else if (70 < DFTD && DFTD < 77) {
+                } else if (70 < DFTD && DFTD <= 77) {
                     daysToAdd = 9
-                } else if (77 < DFTD && DFTD < 84) {
+                } else if (77 < DFTD && DFTD <= 84) {
                     daysToAdd = 10
-                } else if (84 < DFTD && DFTD < 91) {
+                } else if (84 < DFTD && DFTD <= 91) {
                     daysToAdd = 11
                 }
 
