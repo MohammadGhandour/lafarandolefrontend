@@ -122,12 +122,12 @@ function SalesMode() {
                     localStorage.removeItem('discount');
                     setCart([]);
                     if (customerName === '' && customerNumber === '') {
-                        navigate('/');
+                        navigate('/all-sales');
                         window.location.reload();
                     } else {
                         axios.post(`${api}/customers`, { customer, finalTotal }, { headers: headers })
                             .then(response => {
-                                navigate('/');
+                                navigate('/all-sales');
                                 window.location.reload();
                             })
                             .catch(err => {
