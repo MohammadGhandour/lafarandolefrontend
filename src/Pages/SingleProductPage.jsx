@@ -48,6 +48,7 @@ function SingleProductPage() {
         name: product.name,
         description: product.description,
         category: product.category,
+        brand: product.brand,
         size: product.size,
         gender: product.gender,
         quantity: product.quantity,
