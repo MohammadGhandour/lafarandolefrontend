@@ -16,4 +16,4 @@ function Thead() {
     )
 }
 
-export default Thead
+export default Thead;
