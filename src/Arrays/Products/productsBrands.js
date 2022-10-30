@@ -79,5 +79,6 @@ export const brands = [
     "bignile",
     "fame",
     "kadriye",
-    "nevermore"
+    "nevermore",
+    "moinoi"
 ];

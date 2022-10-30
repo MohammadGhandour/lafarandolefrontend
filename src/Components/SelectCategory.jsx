@@ -1,24 +1,17 @@
-import { useEffect } from "react";
 import { productCategories } from "../Arrays/Products/productsCategories";
-import { useProductsContext } from "../Hooks/useProductsContext";
 import './SelectCategory.css';
 
-function SelectCategory({ productsData, category, setCategory }) {
+function SelectCategory({ category, setCategory, filters, setFilters }) {
 
-    const { dispatch } = useProductsContext();
-
-    useEffect(() => {
-        if (category) {
-            const categorisedProducts = productsData.filter((product) => product.category === category);
-            dispatch({ type: 'SET_PRODUCTS', payload: categorisedProducts })
-        } else {
-            dispatch({ type: 'SET_PRODUCTS', payload: productsData })
-        }
-    }, [category, dispatch, productsData]);
+    function handleChange(e) {
+        setCategory(e.target.value);
+        filters.category = e.target.value;
+        setFilters(filters);
+    }
 
     return (
         <select
-            onChange={(e) => setCategory(e.target.value)}
+            onChange={handleChange}
             value={category}
             className='select-category'
         >

@@ -1,27 +1,20 @@
-import { useEffect } from "react";
 import { babySizes } from "../Arrays/Sizes/babySizes";
 import { generalSizes } from "../Arrays/Sizes/generalSizes";
 import { kidsSizes } from "../Arrays/Sizes/kidsSizes";
 import { numberSizes } from "../Arrays/Sizes/numberSizes";
-import { useProductsContext } from "../Hooks/useProductsContext";
 import './SelectCategory.css';
 
-function SelectSize({ productsData, size, setSize }) {
+function SelectSize({ size, setSize, filters, setFilters }) {
 
-    const { dispatch } = useProductsContext();
-
-    useEffect(() => {
-        if (size) {
-            const categorisedProducts = productsData.filter((product) => product.size === size);
-            dispatch({ type: 'SET_PRODUCTS', payload: categorisedProducts })
-        } else {
-            dispatch({ type: 'SET_PRODUCTS', payload: productsData })
-        }
-    }, [size, dispatch, productsData]);
+    function handleChange(e) {
+        setSize(e.target.value);
+        filters.size = e.target.value;
+        setFilters(filters);
+    }
 
     return (
         <select
-            onChange={(e) => setSize(e.target.value)}
+            onChange={handleChange}
             value={size}
             className='select-category'
         >

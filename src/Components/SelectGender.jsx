@@ -1,23 +1,17 @@
-import { useEffect } from "react";
-import { useProductsContext } from "../Hooks/useProductsContext";
 import './SelectCategory.css';
 
-function SelectGender({ productsData, gender, setGender }) {
+function SelectGender({ gender, setGender, filters, setFilters }) {
 
-    const { dispatch } = useProductsContext();
 
-    useEffect(() => {
-        if (gender) {
-            const categorisedProducts = productsData.filter((product) => product.gender === gender);
-            dispatch({ type: 'SET_PRODUCTS', payload: categorisedProducts })
-        } else {
-            dispatch({ type: 'SET_PRODUCTS', payload: productsData })
-        }
-    }, [gender, dispatch, productsData]);
+    function handleChange(e) {
+        setGender(e.target.value);
+        filters.gender = e.target.value;
+        setFilters(filters);
+    }
 
     return (
         <select
-            onChange={(e) => setGender(e.target.value)}
+            onChange={handleChange}
             value={gender}
             className='select-category'
         >

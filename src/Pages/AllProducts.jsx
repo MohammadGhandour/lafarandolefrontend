@@ -14,6 +14,7 @@ import Thead from '../Components/AllProducts/Thead';
 import SingleProductInTable from '../Components/AllProducts/SingleProductInTable';
 import { headers } from '../Config/Headers';
 import SelectSize from '../Components/SelectSize';
+import SelectBrand from '../Components/SelectBrand';
 
 function Products() {
 
@@ -51,13 +52,18 @@ function Products() {
     const [category, setCategory] = useState('');
     const [gender, setGender] = useState('');
     const [size, setSize] = useState('');
-    //eslint-disable-next-line
-    const [allFilled, setAllFilled] = useState(false);
+    const [brand, setBrand] = useState('');
+    const [filters, setFilters] = useState({
+        category: '',
+        gender: '',
+        size: '',
+        brand: ''
+    });
 
     useEffect(() => {
         dispatch({ type: "SET_PRODUCTS", payload: productsData })
         // eslint-disable-next-line
-    }, [productsData, dispatch])
+    }, [productsData, dispatch]);
 
     const [currentPage, setCurrentPage] = useState(0);
     const productsPerPage = 50;
@@ -72,37 +78,39 @@ function Products() {
     }
 
     useEffect(() => {
-        if (category && gender && size) {
-            setAllFilled(true);
-            const categorisedProducts = productsData.filter((product) =>
-                product.gender === gender &&
-                product.category === category &&
-                product.size === size
-            );
+        const filtersKeys = Object.keys(filters);
+        let filledFilters = [];
+        filtersKeys.map(filterKey => {
+            if (filters[filterKey]) filledFilters.push(filterKey);
+            return filledFilters
+        });
+
+        let categorisedProducts = [];
+        let statement = '';
+
+        if (filledFilters.length > 0) {
+            if (filters.category) {
+                statement += ' product.category === filters.category &&'
+            }
+            if (filters.gender) {
+                statement += ' product.gender === filters.gender &&'
+            }
+            if (filters.size) {
+                statement += ' product.size === filters.size &&'
+            }
+            if (filters.brand) {
+                statement += ' product.brand === filters.brand &&'
+            }
+            statement = statement.slice(0, -3);
+            categorisedProducts = productsData.filter(product =>
+                // eslint-disable-next-line
+                eval(statement)
+            )
             dispatch({ type: 'SET_PRODUCTS', payload: categorisedProducts })
         } else {
-            setAllFilled(false);
-            if (!category && gender && size) {
-                const categorisedProducts = productsData.filter((product) =>
-                    product.gender === gender &&
-                    product.size === size
-                );
-                dispatch({ type: 'SET_PRODUCTS', payload: categorisedProducts })
-            } else if (category && !gender && size) {
-                const categorisedProducts = productsData.filter((product) =>
-                    product.category === category &&
-                    product.size === size
-                );
-                dispatch({ type: 'SET_PRODUCTS', payload: categorisedProducts })
-            } else if (category && gender && !size) {
-                const categorisedProducts = productsData.filter((product) =>
-                    product.category === category &&
-                    product.gender === gender
-                );
-                dispatch({ type: 'SET_PRODUCTS', payload: categorisedProducts })
-            }
+            dispatch({ type: 'SET_PRODUCTS', payload: productsData })
         }
-    }, [category, gender, size, dispatch, productsData])
+    }, [category, size, gender, brand, filters, dispatch, productsData]);
 
     if (loading) {
         return (
@@ -120,15 +128,27 @@ function Products() {
                             <SelectCategory
                                 productsData={productsData}
                                 category={category}
-                                setCategory={setCategory} />
+                                setCategory={setCategory}
+                                filters={filters}
+                                setFilters={setFilters} />
                             <SelectGender
                                 productsData={productsData}
                                 gender={gender}
-                                setGender={setGender} />
+                                setGender={setGender}
+                                filters={filters}
+                                setFilters={setFilters} />
                             <SelectSize
                                 productsData={productsData}
                                 size={size}
-                                setSize={setSize} />
+                                setSize={setSize}
+                                filters={filters}
+                                setFilters={setFilters} />
+                            <SelectBrand
+                                productsData={productsData}
+                                brand={brand}
+                                setBrand={setBrand}
+                                filters={filters}
+                                setFilters={setFilters} />
                             <NavLink to='/add-product' className='primary-btn'>Add product</NavLink>
                         </div>
                     </section>
