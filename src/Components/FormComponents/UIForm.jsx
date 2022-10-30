@@ -10,6 +10,7 @@ import SelectSize from './SelectSize';
 import BarcodeInput from './BarcodeInput';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import SelectBrand from './SelectBrand';
 
 function UIForm({
     initialValues,
@@ -68,7 +69,10 @@ function UIForm({
                 <div className='form-inputs-wrapper'>
                     <LargeInput label='Name *' name='name' type='text' emptyFields={emptyFields} />
                     <LargeInput label='Description' name='description' type='text' emptyFields={emptyFields} />
-                    <SelectCategory emptyFields={emptyFields} />
+                    <div className='row-inputs'>
+                        <SelectCategory emptyFields={emptyFields} />
+                        <SelectBrand emptyFields={emptyFields} />
+                    </div>
                     <div className='row-inputs'>
                         <SelectSize emptyFields={emptyFields} />
                         <SelectGender emptyFields={emptyFields} />

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { productCategories } from "../Arrays/ProductsCategories/productsCategories";
+import { productCategories } from "../Arrays/Products/productsCategories";
 import { useProductsContext } from "../Hooks/useProductsContext";
 import './SelectCategory.css';
 
