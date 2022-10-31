@@ -12,7 +12,6 @@ import AllUsers from "./Pages/AllUsers";
 import SingleProductPage from "./Pages/SingleProductPage";
 import AddProduct from "./Pages/AddProduct";
 import SalesMode from "./Pages/SalesMode";
-import PriceMode from "./Pages/PriceMode";
 import Order from "./Pages/Order";
 import Customer from "./Pages/Customer";
 import Exchange from "./Pages/Exchange";
@@ -43,7 +42,6 @@ function App() {
             <Routes>
               <Route path="/statistics" element={<Dashboard />} />
               <Route path="/sales-mode" element={<SalesMode />} />
-              <Route path="/price-mode" element={<PriceMode />} />
               <Route path="/" element={<AllProducts />} />
               <Route path="/all-sales" element={<AllSales />} />
               <Route path="/all-customers" element={<AllCustomers />} />

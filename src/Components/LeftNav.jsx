@@ -49,9 +49,6 @@ function LeftNav({ openNavbar, setOpenNavbar }) {
                     <NavLink to='/all-users' className='nav-link'>
                         <i className="fa-solid fa-unlock icon-margin-right"></i>Users
                     </NavLink>
-                    <NavLink to='/price-mode' className='nav-link mobile-link'>
-                        <i className="fa-solid fa-barcode icon-margin-right"></i>Price Mode
-                    </NavLink>
                     <NavLink to='/sales-mode' className='nav-link mobile-link'>
                         <i className="fa-solid fa-cash-register icon-margin-right"></i>Sales Mode
                     </NavLink>
