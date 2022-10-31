@@ -19,7 +19,10 @@ function SingleProductInTable({ product }) {
             <th>{product.brand.toUpperCase()}</th>
             <th>{product.category}</th>
             <th>{product.size}</th>
-            <th>{product.quantity}</th>
+            <th>
+                {product.quantity}
+                {product.quantitySold > 0 && <span className='quantity-sold-in-product-table'><i className="fa-solid fa-caret-down icon-mr-s icon-ml-s"></i>{product.quantitySold}</span>}
+            </th>
             <th>{product.priceAfterDiscount} $</th>
         </tr>
     )

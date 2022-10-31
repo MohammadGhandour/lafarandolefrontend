@@ -129,6 +129,14 @@ body {
   margin-right: var(--icon-margin);
 }
 
+.icon-mr-s {
+  margin-right: calc(var(--icon-margin) / 2);
+}
+
+.icon-ml-s {
+  margin-left: calc(var(--icon-margin) / 2);
+}
+
 ul {
   list-style-type: none;
 }

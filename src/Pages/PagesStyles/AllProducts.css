@@ -15,10 +15,6 @@
     color: var(--bg);
 }
 
-/* .single-product-in-table th {
-    min-width: 60px;
-} */
-
 .product-in-table-img-wrapper {
     width: 50px;
     height: 50px;
@@ -130,6 +126,15 @@
     cursor: not-allowed;
 }
 
+.quantity-sold-in-product-table {
+    color: var(--profit-green);
+}
+
+.quantity-0 .quantity-sold-in-product-table {
+    color: var(--secondary);
+    transition: all 0.2s;
+}
+
 @media (hover:hover) {
     .pagination-container a:hover {
         background-color: var(--secondary);
@@ -147,6 +152,10 @@
 
     .quantity-0:hover {
         color: var(--danger) !important;
+    }
+
+    .quantity-0:hover .quantity-sold-in-product-table {
+        color: var(--profit-green);
     }
 }
 
