@@ -30,6 +30,7 @@ function AddProduct() {
         name: productToDuplicate && productToDuplicate.name ? productToDuplicate.name : '',
         description: productToDuplicate && productToDuplicate.description ? productToDuplicate.description : '',
         category: productToDuplicate && productToDuplicate.category ? productToDuplicate.category : '',
+        brand: productToDuplicate && productToDuplicate.brand ? productToDuplicate.brand : '',
         size: productToDuplicate && productToDuplicate.size ? productToDuplicate.size : '',
         gender: productToDuplicate && productToDuplicate.gender ? productToDuplicate.gender : '',
         quantity: productToDuplicate && productToDuplicate.quantity ? productToDuplicate.quantity : 1,

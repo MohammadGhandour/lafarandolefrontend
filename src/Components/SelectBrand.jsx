@@ -16,8 +16,8 @@ function SelectBrand({ brand, setBrand, filters, setFilters }) {
             className='select-category'
         >
             <option value=''>Brand</option>
-            {brands.map((brand, i) => (
-                <option value={brand} key={i}>{brand}</option>
+            {brands.sort((a, b) => a.localeCompare(b)).map((brand, i) => (
+                <option value={brand} key={i}>{brand.charAt(0).toUpperCase() + brand.slice(1)}</option>
             ))}
         </select>
     )

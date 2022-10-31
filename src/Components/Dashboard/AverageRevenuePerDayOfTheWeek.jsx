@@ -44,7 +44,6 @@ function AverageRevenuePerDayOfTheWeek({ orders }) {
                 let daysToAdd = 0;
                 const DFTT = new Date() - new Date(day.orders[day.orders.length - 1].createdAt);
                 const DFTD = Math.ceil(DFTT / (1000 * 60 * 60 * 24));
-                console.log(DFTD);
                 if (7 < DFTD && DFTD <= 14) {
                     daysToAdd = 1
                 } else if (14 < DFTD && DFTD <= 21) {

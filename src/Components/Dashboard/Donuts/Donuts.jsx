@@ -7,6 +7,7 @@ import ProductsSoldPerPrice from './ProductsSoldPerPrice';
 import ProductsSoldPerQuantity from './ProductsSoldPerQuantity';
 import OrdersPerLocation from './OrdersPerLocation';
 import ProductsSoldPerGender from './ProductsSoldPerGender';
+import ProductsSoldPerBrand from './ProductsSoldPerBrand';
 
 
 function Donuts({ orders }) {
@@ -47,6 +48,9 @@ function Donuts({ orders }) {
                     itemsSold={itemsSold}
                     totalItemsSold={totalItemsSold} />
                 <ProductsSoldPerGender
+                    rawProductsSold={rawProductsSold}
+                    itemsSold={itemsSold} />
+                <ProductsSoldPerBrand
                     rawProductsSold={rawProductsSold}
                     itemsSold={itemsSold} />
                 <OrdersPerLocation orders={orders} />

@@ -11,8 +11,8 @@ function SelectBrand({ emptyFields }) {
             name='brand'
         >
             <option value=''>Brand</option>
-            {brands.sort((a, b) => a.localeCompare(b)).map(label => (
-                <option value={label} key={label}>{label}</option>
+            {brands.sort((a, b) => a.localeCompare(b)).map(brand => (
+                <option value={brand} key={brand}>{brand.charAt(0).toUpperCase() + brand.slice(1)}</option>
             ))}
         </Field>
     )
