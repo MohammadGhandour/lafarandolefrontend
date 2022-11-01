@@ -16,6 +16,7 @@ import Order from "./Pages/Order";
 import Customer from "./Pages/Customer";
 import Exchange from "./Pages/Exchange";
 import Expenses from "./Pages/Expenses";
+import AvergaeProgression from "./Pages/AvergaeProgression";
 
 function App() {
 
@@ -52,6 +53,7 @@ function App() {
               <Route path="/order/:id" element={<Order />} />
               <Route path="/exchange/:id" element={<Exchange />} />
               <Route path="/expenses" element={<Expenses />} />
+              <Route path="/progression/:average" element={<AvergaeProgression />} />
             </Routes>
           </div>
         </BrowserRouter>

@@ -43,8 +43,7 @@ function ProductsSoldPerBrand({ rawProductsSold, itemsSold }) {
         const otherBrandsQuantitySold = otherBrands.reduce((totalQuantity, product) => ((totalQuantity + product.quantitySold)), 0);
 
         firstTenBrands.push({ brand: "Others", quantitySold: otherBrandsQuantitySold });
-        quantityPerBrand = firstTenBrands
-        console.log(quantityPerBrand);
+        quantityPerBrand = firstTenBrands;
 
         setProductsSoldPerBrand({
             labels: quantityPerBrand.map(brand => brand.brand),

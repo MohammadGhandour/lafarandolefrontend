@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useState } from 'react';
 import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { api } from '../../Config/Config';
 import { headers } from '../../Config/Headers';
 
@@ -81,10 +82,10 @@ function StatisticsAverages({ orders }) {
                 <h1 className='text-center'>{totalProfit} $</h1>
                 <p>Total profit sold</p>
             </div>
-            <div className='average flex-column-center'>
+            <Link to='/progression/average-product-per-order' className='average flex-column-center clickable-average'>
                 <h1 className='text-center'>{averageProductsPerOder}</h1>
                 <p>Average product per order</p>
-            </div>
+            </Link>
             <div className='average flex-column-center'>
                 <h1 className='text-center'>{averageOrderPerCustomer}</h1>
                 <p>Average order per customer</p>

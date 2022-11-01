@@ -28,7 +28,8 @@ export function sortArrayOfObjectsPerDay(arrayOfObjects, objectsName) {
         // eslint-disable-next-line
         return arrayOfObjects.map(object => {
             if (day.date === moment(object.createdAt).format('ll')) {
-                day.expenses.push(object);
+                if (objectsName === 'expenses') day.expenses.push(object);
+                if (objectsName === 'orders') day.orders.push(object);
             }
         })
     });

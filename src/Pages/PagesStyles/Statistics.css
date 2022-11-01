@@ -18,6 +18,7 @@
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
+    width: 100%;
 }
 
 .bar-chart {
@@ -48,12 +49,6 @@
     background-color: var(--dark-cyan);
 }
 
-@media (hover:hover) {
-    .sort-orders-statistics:hover {
-        color: white;
-        background-color: var(--dark-cyan);
-    }
-}
 
 .statistics-page h2,
 .statistics-page h3 {
@@ -72,6 +67,17 @@
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     position: relative;
+}
+
+.average {
+    padding: var(--padding);
+}
+
+.clickable-average {
+    cursor: pointer;
+    border-radius: 10px;
+    transition: all 0.2s;
+    background-color: var(--very-light-grey);
 }
 
 .averages::after {
@@ -102,9 +108,6 @@
 /* DONUT CHARTS */
 .donut-charts-wrapper {
     width: 100%;
-    /* display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap; */
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     border-bottom: 1px solid var(--primary);
@@ -115,13 +118,6 @@
 .donut {
     width: 400px;
     min-width: 350px;
-}
-
-@media screen and (max-width: 1500px) {
-    /* .donut-charts-wrapper {
-        grid-template-columns: repeat(2, 1fr);
-        place-items: center;
-    } */
 }
 
 @media screen and (max-width: 1200px) {
@@ -149,5 +145,17 @@
 @media screen and (max-width: 600px) {
     .averages {
         grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+/* HOVER */
+@media (hover:hover) {
+    .sort-orders-statistics:hover {
+        color: white;
+        background-color: var(--dark-cyan);
+    }
+
+    .clickable-average:hover {
+        background-color: var(--lighter-grey);
     }
 }
