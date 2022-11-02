@@ -82,7 +82,7 @@ function StatisticsAverages({ orders }) {
                 <h1 className='text-center'>{totalProfit} $</h1>
                 <p>Total profit sold</p>
             </div>
-            <Link to='/progression/average-product-per-order' className='average flex-column-center clickable-average'>
+            <Link to='/averages-progression' className='average flex-column-center clickable-average'>
                 <h1 className='text-center'>{averageProductsPerOder}</h1>
                 <p>Average product per order</p>
             </Link>
@@ -90,14 +90,14 @@ function StatisticsAverages({ orders }) {
                 <h1 className='text-center'>{averageOrderPerCustomer}</h1>
                 <p>Average order per customer</p>
             </div>
-            <div className='average flex-column-center'>
+            <Link to='/averages-progression' className='average flex-column-center clickable-average'>
                 <h1 className='text-center'>{averagePricePerOrder} $</h1>
                 <p>Average price per order</p>
-            </div>
-            <div className='average flex-column-center average-profit'>
+            </Link>
+            <Link to='/averages-progression' className='average flex-column-center clickable-average'>
                 <h1 className='text-center'>{averageProfitPerOrder} $</h1>
                 <p>Average profit per order</p>
-            </div>
+            </Link>
             <div className='average flex-column-center'>
                 <h1 className='text-center'>{averageDifference} days</h1>
                 <p>Average repurchase time</p>
