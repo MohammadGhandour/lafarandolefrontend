@@ -36,7 +36,7 @@ function BarCharts({ orders }) {
             x: {
                 type: 'time',
                 time: {
-                    unit: sortBy === 'This Month' ? 'day' : 'month'
+                    unit: sortBy === 'This Year' ? 'month' : 'day'
                 }
             }
         },
@@ -65,7 +65,7 @@ function BarCharts({ orders }) {
             x: {
                 type: 'time',
                 time: {
-                    unit: sortBy === 'This Month' ? 'day' : 'month'
+                    unit: sortBy === 'This Year' ? 'month' : 'day'
                 }
             }
         },
@@ -89,6 +89,7 @@ function BarCharts({ orders }) {
                     <h2>Sales</h2>
                     <div className="sort-orders-statistics-wrapper">
                         <div className={sortBy === 'This Month' ? 'sort-orders-statistics active' : 'sort-orders-statistics'} onClick={() => setSortBy('This Month')}>This Month</div>
+                        <div className={sortBy === 'Last Month' ? 'sort-orders-statistics active' : 'sort-orders-statistics'} onClick={() => setSortBy('Last Month')}>Last Month</div>
                         <div className={sortBy === 'This Year' ? 'sort-orders-statistics active' : 'sort-orders-statistics'} onClick={() => setSortBy('This Year')}>This Year</div>
                     </div>
                 </div>
