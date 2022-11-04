@@ -34,6 +34,7 @@ function SalesMode() {
     const currencyExchange = 38000;
     const [customerName, setCustomerName] = useState('');
     const [customerNumber, setCustomerNumber] = useState('');
+    const [customers, setCustomers] = useState([]);
 
     function toggleCurrency() {
         if (discountCurrency === 'USD') {
@@ -78,7 +79,14 @@ function SalesMode() {
             if (isFinite(e.key)) {
                 barcodeSearchScannerRef.current.focus();
             }
-        })
+        });
+        axios.get(`${api}/customers`, { headers: headers })
+            .then(res => {
+                setCustomers(res.data);
+            })
+            .catch(err => {
+                console.log(err);
+            })
     }, [])
 
     useEffect(() => {
@@ -123,12 +131,10 @@ function SalesMode() {
                     setCart([]);
                     if (customerName === '' && customerNumber === '') {
                         navigate('/all-sales');
-                        window.location.reload();
                     } else {
                         axios.post(`${api}/customers`, { customer, finalTotal }, { headers: headers })
                             .then(response => {
                                 navigate('/all-sales');
-                                window.location.reload();
                             })
                             .catch(err => {
                                 console.log(err);
@@ -194,11 +200,12 @@ function SalesMode() {
                             setCustomerName={setCustomerName}
                             customerNumber={customerNumber}
                             setCustomerNumber={setCustomerNumber}
+                            customers={customers}
                             submitButton='Submit' />
                     </form>
                 </div>
             }
-        </div >
+        </div>
     )
 }
 

@@ -1,5 +1,4 @@
 .cart-footer {
-    align-items: center;
     margin-top: var(--l-padding);
     border-top: 1px solid var(--grey);
     padding-top: var(--l-padding);
@@ -12,6 +11,10 @@
 
 .cart-footer .col {
     width: 350px;
+}
+
+.client-credentials-wrapper {
+    position: relative;
 }
 
 .client-credentials-wrapper h3 {
@@ -123,6 +126,24 @@
     padding: var(--l-padding);
 }
 
+.drop-menu-customer-infos {
+    width: 100%;
+    background-color: var(--very-light-grey);
+    padding: var(--m-padding);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    border-radius: 0 0 5px 5px;
+}
+
+.customer-in-drop-down {
+    width: 100%;
+    cursor: pointer;
+    padding: var(--padding);
+    border-radius: 5px;
+}
+
 @media (hover:hover) {
     .currency-toggler:hover {
         opacity: 1;
@@ -130,6 +151,11 @@
 
     .checkout-btn:hover {
         background-color: var(--dark-danger);
+    }
+
+    .customer-in-drop-down:hover {
+        background-color: var(--secondary);
+        color: var(--bg);
     }
 }
 

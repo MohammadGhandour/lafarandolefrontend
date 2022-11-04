@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useState } from 'react';
 import './CartFooter.css';
+import DropMenuCustomerInfos from './DropMenuCustomerInfos';
 
 function CartFooter({
     discountValue,
@@ -16,12 +18,103 @@ function CartFooter({
     isExchangePage,
     totalProductsToExchange,
     orderLocation,
-    setOrderLocation
+    setOrderLocation,
+    customers
 }) {
+
+    const [customerNameInputFocused, setCustomerNameInputFocused] = useState(false);
+    const [customerNumberInputFocused, setCustomerNumberInputFocused] = useState(false);
+    const [shownDropDown, setShownDropDown] = useState(false);
+
+    useEffect(() => {
+        if ((customerNameInputFocused && customerName) || (customerNumberInputFocused && customerNumber)) {
+            setShownDropDown(true);
+        }
+    }, [customerNameInputFocused, customerName, customerNumberInputFocused, customerNumber]);
 
     const difference = totalProductsToExchange - finalTotal < 0.5;
 
-    if (isExchangePage) {
+    function handleNameChange(e) {
+        setCustomerName(e.target.value);
+    }
+
+    function handleNumberChange(e) {
+        setCustomerNumber(e.target.value);
+    }
+
+
+    if (!isExchangePage) {
+        return (
+            <div className='cart-footer flex-between-start'>
+                <div className='client-credentials-wrapper col flex-column'>
+                    <h3>Client Infos:</h3>
+                    <div className='row flex-column'>
+                        <input
+                            className='client-credential-input'
+                            type='text'
+                            id='client-name'
+                            placeholder='Client Name'
+                            autoComplete='off'
+                            value={customerName}
+                            onChange={handleNameChange}
+                            onFocus={() => setCustomerNameInputFocused(true)}
+                            onBlur={() => setCustomerNameInputFocused(false)} />
+                    </div>
+                    <div className='row flex-column'>
+                        <input
+                            className='client-credential-input'
+                            type='number'
+                            id='client-number'
+                            placeholder='Client Number'
+                            value={customerNumber}
+                            onChange={handleNumberChange}
+                            onFocus={() => setCustomerNumberInputFocused(true)}
+                            onBlur={() => setCustomerNumberInputFocused(false)} />
+                        {shownDropDown &&
+                            <DropMenuCustomerInfos
+                                customers={customers}
+                                customerName={customerName}
+                                setCustomerName={setCustomerName}
+                                customerNumber={customerNumber}
+                                setCustomerNumber={setCustomerNumber}
+                                customerNameInputFocused={customerNameInputFocused}
+                                customerNumberInputFocused={customerNumberInputFocused}
+                                setShownDropDown={setShownDropDown} />
+                        }
+                    </div>
+                    <select
+                        name="order_location"
+                        className='select-order-location'
+                        value={orderLocation}
+                        onChange={(e) => setOrderLocation(e.target.value)}>
+                        <option value="Ghaziyeh Store">Ghaziyeh Store</option>
+                        <option value="Instagram Delivery">Instagram Delivery</option>
+                    </select>
+                </div>
+                <div className='col flex-column discount-total-wrapper'>
+                    <div className='row flex-column-start'>
+                        <label htmlFor='discount-input' className='flex-between'>
+                            Discount
+                            <span className='currency-toggler' onClick={toggleCurrency}>({discountCurrency})</span>
+                        </label>
+                        <input
+                            type='number' className='discount-input' value={discountValue} min='0' max={discountCurrency === 'USD' ? finalTotalBeforeDiscount : ''}
+                            id='discount-input' onChange={(e) => setDiscountValue(e.target.value)} />
+                    </div>
+                    <div className='row total-wrapper flex-between'>
+                        <label>Total</label>
+                        <div>
+                            {finalTotal !== finalTotalBeforeDiscount &&
+                                <div className='total total-before-discount'>{finalTotalBeforeDiscount.toFixed(2)} $</div>
+                            }
+                            <div className='total'>{finalTotal.toFixed(2)} $</div>
+                        </div>
+                    </div>
+                    <button type='submit' className='checkout-btn'>{submitButton}</button>
+                </div>
+            </div>
+        )
+    } else {
         return (
             <div className='cart-footer flex-between'>
                 <div className='customer-credentials'>
@@ -77,61 +170,6 @@ function CartFooter({
                         }>
                         {submitButton}
                     </button>
-                </div>
-            </div>
-        )
-    } else {
-        return (
-            <div className='cart-footer flex-between'>
-                <div className='client-credentials-wrapper col flex-column'>
-                    <h3>Client Infos:</h3>
-                    <div className='row flex-column'>
-                        <input
-                            className='client-credential-input'
-                            type='text'
-                            id='client-name'
-                            placeholder='Client Name'
-                            value={customerName}
-                            onChange={(e) => setCustomerName(e.target.value)} />
-                    </div>
-                    <div className='row flex-column'>
-                        <input
-                            className='client-credential-input'
-                            type='number'
-                            id='client-number'
-                            placeholder='Client Number'
-                            value={customerNumber}
-                            onChange={(e) => setCustomerNumber(e.target.value)} />
-                    </div>
-                    <select
-                        name="order_location"
-                        className='select-order-location'
-                        value={orderLocation}
-                        onChange={(e) => setOrderLocation(e.target.value)}>
-                        <option value="Ghaziyeh Store">Ghaziyeh Store</option>
-                        <option value="Instagram Delivery">Instagram Delivery</option>
-                    </select>
-                </div>
-                <div className='col flex-column discount-total-wrapper'>
-                    <div className='row flex-column-start'>
-                        <label htmlFor='discount-input' className='flex-between'>
-                            Discount
-                            <span className='currency-toggler' onClick={toggleCurrency}>({discountCurrency})</span>
-                        </label>
-                        <input
-                            type='number' className='discount-input' value={discountValue} min='0' max={discountCurrency === 'USD' ? finalTotalBeforeDiscount : ''}
-                            id='discount-input' onChange={(e) => setDiscountValue(e.target.value)} />
-                    </div>
-                    <div className='row total-wrapper flex-between'>
-                        <label>Total</label>
-                        <div>
-                            {finalTotal !== finalTotalBeforeDiscount &&
-                                <div className='total total-before-discount'>{finalTotalBeforeDiscount.toFixed(2)} $</div>
-                            }
-                            <div className='total'>{finalTotal.toFixed(2)} $</div>
-                        </div>
-                    </div>
-                    <button type='submit' className='checkout-btn'>{submitButton}</button>
                 </div>
             </div>
         )

@@ -55,9 +55,12 @@
 .price-mode-product .product-price {
     font-weight: 700;
     font-size: 48px;
-    /* background-color: var(--primary); */
     padding: var(--m-padding);
     color: var(--danger);
+}
+
+.not-found-product {
+    color: var(--danger) !important;
 }
 
 .with-discount {
