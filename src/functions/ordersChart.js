@@ -27,11 +27,11 @@ export function getOrdersChart(orders, setOrdersData, setOrdersNumbersData, sort
         let ordersDates = [];
 
         if (sortBy === 'This Month') {
-            getMonthOrdersChartData(ordersDates, thisMonthOrders, orders, setOrdersData, setOrdersNumbersData)
+            getMonthOrdersChartData(ordersDates, thisMonthOrders, orders, setOrdersData, setOrdersNumbersData, sortBy)
         } else if (sortBy === 'This Year') {
             getThisYearsOrdersChartData(orders, months, setOrdersData, setOrdersNumbersData)
         } else if (sortBy === 'Last Month') {
-            getMonthOrdersChartData(ordersDates, lastMonthOrders, orders, setOrdersData, setOrdersNumbersData)
+            getMonthOrdersChartData(ordersDates, lastMonthOrders, orders, setOrdersData, setOrdersNumbersData, sortBy)
         }
     } else {
         return
@@ -79,13 +79,19 @@ function getThisYearsOrdersChartData(orders, months, setOrdersData, setOrdersNum
     });
 }
 
-function getMonthOrdersChartData(ordersDates, monthOrders, orders, setOrdersData, setOrdersNumbersData) {
+function getMonthOrdersChartData(ordersDates, monthOrders, orders, setOrdersData, setOrdersNumbersData, sortBy) {
     ordersDates = monthOrders.map(order => moment(order.createdAt).format('L'));
     const ordersDates1 = ordersDates.reduce(
         (acc, order) =>
             acc.includes(order) ? acc : acc.concat(order),
         []
     );
+    if (sortBy === 'This Month') {
+        const startOfMonth = moment().startOf('month').format('L');
+        if (new Date(ordersDates1[0]) > new Date(startOfMonth)) {
+            ordersDates1.push(startOfMonth);
+        }
+    }
     let ordersDates2 = [];
     ordersDates1.map(date => {
         var singleDay = {};

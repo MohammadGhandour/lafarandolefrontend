@@ -22,7 +22,7 @@ function PAPricePerOrder({ sortedArray, options }) {
                     borderWidth: 2,
                     pointRadius: 0,
                     pointHoverRadius: 5,
-                    pointHitRadius: 5
+                    pointHitRadius: 15
                 }
             ]
         });
