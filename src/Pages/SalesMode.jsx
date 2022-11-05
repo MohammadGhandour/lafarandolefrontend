@@ -164,7 +164,6 @@ function SalesMode() {
                 inputDisabled={inputDisabled}
                 barcodeSearchScannerRef={barcodeSearchScannerRef}
                 orderLocation={orderLocation}
-                setOrderLocation={setOrderLocation}
             />
             {cart.length > 0 &&
                 <div className='delete-btn' onClick={emptyCart}>
@@ -201,6 +200,7 @@ function SalesMode() {
                             customerNumber={customerNumber}
                             setCustomerNumber={setCustomerNumber}
                             customers={customers}
+                            setOrderLocation={setOrderLocation}
                             submitButton='Submit' />
                     </form>
                 </div>
