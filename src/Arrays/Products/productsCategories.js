@@ -20,5 +20,8 @@ export const productCategories = [
     "Body",
     "Long-Sleeve",
     "New-born",
-    "Overall"
+    "Overall",
+    "Jacket",
+    "Vest",
+    "Sweater"
 ];

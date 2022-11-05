@@ -35,6 +35,11 @@
     color: white;
 }
 
+.back-negative-profit {
+    background-color: var(--danger);
+    color: white;
+}
+
 .orders-table {
     width: 100%;
 }

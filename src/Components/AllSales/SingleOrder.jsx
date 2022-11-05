@@ -8,6 +8,7 @@ function SingleOrder({ order, i, ordersOfTheDay }) {
     const totalBeforeDiscountToday = ordersOfTheDay?.reduce((total, item) => (Number(total) + Number(item.totalBeforeDiscount)).toFixed(2), 0);
     const totalToday = ordersOfTheDay?.reduce((total, item) => (Number(total) + Number(item.total)).toFixed(2), 0);
     const itemsSoldToday = ordersOfTheDay?.reduce((items, item) => ((items + item.itemsNumber)), 0);
+    const profitToday = ordersOfTheDay?.reduce((total, item) => (Number(total) + Number(item.profit)).toFixed(2), 0);
 
     return (
         <>
@@ -35,7 +36,7 @@ function SingleOrder({ order, i, ordersOfTheDay }) {
                         {Number(totalBeforeDiscountToday) === Number(totalToday) ? '' : `${totalBeforeDiscountToday} $`}
                     </th>
                     <th className='order-total'>{totalToday} $</th>
-                    <th className='back-green-profit'>{ordersOfTheDay.reduce((total, item) => (Number(total) + Number(item.profit)).toFixed(2), 0)} $</th>
+                    <th className={profitToday > 0 ? 'back-green-profit' : 'back-negative-profit'}>{profitToday} $</th>
                     <th>-</th>
                 </tr>
             }
@@ -47,7 +48,7 @@ function SingleOrder({ order, i, ordersOfTheDay }) {
                 <th>{order.itemsNumber}</th>
                 <th className='order-total order-total-before-discount'>{Number(order.totalBeforeDiscount) === Number(order.total) ? '' : `${order.totalBeforeDiscount} $`}</th>
                 <th className='order-total'>{order.total} $</th>
-                <th className='order-profit'>{order.profit} $</th>
+                <th className={order.profit > 0 ? 'order-profit' : 'order-profit-negative'}>{order.profit} $</th>
                 <th>{order.customerName}</th>
             </tr>
         </>

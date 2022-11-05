@@ -23,6 +23,10 @@
     color: var(--profit-green);
 }
 
+.order-profit-negative {
+    color: var(--danger);
+}
+
 .order-footer-btns {
     margin-top: var(--l-padding);
     gap: var(--l-padding);
