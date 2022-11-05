@@ -8,9 +8,11 @@ import { useRef } from 'react';
 import StatisticsAverages from '../Components/Dashboard/StatisticsAverages';
 import BarCharts from '../Components/Dashboard/BarCharts';
 import Donuts from '../Components/Dashboard/Donuts/Donuts';
+import ErrorMessage from '../Components/ErrorMessage';
 
 function Dashboard() {
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
 
     const orders = useRef([]);
 
@@ -22,11 +24,27 @@ function Dashboard() {
             })
             .catch(err => {
                 console.log(err);
+                if (err.response.status === 404) {
+                    setError(err.response.data.error)
+                } else if (err.message === 'Network Error') {
+                    setError('An error occured while communicating with the server.');
+                }
                 setLoading(false);
             })
     }, []);
-
-    if (!loading && orders.current.length > 0) {
+    if (loading) {
+        return (
+            <div className='full-page'>
+                <Loader />
+            </div>
+        )
+    } else if (error) {
+        return (
+            <div className='full-page'>
+                <ErrorMessage classes='general-error'>{error}</ErrorMessage>
+            </div>
+        )
+    } if (!loading && orders.current.length > 0) {
         return (
             <>
                 <div className='full-page statistics-page flex-center'>
@@ -36,12 +54,6 @@ function Dashboard() {
                     <Donuts orders={orders} />
                 </div>
             </>
-        )
-    } else if (loading) {
-        return (
-            <div className='full-page'>
-                <Loader />
-            </div>
         )
     } else {
         return (

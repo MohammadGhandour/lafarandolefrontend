@@ -8,6 +8,7 @@ import SingleProductInOrder from '../Components/AllSales/SingleProductInOrder';
 import OrderThead from '../Components/SalesMode/OrderThead';
 import OrderFooter from '../Components/Order/OrderFooter';
 import { headers } from '../Config/Headers';
+import ErrorMessage from "../Components/ErrorMessage";
 import './PagesStyles/Order.css';
 
 function Order() {
@@ -15,6 +16,7 @@ function Order() {
     const params = useParams();
     const [order, setOrder] = useState({});
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
 
     useEffect(() => {
         axios.get(`${api}/orders/${params.id}`, { headers: headers })
@@ -24,6 +26,11 @@ function Order() {
             })
             .catch(err => {
                 console.log(err);
+                if (err.response.status === 404) {
+                    setError(err.response.data.error);
+                } else if (err.message === 'Network Error') {
+                    setError('An error occured while communicating with the server.');
+                }
                 setLoading(false);
             })
     }, [params.id])
@@ -32,6 +39,14 @@ function Order() {
         return (
             <div className='full-page'>
                 <Loader />
+            </div>
+        )
+    } else if (error) {
+        return (
+            <div className='full-page form-page'>
+                <h2>
+                    <ErrorMessage classes='product-error'>{error}</ErrorMessage>
+                </h2>
             </div>
         )
     } else {

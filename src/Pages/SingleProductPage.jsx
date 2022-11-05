@@ -20,6 +20,7 @@ function SingleProductPage() {
     const [barcode, setBarcode] = useState('');
     const [emptyFields, setEmptyFields] = useState([]);
     const [error, setError] = useState('');
+    const [loading, setLoading] = useState(true);
 
     const params = useParams();
     const productId = params.productId;
@@ -28,11 +29,18 @@ function SingleProductPage() {
         axios.get(`${api}/products/byId/${productId}`, { headers: headers })
             .then(res => {
                 setProduct(res.data);
+                setLoading(false);
             })
             .catch(err => {
                 console.log(err);
+                if (err.response.status === 404) {
+                    setError(err.response.data.error)
+                } else if (err.message === 'Network Error') {
+                    setError('An error occured while communicating with the server.');
+                }
+                setLoading(false);
             })
-    }, [productId])
+    }, [productId]);
 
     useEffect(() => {
         setBarcode(product.barcode);
@@ -55,11 +63,11 @@ function SingleProductPage() {
         cost: product.cost ? product.cost : 0,
         price: product.price ? product.price : 0,
         discount: product.discount ? product.discount : 0,
-    }
+    };
 
     const validationSchema = Yup.object().shape({
         name: Yup.string().required("Required"),
-    })
+    });
 
     function updateProduct() {
         const productForm = document.getElementById('editProductForm')
@@ -77,7 +85,7 @@ function SingleProductPage() {
                 setEmptyFields(err.response.data.emptyFields);
                 setError(err.response.data.error);
             })
-    }
+    };
 
     function deleteProduct() {
         if (window.confirm('Are you sure you want to delete this product ? ')) {
@@ -89,17 +97,23 @@ function SingleProductPage() {
                     console.log(err);
                 })
         }
-    }
+    };
 
     function duplicateProduct() {
         localStorage.setItem('productToDuplicate', JSON.stringify(product));
         navigate('/add-product')
-    }
+    };
 
-    if (!product.id) {
+    if (loading) {
         return (
             <div className='full-page'>
                 <Loader />
+            </div>
+        )
+    } else if (error) {
+        return (
+            <div className='full-page form-page'>
+                <ErrorMessage classes='general-error'>{error}</ErrorMessage>
             </div>
         )
     } else {

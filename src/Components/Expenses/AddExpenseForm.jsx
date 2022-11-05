@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { expensesCategories } from '../../Arrays/Expenses/expensesCategories';
 import UIButton from '../FormComponents/UIButton';
+import ErrorMessage from '../ErrorMessage';
 import axios from 'axios';
 import { api } from '../../Config/Config';
 import { headers } from '../../Config/Headers';
@@ -14,6 +15,7 @@ function AddExpenseForm({ setExpenses, rawExpenses, setRawExpenses }) {
     const [currency, setCurrency] = useState('USD');
     const [expenseCategory, setExpenseCategory] = useState('');
     const [emptyFields, setEmptyFields] = useState([]);
+    const [error, setError] = useState('');
 
     function submit(e) {
         e.preventDefault();
@@ -46,62 +48,68 @@ function AddExpenseForm({ setExpenses, rawExpenses, setRawExpenses }) {
             })
             .catch(err => {
                 console.log(err);
-                if (err.response.data.emptyFields) {
+                if (err.response.status === 400) {
                     setEmptyFields(err.response.data.emptyFields);
+                } else if (err.message === 'Network Error') {
+                    console.log(err.message);
+                    setError('An error occured while communicating with the server.');
                 }
             })
     }
 
     return (
-        <form className='expenses-form flex gap-m' id='expensesForm' onSubmit={submit}>
-            <div className="form-group flex-center gap-m">
-                <input
-                    type="number"
-                    autoComplete='off'
-                    name='expenseValue'
-                    placeholder='expense'
-                    className={emptyFields && emptyFields.includes('expenseValue') ? 'expense-value-input error-input' : 'expense-value-input'}
-                    value={expenseValue ? expenseValue : ''}
-                    onChange={(e) => setExpenseValue(e.target.value)} />
-                <select
-                    name="currency"
-                    value={currency}
-                    className={emptyFields && emptyFields.includes('currency') ? 'error-input' : ''}
-                    onChange={(e) => setCurrency(e.target.value)}>
-                    <option value="USD">USD</option>
-                    <option value="LBP">LBP</option>
-                </select>
-                {currency === 'LBP' &&
+        <div className="full-page">
+            <form className='expenses-form flex gap-m' id='expensesForm' onSubmit={submit}>
+                <div className="form-group flex-center gap-m">
                     <input
                         type="number"
                         autoComplete='off'
-                        name='currencyExchange'
-                        placeholder='$rate'
-                        className={emptyFields && emptyFields.includes('currencyExchange') ? 'expense-exchange-input error-input' : 'expense-exchange-input'}
-                        value={currencyExchange ? currencyExchange : ''}
-                        onChange={(e) => setCurrencyExchange(e.target.value)} />
-                }
-            </div>
-            <input
-                type="text"
-                autoComplete='off'
-                name='comment'
-                placeholder='comment'
-                className='expense-comment-input'
-                value={comment}
-                onChange={(e) => setComment(e.target.value)} />
-            <select
-                name="category"
-                value={expenseCategory}
-                className={emptyFields && emptyFields.includes('category') ? 'error-input' : ''}
-                onChange={(e) => setExpenseCategory(e.target.value)}>
-                <option value=''>category</option>
-                {expensesCategories.map((category, i) => (
-                    <option value={category} key={i}>{category}</option>
-                ))}
-            </select>
-            <UIButton>Add expense</UIButton>
-        </form>
+                        name='expenseValue'
+                        placeholder='expense'
+                        className={emptyFields && emptyFields.includes('expenseValue') ? 'expense-value-input error-input' : 'expense-value-input'}
+                        value={expenseValue ? expenseValue : ''}
+                        onChange={(e) => setExpenseValue(e.target.value)} />
+                    <select
+                        name="currency"
+                        value={currency}
+                        className={emptyFields && emptyFields.includes('currency') ? 'error-input' : ''}
+                        onChange={(e) => setCurrency(e.target.value)}>
+                        <option value="USD">USD</option>
+                        <option value="LBP">LBP</option>
+                    </select>
+                    {currency === 'LBP' &&
+                        <input
+                            type="number"
+                            autoComplete='off'
+                            name='currencyExchange'
+                            placeholder='$rate'
+                            className={emptyFields && emptyFields.includes('currencyExchange') ? 'expense-exchange-input error-input' : 'expense-exchange-input'}
+                            value={currencyExchange ? currencyExchange : ''}
+                            onChange={(e) => setCurrencyExchange(e.target.value)} />
+                    }
+                </div>
+                <input
+                    type="text"
+                    autoComplete='off'
+                    name='comment'
+                    placeholder='comment'
+                    className='expense-comment-input'
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)} />
+                <select
+                    name="category"
+                    value={expenseCategory}
+                    className={emptyFields && emptyFields.includes('category') ? 'error-input' : ''}
+                    onChange={(e) => setExpenseCategory(e.target.value)}>
+                    <option value=''>category</option>
+                    {expensesCategories.map((category, i) => (
+                        <option value={category} key={i}>{category}</option>
+                    ))}
+                </select>
+                <UIButton>Add expense</UIButton>
+            </form>
+            {error && <ErrorMessage classes='general-error mt-l'>{error}</ErrorMessage>}
+        </div>
     )
 }
 

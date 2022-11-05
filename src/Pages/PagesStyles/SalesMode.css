@@ -15,10 +15,6 @@
     text-transform: uppercase;
 }
 
-.not-found-product {
-    color: var(--danger);
-}
-
 
 .price-mode-product {
     text-align: center;

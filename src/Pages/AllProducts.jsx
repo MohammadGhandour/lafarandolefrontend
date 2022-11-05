@@ -24,6 +24,7 @@ function Products() {
     const [allProductsCost, setAllProductsCost] = useState(0);
     // eslint-disable-next-line
     const [allProductsPrice, setAllProductsPrice] = useState(0);
+    const [error, setError] = useState('');
 
     useEffect(() => {
         axios.get(`${api}/products`, { headers: headers })
@@ -44,6 +45,11 @@ function Products() {
             })
             .catch(err => {
                 console.log(err);
+                if (err.response.status === 404) {
+                    setError(err.response.data.error)
+                } else if (err.message === 'Network Error') {
+                    setError('An error occured while communicating with the server.');
+                }
                 setLoading(false);
             })
     }, [loading, setLoading]);
@@ -116,6 +122,12 @@ function Products() {
         return (
             <div className='full-page'>
                 <Loader />
+            </div>
+        )
+    } else if (error) {
+        return (
+            <div className='full-page'>
+                <ErrorMessage classes='general-error'>{error}</ErrorMessage>
             </div>
         )
     } else {

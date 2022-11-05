@@ -295,6 +295,12 @@ select:focus,
   outline: 2px solid var(--primary) !important;
 }
 
+/* ERRORS */
+.general-error {
+  color: var(--danger);
+  text-align: center;
+}
+
 @media screen and (max-width: 992px) {
   .pages {
     margin: 20px auto;

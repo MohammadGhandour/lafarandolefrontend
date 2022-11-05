@@ -17,6 +17,7 @@ function AllCustomers() {
     const [filteredCustomer, setFilteredCustomer] = useState([]);
     const [sortBy, setSortBy] = useState('lastModified');
     const [rawCustomers, setRawCustomers] = useState([]);
+    const [error, setError] = useState('');
 
     useEffect(() => {
         axios.get(`${api}/customers`, { headers: headers })
@@ -29,6 +30,11 @@ function AllCustomers() {
             })
             .catch(err => {
                 console.log(err);
+                if (err.response.status === 404) {
+                    setError(err.response.data.error)
+                } else if (err.message === 'Network Error') {
+                    setError('An error occured while communicating with the server.');
+                }
                 setLoading(false);
             })
     }, [rawCustomers]);
@@ -63,12 +69,10 @@ function AllCustomers() {
                 <Loader />
             </div>
         )
-    } else if (customers && customers.length < 1) {
+    } else if (error) {
         return (
             <div className='full-page'>
-                <ErrorMessage classes='no-items-message'>
-                    No registered customers yet.
-                </ErrorMessage>
+                <ErrorMessage classes='general-error'>{error}</ErrorMessage>
             </div>
         )
     } else {

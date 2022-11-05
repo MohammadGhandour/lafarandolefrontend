@@ -19,6 +19,7 @@ function AllSales() {
     const [searchValue, setSearchValue] = useState('');
     const [sortBy, setSortBy] = useState('default');
     const [rawOrders, setRawOrders] = useState([]);
+    const [error, setError] = useState('');
 
     useEffect(() => {
         axios.get(`${api}/orders`, { headers: headers })
@@ -55,6 +56,11 @@ function AllSales() {
             })
             .catch(err => {
                 console.log(err);
+                if (err.response.status === 404) {
+                    setError(err.response.data.error)
+                } else if (err.message === 'Network Error') {
+                    setError('An error occured while communicating with the server.');
+                }
                 setLoading(false);
             })
     }, [loading, setLoading]);
@@ -87,6 +93,12 @@ function AllSales() {
         return (
             <div className='full-page'>
                 <Loader />
+            </div>
+        )
+    } else if (error) {
+        return (
+            <div className='full-page'>
+                <ErrorMessage classes='general-error'>{error}</ErrorMessage>
             </div>
         )
     } else if (days && days.length < 1) {
