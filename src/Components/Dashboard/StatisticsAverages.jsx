@@ -39,7 +39,7 @@ function StatisticsAverages({ orders }) {
                                         'difference': diffDays / (customer.numberOfOrders > 2 ? (customer.numberOfOrders - 1) : 1)
                                     }
                                 );
-                                setAverageDifference((returnedCustomersArray?.reduce((items, customer) => ((items + customer.difference)), 0)) / returnedCustomersArray.length);
+                                setAverageDifference(((returnedCustomersArray?.reduce((items, customer) => ((items + customer.difference)), 0)) / returnedCustomersArray.length).toFixed(2));
                             })
                             .catch(err => {
                                 console.log(err);
