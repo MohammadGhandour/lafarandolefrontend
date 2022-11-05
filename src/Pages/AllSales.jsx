@@ -126,7 +126,7 @@ function AllSales() {
                     <i className="flex-center fa-solid fa-magnifying-glass fa-times" onClick={() => setSearchValue('')}></i>
                 </div>
                 <div className='flex-between mt-l mb-l'>
-                    <h3>{unfilteredOrders.length} REGISTERED ORDERS</h3>
+                    <h3>{sortBy === 'default' ? unfilteredOrders.length : filteredOrders.length} REGISTERED ORDERS</h3>
                     <div className="switch-customer">
                         <div className={sortBy === 'default' ? 'switch-button active' : 'switch-button'} onClick={sortDefault}>Last added</div>
                         <div className={sortBy === 'Instagram Delivery' ? 'switch-button active' : 'switch-button'} onClick={instagramOrders}>Instagram Delivery</div>
