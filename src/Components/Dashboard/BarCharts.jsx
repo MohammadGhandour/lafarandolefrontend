@@ -11,12 +11,13 @@ import moment from 'moment';
 function BarCharts({ orders }) {
 
     const [ordersData, setOrdersData] = useState([]);
+    const [profitDate, setProfitData] = useState([]);
     const [ordersNumbersData, setOrdersNumbersData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [sortBy, setSortBy] = useState('Last 30 Days');
 
     useEffect(() => {
-        getOrdersChart(orders, setOrdersData, setOrdersNumbersData, sortBy);
+        getOrdersChart(orders, setOrdersData, setOrdersNumbersData, setProfitData, sortBy);
         setLoading(false);
         // eslint-disable-next-line
     }, [orders, sortBy]);
@@ -100,6 +101,9 @@ function BarCharts({ orders }) {
                     </div>
                     <div className='bar-chart'>
                         <Bar data={ordersNumbersData} options={ordersNumberOptions} />
+                    </div>
+                    <div className='bar-chart'>
+                        <Bar data={profitDate} options={ordersRevenueOptions} />
                     </div>
                     <AverageRevenuePerDayOfTheWeek orders={orders} />
                 </div>
