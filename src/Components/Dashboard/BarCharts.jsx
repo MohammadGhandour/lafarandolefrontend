@@ -13,7 +13,7 @@ function BarCharts({ orders }) {
     const [ordersData, setOrdersData] = useState([]);
     const [ordersNumbersData, setOrdersNumbersData] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [sortBy, setSortBy] = useState('This Month');
+    const [sortBy, setSortBy] = useState('Last 30 Days');
 
     useEffect(() => {
         getOrdersChart(orders, setOrdersData, setOrdersNumbersData, sortBy);
@@ -88,6 +88,7 @@ function BarCharts({ orders }) {
                 <div className='flex-center'>
                     <h2>Sales</h2>
                     <div className="sort-orders-statistics-wrapper">
+                        <div className={sortBy === 'Last 30 Days' ? 'sort-orders-statistics active' : 'sort-orders-statistics'} onClick={() => setSortBy('Last 30 Days')}>Last 30 Days</div>
                         <div className={sortBy === 'This Month' ? 'sort-orders-statistics active' : 'sort-orders-statistics'} onClick={() => setSortBy('This Month')}>This Month</div>
                         <div className={sortBy === 'Last Month' ? 'sort-orders-statistics active' : 'sort-orders-statistics'} onClick={() => setSortBy('Last Month')}>Last Month</div>
                         <div className={sortBy === 'This Year' ? 'sort-orders-statistics active' : 'sort-orders-statistics'} onClick={() => setSortBy('This Year')}>This Year</div>
