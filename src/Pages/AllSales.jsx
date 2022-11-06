@@ -7,8 +7,9 @@ import Loader from '../Components/Loader';
 import { api } from '../Config/Config';
 import { headers } from '../Config/Headers';
 import "./PagesStyles/AllSales.css";
-import AllSalesStatistics from '../Components/AllSales/AllSalesStatistics';
 import { sortArrayOfObjectsPerDay } from '../functions/sortArrayOfObjectsPerDay';
+import AllSalesTbody from '../Components/AllSales/AllSalesTbody';
+import AllSalesSearchInput from '../Components/AllSales/AllSalesSearchInput';
 
 function AllSales() {
 
@@ -42,14 +43,9 @@ function AllSales() {
             })
     }, [loading, setLoading]);
 
-    useEffect(() => {
-        if (unfilteredOrders && unfilteredOrders.length > 0) {
-            setFilteredOrders(unfilteredOrders.filter(order => order.customerName.toLowerCase().includes(searchValue.toLowerCase()) || order.id.toString().includes(searchValue)))
-        }
-    }, [searchValue, unfilteredOrders, setUnfilteredOrders]);
-
     function sortDefault() {
         setSortBy('default');
+        setSearchValue('');
     }
 
     function instagramOrders() {
@@ -87,21 +83,12 @@ function AllSales() {
     } else {
         return (
             <div className='full-page'>
-                <div className='flex search-input-wrapper full-width'>
-                    <label htmlFor='searchInput'>
-                        <i className="fa-solid fa-magnifying-glass"></i>
-                    </label>
-                    <input
-                        type='text'
-                        className='search-input'
-                        id='searchInput'
-                        autoComplete="off"
-                        placeholder='id or customer name'
-                        value={searchValue}
-                        onChange={(e) => setSearchValue(e.target.value)}
-                    />
-                    <i className="flex-center fa-solid fa-magnifying-glass fa-times" onClick={() => setSearchValue('')}></i>
-                </div>
+                <AllSalesSearchInput
+                    unfilteredOrders={unfilteredOrders}
+                    setFilteredOrders={setFilteredOrders}
+                    searchValue={searchValue}
+                    setSearchValue={setSearchValue}
+                    setSortBy={setSortBy} />
                 <div className='flex-between mt-l mb-l'>
                     <h3>{sortBy === 'default' ? unfilteredOrders.length : filteredOrders.length} REGISTERED ORDERS</h3>
                     <div className="switch-customer">
@@ -112,17 +99,8 @@ function AllSales() {
                 </div>
                 <table className='orders-table'>
                     <AllSalesThead />
-                    {!searchValue && sortBy === 'default' && < AllSalesStatistics orders={unfilteredOrders} />}
                     {!searchValue && unfilteredOrders.length > 0 && sortBy === 'default' && days.length > 0 ?
-                        <tbody>
-                            {
-                                days.map(day => (
-                                    day.orders.map((order, i) => (
-                                        <SingleOrder key={order.id} order={order} i={i} ordersOfTheDay={i === 0 ? day.orders : null} />
-                                    ))
-                                ))
-                            }
-                        </tbody>
+                        <AllSalesTbody days={days} unfilteredOrders={unfilteredOrders} />
                         :
                         <tbody>
                             {filteredOrders.map(order => (
