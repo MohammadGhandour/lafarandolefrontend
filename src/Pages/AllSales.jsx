@@ -7,8 +7,8 @@ import Loader from '../Components/Loader';
 import { api } from '../Config/Config';
 import { headers } from '../Config/Headers';
 import "./PagesStyles/AllSales.css";
-import moment from 'moment';
 import AllSalesStatistics from '../Components/AllSales/AllSalesStatistics';
+import { sortArrayOfObjectsPerDay } from '../functions/sortArrayOfObjectsPerDay';
 
 function AllSales() {
 
@@ -27,32 +27,9 @@ function AllSales() {
                 let orders = response.data;
                 setRawOrders(response.data);
                 setUnfilteredOrders(orders);
-                setLoading(false);
                 // FILTER ORDERS ARRAYS
-                let ordersDates = orders.map(order => moment(order.createdAt).format('L'));
-                ordersDates = ordersDates.reduce(
-                    (acc, order) =>
-                        acc.includes(order) ? acc : acc.concat(order),
-                    []
-                );
-                let days = [];
-                // eslint-disable-next-line
-                ordersDates.map(date => {
-                    var singleDay = {};
-                    singleDay['date'] = date;
-                    singleDay['orders'] = [];
-                    days.push(singleDay);
-                })
-                // eslint-disable-next-line
-                days.map(day => {
-                    // eslint-disable-next-line
-                    orders.map(order => {
-                        if (moment(order.createdAt).format('L') === day.date) {
-                            day.orders = [...day.orders, order];
-                        }
-                    })
-                })
-                setDays(days);
+                setDays(sortArrayOfObjectsPerDay(orders, 'orders'));
+                setLoading(false);
             })
             .catch(err => {
                 console.log(err);
