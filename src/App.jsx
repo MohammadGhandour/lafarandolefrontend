@@ -41,9 +41,9 @@ function App() {
               openNavbar={openNavbar}
               setOpenNavbar={setOpenNavbar} />
             <Routes>
-              <Route path="/statistics" element={<Dashboard />} />
+              <Route path="/" element={<Dashboard />} />
               <Route path="/sales-mode" element={<SalesMode />} />
-              <Route path="/" element={<AllProducts />} />
+              <Route path="/all-products" element={<AllProducts />} />
               <Route path="/all-sales" element={<AllSales />} />
               <Route path="/all-customers" element={<AllCustomers />} />
               <Route path="/all-users" element={<AllUsers />} />

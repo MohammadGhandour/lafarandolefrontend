@@ -91,7 +91,7 @@ function SingleProductPage() {
         if (window.confirm('Are you sure you want to delete this product ? ')) {
             axios.delete(`${api}/products/${productId}`, { headers: headers })
                 .then(res => {
-                    navigate('/');
+                    navigate('/all-products');
                 })
                 .catch(err => {
                     console.log(err);

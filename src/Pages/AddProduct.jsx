@@ -51,7 +51,7 @@ function AddProduct() {
             .then((res) => {
                 setFile(null);
                 setFileName(null);
-                navigate('/');
+                navigate('/all-products');
             })
             .catch((err) => {
                 setEmptyFields(err.response.data.emptyFields);

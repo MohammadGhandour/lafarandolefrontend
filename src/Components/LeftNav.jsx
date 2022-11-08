@@ -31,10 +31,10 @@ function LeftNav({ openNavbar, setOpenNavbar }) {
             <nav className={openNavbar && width < 992 ? 'mobile-nav' : ''}>
                 <ul className='flex-column-start'>
                     <i className="fa-solid fa-arrow-left nav-link" onClick={() => navigate(-1)}></i>
-                    <NavLink to='/statistics' className='nav-link'>
+                    <NavLink to='/' className='nav-link'>
                         <i className="fa-solid fa-gauge icon-margin-right"></i>Dashboard
                     </NavLink>
-                    <NavLink to='/' className='nav-link'>
+                    <NavLink to='/all-products' className='nav-link'>
                         <i className="fa-solid fa-shirt icon-margin-right"></i>Products
                     </NavLink>
                     <NavLink to='/all-sales' className='nav-link'>
