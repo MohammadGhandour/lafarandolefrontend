@@ -144,6 +144,24 @@
     border-radius: 5px;
 }
 
+.promo-wrapper {
+    width: 100%;
+}
+
+.promo-wrapper button {
+    all: unset;
+    padding: var(--padding) var(--m-padding);
+    background-color: var(--secondary);
+    color: var(--bg);
+    border-radius: 0 5px 5px 0;
+    outline: 1px solid var(--secondary);
+    cursor: pointer;
+}
+
+.promo-wrapper button:focus {
+    outline: 2px solid var(--primary) !important;
+}
+
 @media (hover:hover) {
     .currency-toggler:hover {
         opacity: 1;

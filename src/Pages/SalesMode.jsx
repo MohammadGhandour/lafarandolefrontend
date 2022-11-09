@@ -31,6 +31,7 @@ function SalesMode() {
     const [finalTotal, setFinalTotal] = useState(0);
     const [finalTotalBeforeDiscount, setFinalTotalBeforeDiscount] = useState(0);
     const [orderLocation, setOrderLocation] = useState('Ghaziyeh Store');
+    const [promoCode, setPromoCode] = useState('');
     const currencyExchange = 38000;
     const [customerName, setCustomerName] = useState('');
     const [customerNumber, setCustomerNumber] = useState('');
@@ -105,8 +106,8 @@ function SalesMode() {
     }, [cart, discountValue, discountCurrency]);
 
     function checkout(e) {
+        e.preventDefault();
         if (window.confirm("Are you sure you'd like to submit this order ?")) {
-            e.preventDefault();
             let cost = cart.reduce((totalCost, item) => ((totalCost + item.quantity * item.cost)), 0);
             const order =
             {
@@ -119,6 +120,7 @@ function SalesMode() {
                 orderLocation: orderLocation,
                 customerName: customerName,
                 customerNumber: customerNumber,
+                promoCode: promoCode
             }
             const customer = {
                 customerName: customerName,
@@ -194,6 +196,7 @@ function SalesMode() {
                             setDiscountValue={setDiscountValue}
                             toggleCurrency={toggleCurrency}
                             discountCurrency={discountCurrency}
+                            setDiscountCurrency={setDiscountCurrency}
                             customerName={customerName}
                             setCustomerName={setCustomerName}
                             customerNumber={customerNumber}
@@ -201,6 +204,7 @@ function SalesMode() {
                             customers={customers}
                             orderLocation={orderLocation}
                             setOrderLocation={setOrderLocation}
+                            setPromoCode={setPromoCode}
                             submitButton='Submit' />
                     </form>
                 </div>

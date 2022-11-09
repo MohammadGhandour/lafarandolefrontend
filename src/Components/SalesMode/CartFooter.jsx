@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
+import { useRef } from 'react';
 import { useState } from 'react';
+import { promoCodes } from '../../Arrays/SalesMode/promoCodes';
 import './CartFooter.css';
 import DropMenuCustomerInfos from './DropMenuCustomerInfos';
 
@@ -10,6 +12,7 @@ function CartFooter({
     setDiscountValue,
     toggleCurrency,
     discountCurrency,
+    setDiscountCurrency,
     customerName,
     setCustomerName,
     customerNumber,
@@ -19,12 +22,15 @@ function CartFooter({
     totalProductsToExchange,
     orderLocation,
     setOrderLocation,
-    customers
+    customers,
+    setPromoCode
 }) {
 
     const [customerNameInputFocused, setCustomerNameInputFocused] = useState(false);
     const [customerNumberInputFocused, setCustomerNumberInputFocused] = useState(false);
     const [shownDropDown, setShownDropDown] = useState(false);
+
+    const promoRef = useRef(null);
 
     useEffect(() => {
         if ((customerNameInputFocused && customerName) || (customerNumberInputFocused && customerNumber)) {
@@ -40,6 +46,27 @@ function CartFooter({
 
     function handleNumberChange(e) {
         setCustomerNumber(e.target.value);
+    }
+
+    function getPromoCode() {
+        const promoToGet = promoRef.current.value;
+        if (promoToGet === '') {
+            setDiscountValue(0);
+            setPromoCode('');
+        } else {
+            const promoData = promoCodes.filter(promo => {
+                return promo.code.toLowerCase() === promoToGet.toLowerCase()
+            });
+            if (promoData.length === 1) {
+                setDiscountValue(promoData[0].value);
+                setDiscountCurrency(promoData[0].currency);
+                setPromoCode(promoData[0].code);
+            } else {
+                alert('Promo Code doesnt exist');
+                setDiscountValue(0);
+                setPromoCode('');
+            }
+        }
     }
 
 
@@ -100,6 +127,13 @@ function CartFooter({
                         <input
                             type='number' className='discount-input' value={discountValue} min='0' max={discountCurrency === 'USD' ? finalTotalBeforeDiscount : ''}
                             id='discount-input' onChange={(e) => setDiscountValue(e.target.value)} />
+                    </div>
+                    <div className='row flex-column-start'>
+                        <label htmlFor='promo-input' className='flex-between'>PROMO CODE</label>
+                        <div className="flex-between promo-wrapper">
+                            <input type='text' className='discount-input' id='promo-input' ref={promoRef} />
+                            <button onClick={getPromoCode} type='button'>Set</button>
+                        </div>
                     </div>
                     <div className='row total-wrapper flex-between'>
                         <label>Total</label>
