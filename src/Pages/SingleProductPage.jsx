@@ -76,7 +76,7 @@ function SingleProductPage() {
         data.append('photo', fileName);
         axios.put(`${api}/products/${productId}`, data, { headers: headers })
             .then((res) => {
-                navigate('/');
+                navigate('/all-products');
                 setFile(null);
                 setFileName(null);
             })
@@ -101,7 +101,7 @@ function SingleProductPage() {
 
     function duplicateProduct() {
         localStorage.setItem('productToDuplicate', JSON.stringify(product));
-        navigate('/add-product')
+        navigate('/add-product');
     };
 
     if (loading) {
