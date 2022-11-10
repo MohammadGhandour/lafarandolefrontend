@@ -2,18 +2,18 @@ import moment from "moment";
 
 export function getOrdersChart(orders, setOrdersData, setOrdersNumbersData, setProfitData, sortBy) {
     const months = [
-        { 0: Date.parse('2022-1-1 00:00:00 GMT+3'), thisMonthOrders: 0, totalThisMonth: 0, monthDate: '', profitThisMonth: 0 },
-        { 1: Date.parse('2022-2-1 00:00:00 GMT+3'), thisMonthOrders: 0, totalThisMonth: 0, monthDate: '', profitThisMonth: 0 },
-        { 2: Date.parse('2022-3-1 00:00:00 GMT+3'), thisMonthOrders: 0, totalThisMonth: 0, monthDate: '', profitThisMonth: 0 },
-        { 3: Date.parse('2022-4-1 00:00:00 GMT+3'), thisMonthOrders: 0, totalThisMonth: 0, monthDate: '', profitThisMonth: 0 },
-        { 4: Date.parse('2022-5-1 00:00:00 GMT+3'), thisMonthOrders: 0, totalThisMonth: 0, monthDate: '', profitThisMonth: 0 },
+        { 0: Date.parse('2022-1-1 00:00:00 GMT+2'), thisMonthOrders: 0, totalThisMonth: 0, monthDate: '', profitThisMonth: 0 },
+        { 1: Date.parse('2022-2-1 00:00:00 GMT+2'), thisMonthOrders: 0, totalThisMonth: 0, monthDate: '', profitThisMonth: 0 },
+        { 2: Date.parse('2022-3-1 00:00:00 GMT+2'), thisMonthOrders: 0, totalThisMonth: 0, monthDate: '', profitThisMonth: 0 },
+        { 3: Date.parse('2022-4-1 00:00:00 GMT+2'), thisMonthOrders: 0, totalThisMonth: 0, monthDate: '', profitThisMonth: 0 },
+        { 4: Date.parse('2022-5-1 00:00:00 GMT+2'), thisMonthOrders: 0, totalThisMonth: 0, monthDate: '', profitThisMonth: 0 },
         { 5: Date.parse('2022-6-1 00:00:00 GMT+3'), thisMonthOrders: 0, totalThisMonth: 0, monthDate: '', profitThisMonth: 0 },
         { 6: Date.parse('2022-7-1 00:00:00 GMT+3'), thisMonthOrders: 0, totalThisMonth: 0, monthDate: '', profitThisMonth: 0 },
         { 7: Date.parse('2022-8-1 00:00:00 GMT+3'), thisMonthOrders: 0, totalThisMonth: 0, monthDate: '', profitThisMonth: 0 },
         { 8: Date.parse('2022-9-1 00:00:00 GMT+3'), thisMonthOrders: 0, totalThisMonth: 0, monthDate: '', profitThisMonth: 0 },
-        { 9: Date.parse('2022-10-1 00:00:00 GMT+3'), thisMonthOrders: 0, totalThisMonth: 0, monthDate: '', profitThisMonth: 0 },
-        { 10: Date.parse('2022-11-1 00:00:00 GMT+3'), thisMonthOrders: 0, totalThisMonth: 0, monthDate: '', profitThisMonth: 0 },
-        { 11: Date.parse('2022-12-1 00:00:00 GMT+3'), thisMonthOrders: 0, totalThisMonth: 0, monthDate: '', profitThisMonth: 0 },
+        { 9: Date.parse('2022-10-1 00:00:00 GMT+2'), thisMonthOrders: 0, totalThisMonth: 0, monthDate: '', profitThisMonth: 0 },
+        { 10: Date.parse('2022-11-1 00:00:00 GMT+2'), thisMonthOrders: 0, totalThisMonth: 0, monthDate: '', profitThisMonth: 0 },
+        { 11: Date.parse('2022-12-1 00:00:00 GMT+2'), thisMonthOrders: 0, totalThisMonth: 0, monthDate: '', profitThisMonth: 0 },
     ];
     if (orders.current.length > 0) {
         const lastMonthOrders = orders.current.filter((order) =>
