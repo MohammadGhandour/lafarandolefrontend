@@ -1,17 +1,16 @@
 import { useEffect, useState } from "react";
 import { useProductsContext } from "../../Hooks/useProductsContext";
 
-function SearchInput({ productsData }) {
+function SearchInput({ productsData, productsToRender, setProductsToRender }) {
 
-    const { dispatch } = useProductsContext();
+    const { products } = useProductsContext();
     const [productName, setProductName] = useState('');
 
     useEffect(() => {
-        dispatch({
-            type: "SET_PRODUCTS", payload: productsData.filter(
-                product => productName.toLowerCase().split(' ').every(word => (product.name.concat(' ', product.description)).toLowerCase().includes(word)) || productName.split(' ').every(word => product.barcode.toLowerCase().includes(word)))
-        });
-    }, [productName, productsData, dispatch]);
+        setProductsToRender(products.filter(
+            product => productName.toLowerCase().split(' ').every(word => (product.name.concat(' ', product.description)).toLowerCase().includes(word)) || productName.split(' ').every(word => product.barcode.toLowerCase().includes(word)))
+        );
+    }, [productName, products, setProductsToRender]);
 
     return (
         <div className='flex search-input-wrapper'>

@@ -20,6 +20,7 @@ function Products() {
 
     const { products, dispatch } = useProductsContext();
     const [productsData, setProductsData] = useState([]);
+    const [productsToRender, setProductsToRender] = useState([]);
     const [error, setError] = useState('');
     const [category, setCategory] = useState('');
     const [gender, setGender] = useState('');
@@ -33,6 +34,7 @@ function Products() {
             .then(response => {
                 let productsData = response.data;
                 setProductsData(productsData);
+                setProductsToRender(productsData);
                 setLoading(false);
             })
             .catch(err => {
@@ -47,15 +49,15 @@ function Products() {
     }, [loading, setLoading]);
 
     useEffect(() => {
-        dispatch({ type: "SET_PRODUCTS", payload: productsData })
+        setProductsToRender(productsToRender);
         // eslint-disable-next-line
-    }, [productsData, dispatch]);
+    }, [productsToRender, dispatch]);
 
     const [currentPage, setCurrentPage] = useState(0);
     const productsPerPage = 50;
     const indexOfLastProduct = currentPage * productsPerPage;
-    const currentProducts = products ? products.slice(indexOfLastProduct, indexOfLastProduct + productsPerPage) : null;
-    const pageNumbers = products ? Math.ceil(products.length / productsPerPage) : 0;
+    const currentProducts = productsToRender ? productsToRender.slice(indexOfLastProduct, indexOfLastProduct + productsPerPage) : null;
+    const pageNumbers = productsToRender ? Math.ceil(productsToRender.length / productsPerPage) : 0;
     function changePage({ selected }) {
         setCurrentPage(selected)
     };
@@ -112,7 +114,10 @@ function Products() {
             <div className='full-page'>
                 <div className='fixed-page-header'>
                     <section className='flex-between'>
-                        <SearchInput productsData={productsData} />
+                        <SearchInput
+                            productsData={productsData}
+                            productsToRender={productsToRender}
+                            setProductsToRender={setProductsToRender} />
                         <div className='flex-center all-products-btns'>
                             <SelectCategory
                                 productsData={productsData}
@@ -141,7 +146,7 @@ function Products() {
                             <NavLink to='/add-product' className='primary-btn'>Add product</NavLink>
                         </div>
                     </section>
-                    <h3 className='products-length'>{products ? products.length : ''} REGISTERED PRODUCTS</h3>
+                    <h3 className='products-length'>{productsToRender ? productsToRender.length : ''} REGISTERED PRODUCTS</h3>
                 </div>
 
                 <table className='all-products-table'>
