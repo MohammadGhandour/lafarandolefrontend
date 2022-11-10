@@ -18,13 +18,15 @@ import SelectBrand from '../Components/SelectBrand';
 
 function Products() {
 
+    const { products, dispatch } = useProductsContext();
     const [productsData, setProductsData] = useState([]);
-    const [loading, setLoading] = useState(true);
-    // eslint-disable-next-line
-    const [allProductsCost, setAllProductsCost] = useState(0);
-    // eslint-disable-next-line
-    const [allProductsPrice, setAllProductsPrice] = useState(0);
     const [error, setError] = useState('');
+    const [category, setCategory] = useState('');
+    const [gender, setGender] = useState('');
+    const [size, setSize] = useState('');
+    const [brand, setBrand] = useState('');
+    const [filters, setFilters] = useState({ category: '', gender: '', size: '', brand: '' });
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         axios.get(`${api}/products`, { headers: headers })
@@ -32,39 +34,17 @@ function Products() {
                 let productsData = response.data;
                 setProductsData(productsData);
                 setLoading(false);
-
-                let allProductsCostVar = productsData.reduce((allProductsCostVar, item) => (
-                    (allProductsCostVar + (Number(item.cost) * Number(item.quantity)))
-                ), 0);
-                setAllProductsCost(allProductsCostVar);
-
-                let allProductsPriceVar = productsData.reduce((allProductsCostVar, item) => (
-                    (allProductsCostVar + (Number(item.price) * Number(item.quantity)))
-                ), 0);
-                setAllProductsPrice(allProductsPriceVar);
             })
             .catch(err => {
                 console.log(err);
                 if (err.response.status === 404) {
                     setError(err.response.data.error)
-                } else if (err.message === 'Network Error') {
+                } else {
                     setError('An error occured while communicating with the server.');
                 }
                 setLoading(false);
             })
     }, [loading, setLoading]);
-
-    const { products, dispatch } = useProductsContext();
-    const [category, setCategory] = useState('');
-    const [gender, setGender] = useState('');
-    const [size, setSize] = useState('');
-    const [brand, setBrand] = useState('');
-    const [filters, setFilters] = useState({
-        category: '',
-        gender: '',
-        size: '',
-        brand: ''
-    });
 
     useEffect(() => {
         dispatch({ type: "SET_PRODUCTS", payload: productsData })
@@ -73,15 +53,12 @@ function Products() {
 
     const [currentPage, setCurrentPage] = useState(0);
     const productsPerPage = 50;
-
     const indexOfLastProduct = currentPage * productsPerPage;
     const currentProducts = products ? products.slice(indexOfLastProduct, indexOfLastProduct + productsPerPage) : null;
-
     const pageNumbers = products ? Math.ceil(products.length / productsPerPage) : 0;
-
     function changePage({ selected }) {
         setCurrentPage(selected)
-    }
+    };
 
     useEffect(() => {
         const filtersKeys = Object.keys(filters);
@@ -165,7 +142,6 @@ function Products() {
                         </div>
                     </section>
                     <h3 className='products-length'>{products ? products.length : ''} REGISTERED PRODUCTS</h3>
-                    {/* <h3>Cost of all products: {allProductsCost.toFixed(2)} --- Price of all products: {allProductsPrice.toFixed(2)} --- Profit: {(allProductsPrice - allProductsCost).toFixed(2)}</h3> */}
                 </div>
 
                 <table className='all-products-table'>
