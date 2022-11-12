@@ -8,7 +8,7 @@ function SearchInput({ productsData, productsToRender, setProductsToRender }) {
 
     useEffect(() => {
         setProductsToRender(products.filter(
-            product => productName.toLowerCase().split(' ').every(word => (product.name.concat(' ', product.description)).toLowerCase().includes(word)) || productName.split(' ').every(word => product.barcode.toLowerCase().includes(word)))
+            product => productName.toLowerCase().split(' ').every(word => (product.name.concat(' ', product.description).toLowerCase()).concat(' ', product.brand.toLowerCase()).toLowerCase().includes(word)) || productName.split(' ').every(word => product.barcode.toLowerCase().includes(word)))
         );
     }, [productName, products, setProductsToRender]);
 
