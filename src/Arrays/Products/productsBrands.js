@@ -80,5 +80,6 @@ export const brands = [
     "fame",
     "kadriye",
     "nevermore",
-    "moinoi"
+    "moinoi",
+    "hilalakinci"
 ];
