@@ -131,7 +131,6 @@
 
 .fa-dollar-sign {
     color: var(--danger);
-    text-decoration: line-through;
 }
 
 @media (hover:hover) {
