@@ -136,7 +136,7 @@ function CartFooter({
                         </div>
                     </div>
                     <div className='row total-wrapper flex-between'>
-                        <label>Total</label>
+                        <label className='total-wrapper-label'>Total</label>
                         <div>
                             {finalTotal !== finalTotalBeforeDiscount &&
                                 <div className='total total-before-discount'>{finalTotalBeforeDiscount.toFixed(2)} $</div>
@@ -172,11 +172,11 @@ function CartFooter({
                             id='discount-input' onChange={(e) => setDiscountValue(e.target.value)} />
                     </div>
                     <div className='total-wrapper flex-between'>
-                        <label>To return:</label>
+                        <label className='total-wrapper-label'>To return:</label>
                         <div>{totalProductsToExchange} $</div>
                     </div>
                     <div className='total-wrapper flex-between'>
-                        <label>To buy:</label>
+                        <label className='total-wrapper-label'>To buy:</label>
                         <div>
                             {finalTotal !== finalTotalBeforeDiscount &&
                                 <div className='total total-before-discount'>{finalTotalBeforeDiscount.toFixed(2)} $</div>
@@ -191,7 +191,7 @@ function CartFooter({
                                 totalProductsToExchange > 0 ? 'total-wrapper flex-between positive-difference' :
                                 'total-wrapper flex-between negative-difference'
                         }>
-                        <label>Difference:</label>
+                        <label className='total-wrapper-label'>Difference:</label>
                         <div>{(finalTotal - totalProductsToExchange).toFixed(2)} $</div>
                     </div>
                     <button

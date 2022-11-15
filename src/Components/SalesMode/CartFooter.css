@@ -63,8 +63,8 @@
     margin-top: var(--m-padding);
 }
 
-.total-wrapper label {
-    width: max-content;
+.total-wrapper-label {
+    width: max-content !important;
     text-transform: uppercase;
 }
 

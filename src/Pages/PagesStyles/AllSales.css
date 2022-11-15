@@ -129,6 +129,11 @@
     color: var(--grey);
 }
 
+.fa-dollar-sign {
+    color: var(--danger);
+    text-decoration: line-through;
+}
+
 @media (hover:hover) {
     .orders-table tr:not(.none-tr):hover {
         background-color: black;

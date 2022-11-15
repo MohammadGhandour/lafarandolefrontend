@@ -50,9 +50,21 @@ input[type=checkbox] {
     margin-bottom: 0 !important;
 }
 
-.checkbox:focus {
-    border: none;
+input[type=checkbox]:focus {
+    border: none !important;
     outline: none !important;
+}
+
+.paid-checkbox {
+    width: 20px !important;
+    cursor: pointer;
+}
+
+#paid-label {
+    font-size: 16px;
+    font-weight: normal;
+    cursor: pointer;
+    user-select: none;
 }
 
 @media screen and (max-width: 768px) {

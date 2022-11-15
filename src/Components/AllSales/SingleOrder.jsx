@@ -9,7 +9,7 @@ function SingleOrder({ order, i }) {
     return (
         <tr onClick={() => navigate(`/order/${order.id}`)} className={`single-order-in-list ${i === 0 ? 'first-order-of-day' : ''}`}>
             <th className='order-id'>
-                {order.id} {order.orderLocation === 'Instagram Delivery' ? <i className="fa-brands fa-instagram"></i> : <i className="fa-solid fa-store"></i>}
+                {order.id} {order.orderLocation === 'Instagram Delivery' ? <i className="fa-brands fa-instagram"></i> : <i className="fa-solid fa-store"></i>} {!order.paid && <i className="fa-solid fa-dollar-sign"></i>}
             </th>
             <th>{moment(order.createdAt).format('lll')}</th>
             <th>{order.itemsNumber}</th>
