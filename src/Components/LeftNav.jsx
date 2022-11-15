@@ -52,6 +52,9 @@ function LeftNav({ openNavbar, setOpenNavbar }) {
                     <NavLink to='/sales-mode' className='nav-link mobile-link'>
                         <i className="fa-solid fa-cash-register icon-margin-right"></i>Sales Mode
                     </NavLink>
+                    <NavLink to='/promo-codes' className='nav-link mobile-link'>
+                        <i className="fa-solid fa-percent icon-margin-right"></i> Promo Codes
+                    </NavLink>
                 </ul>
             </nav>
         </div>

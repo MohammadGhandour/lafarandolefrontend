@@ -1,0 +1,40 @@
+.promos-page table {
+    width: 100%;
+    min-width: 450px;
+    text-align: center;
+    padding: var(--m-padding);
+}
+
+.promos-page table thead tr {
+    background-color: transparent;
+}
+
+.promos-page table thead th {
+    color: var(--grey);
+}
+
+.promos-page table tr {
+    background-color: var(--very-light-grey);
+}
+
+.promos-page td,
+.promos-page th {
+    padding: var(--m-padding);
+    font-weight: 500;
+}
+
+.promos-page tfoot {
+    position: relative;
+}
+
+.promos-page tfoot::before {
+    content: '';
+    display: block;
+    height: 15px;
+}
+
+@media screen and (max-width: 470px) {
+    .promos-page {
+        overflow-x: scroll;
+    }
+}
