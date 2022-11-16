@@ -31,3 +31,9 @@
 .ui-form select:focus {
     outline: 1px solid var(--secondary);
 }
+
+@media screen and (max-width: 650px) {
+    .select-category {
+        padding: var(--m-padding) var(--padding);
+    }
+}

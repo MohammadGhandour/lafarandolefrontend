@@ -250,6 +250,7 @@ a,
   border-radius: 5px;
   transition: all 0.2s;
   cursor: pointer;
+  text-align: center;
 }
 
 .grey-btn {

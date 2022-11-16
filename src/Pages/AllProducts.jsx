@@ -112,7 +112,7 @@ function Products() {
     } else {
         return (
             <div className='full-page'>
-                <div className='fixed-page-header'>
+                <div className='all-products-header'>
                     <section className='flex-between'>
                         <SearchInput
                             productsData={productsData}
@@ -149,16 +149,18 @@ function Products() {
                     <h3 className='products-length'>{productsToRender ? productsToRender.length : ''} REGISTERED PRODUCTS</h3>
                 </div>
 
-                <table className='all-products-table'>
-                    <Thead />
-                    {products && currentProducts &&
-                        <tbody>
-                            {currentProducts.map(product => (
-                                <SingleProductInTable key={product.id} product={product} />
-                            ))}
-                        </tbody>
-                    }
-                </table>
+                <div className="table-wrapper">
+                    <table className='all-products-table'>
+                        <Thead />
+                        {products && currentProducts &&
+                            <tbody>
+                                {currentProducts.map(product => (
+                                    <SingleProductInTable key={product.id} product={product} />
+                                ))}
+                            </tbody>
+                        }
+                    </table>
+                </div>
 
                 {products &&
                     products.length === 0 &&
