@@ -185,6 +185,10 @@
         grid-column-start: 3;
         grid-column-end: 5;
     }
+
+    .pagination-container a {
+        width: 25px;
+    }
 }
 
 @media screen and (max-width: 500px) {
