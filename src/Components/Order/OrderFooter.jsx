@@ -13,6 +13,8 @@ function OrderFooter({ order }) {
     const [paid, setPaid] = useState(order.paid);
     const [submitting, setSubmitting] = useState(false);
 
+    console.log(order);
+
     useEffect(() => {
         if (order.totalBeforeDiscount === order.total) {
             setThereIsDiscount(false);
@@ -51,6 +53,10 @@ function OrderFooter({ order }) {
                     <div className="customer-credential">
                         {order.orderLocation === 'Instagram Delivery' ? <i className="fa-brands fa-instagram icon-margin-right"></i> : <i className="fa-solid fa-store icon-margin-right"></i>}
                         <span>{order.orderLocation}</span>
+                    </div>
+                    <div className="customer-credential">
+                        <i className="fa-solid fa-percent icon-margin-right"></i>
+                        {order.promoCode ? <span>{order.promoCode}</span> : 'No promo'}
                     </div>
                 </div>
                 <div className="flex-column-start gap-l">
