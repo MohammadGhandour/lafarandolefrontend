@@ -33,11 +33,22 @@ export function getOrdersChart(orders, setOrdersData, setOrdersNumbersData, setP
             if (diffDays < 30) return order;
         });
 
+        // eslint-disable-next-line
+        const last90DaysOrders = orders.current.filter((order) => {
+            const now = moment(new Date()).startOf('day');
+            const orderDate = moment(order.createdAt).startOf('day');
+            const diff = moment.duration(now.diff(orderDate));
+            const diffDays = diff.asDays();
+            if (diffDays < 90) return order;
+        });
+
 
         let ordersDates = [];
 
         if (sortBy === 'Last 30 Days') {
             getMonthOrdersChartData(ordersDates, last30DaysOrders, orders, setOrdersData, setOrdersNumbersData, setProfitData)
+        } else if (sortBy === 'Last 90 Days') {
+            getMonthOrdersChartData(ordersDates, last90DaysOrders, orders, setOrdersData, setOrdersNumbersData, setProfitData)
         } else if (sortBy === 'This Month') {
             getMonthOrdersChartData(ordersDates, thisMonthOrders, orders, setOrdersData, setOrdersNumbersData, setProfitData)
         } else if (sortBy === 'This Year') {
