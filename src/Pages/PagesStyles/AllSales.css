@@ -133,6 +133,20 @@
     color: var(--danger);
 }
 
+.select-filter {
+    padding: var(--m-padding);
+    font-weight: 600;
+    border-radius: 5px;
+    background-color: var(--dark-cyan);
+    color: var(--bg);
+    outline: none;
+    font-size: 14px;
+}
+
+.select-filter option {
+    font-weight: 600;
+}
+
 @media (hover:hover) {
     .orders-table tr:not(.none-tr):hover {
         background-color: black;

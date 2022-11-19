@@ -44,22 +44,30 @@ function AllSales() {
     }, [loading, setLoading]);
 
     function sortDefault() {
-        setSortBy('default');
         setSearchValue('');
     }
 
     function instagramOrders() {
-        setSortBy('Instagram Delivery');
         setFilteredOrders(rawOrders.filter(order => {
             return order.orderLocation === 'Instagram Delivery'
         }));
     }
 
     function ghaziyehOrders() {
-        setSortBy('Ghaziyeh Store');
         setFilteredOrders(rawOrders.filter(order => {
             return order.orderLocation === 'Ghaziyeh Store'
         }));
+    }
+
+    function handleChange(e) {
+        setSortBy(e.target.value);
+        if (e.target.value === 'default') {
+            sortDefault();
+        } else if (e.target.value === 'Instagram Delivery') {
+            instagramOrders();
+        } else {
+            ghaziyehOrders();
+        }
     }
 
     if (loading) {
@@ -91,11 +99,15 @@ function AllSales() {
                     setSortBy={setSortBy} />
                 <div className='flex-between mt-l mb-l'>
                     <h3>{sortBy === 'default' ? unfilteredOrders.length : filteredOrders.length} REGISTERED ORDERS</h3>
-                    <div className="switch-customer">
-                        <div className={sortBy === 'default' ? 'switch-button active' : 'switch-button'} onClick={sortDefault}>Last added</div>
-                        <div className={sortBy === 'Instagram Delivery' ? 'switch-button active' : 'switch-button'} onClick={instagramOrders}>Instagram Delivery</div>
-                        <div className={sortBy === 'Ghaziyeh Store' ? 'switch-button active' : 'switch-button'} onClick={ghaziyehOrders}>Ghaziyeh Store</div>
-                    </div>
+                    <select
+                        name="sortby"
+                        id="sortby"
+                        className='select-filter'
+                        onChange={handleChange}>
+                        <option value="default">Last added</option>
+                        <option value="Instagram Delivery">Instagram Delivery</option>
+                        <option value="Ghaziyeh Store">Ghaziyeh Store</option>
+                    </select>
                 </div>
                 <table className='orders-table'>
                     <AllSalesThead />

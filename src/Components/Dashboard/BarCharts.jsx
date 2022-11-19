@@ -20,7 +20,14 @@ function BarCharts({ orders }) {
         getOrdersChart(orders, setOrdersData, setOrdersNumbersData, setProfitData, sortBy);
         setLoading(false);
         // eslint-disable-next-line
-    }, [orders, sortBy]);
+    }, []);
+
+    function handleChange(e) {
+        const sortBy = e.target.value;
+        setSortBy(sortBy);
+        getOrdersChart(orders, setOrdersData, setOrdersNumbersData, setProfitData, sortBy);
+        setLoading(false);
+    }
 
 
     const ordersRevenueOptions = {
@@ -88,13 +95,18 @@ function BarCharts({ orders }) {
             <div className='statistic-row bar-charts-container flex-column gap-l'>
                 <div className='flex-center'>
                     <h2>Sales</h2>
-                    <div className="sort-orders-statistics-wrapper">
-                        <div className={sortBy === 'Last 90 Days' ? 'sort-orders-statistics active' : 'sort-orders-statistics'} onClick={() => setSortBy('Last 90 Days')}>Last 90 Days</div>
-                        <div className={sortBy === 'Last 30 Days' ? 'sort-orders-statistics active' : 'sort-orders-statistics'} onClick={() => setSortBy('Last 30 Days')}>Last 30 Days</div>
-                        <div className={sortBy === 'This Month' ? 'sort-orders-statistics active' : 'sort-orders-statistics'} onClick={() => setSortBy('This Month')}>This Month</div>
-                        <div className={sortBy === 'Last Month' ? 'sort-orders-statistics active' : 'sort-orders-statistics'} onClick={() => setSortBy('Last Month')}>Last Month</div>
-                        <div className={sortBy === 'This Year' ? 'sort-orders-statistics active' : 'sort-orders-statistics'} onClick={() => setSortBy('This Year')}>This Year</div>
-                    </div>
+                    <select
+                        name="sortby"
+                        id="sortby"
+                        className='select-filter'
+                        value={sortBy}
+                        onChange={handleChange}>
+                        <option value="Last 90 Days">Last 90 Days</option>
+                        <option value="Last 30 Days">Last 30 Days</option>
+                        <option value="This Month">This Month</option>
+                        <option value="Last Month">Last Month</option>
+                        <option value="This Year">This Year</option>
+                    </select>
                 </div>
                 <div className='bars-container'>
                     <div className='bar-chart'>

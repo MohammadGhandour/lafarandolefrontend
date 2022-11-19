@@ -48,19 +48,23 @@ function AllCustomers() {
     }, [searchValue, customers]);
 
     function amount() {
-        setSortBy('amount');
         setFilteredCustomer(customers.sort((a, b) => b.totalOfAllOrders - a.totalOfAllOrders));
     }
-
     function nbOfOrders() {
-        setSortBy('nbOfOrders');
         setFilteredCustomer(customers.sort((a, b) => b.numberOfOrders - a.numberOfOrders));
     }
-
     function lastModified() {
-        setSortBy('lastModified');
         const sortedCustomers = customers.slice().sort((a, b) => moment(b.updatedAt) - moment(a.updatedAt));
         setFilteredCustomer(sortedCustomers);
+    }
+
+    function handleChange(e) {
+        const sortby = e.target.value;
+        setSortBy(sortby);
+        if (sortby === 'amount') amount();
+        if (sortby === 'lastModified') lastModified();
+        if (sortby === 'nbOfOrders') nbOfOrders();
+        else return;
     }
 
     if (loading) {
@@ -95,11 +99,22 @@ function AllCustomers() {
                 </div>
                 <div className="flex-between mt-l mb-l">
                     <h3>{customers.length} REGISTERED CUSTOMERS</h3>
-                    <div className="switch-customer">
+                    {/* <div className="switch-customer">
                         <div className={sortBy === 'lastModified' ? 'switch-button active' : 'switch-button'} onClick={lastModified}>Last modified</div>
                         <div className={sortBy === 'amount' ? 'switch-button active' : 'switch-button'} onClick={amount}>Amount</div>
                         <div className={sortBy === 'nbOfOrders' ? 'switch-button active' : 'switch-button'} onClick={nbOfOrders}>Nb of orders</div>
-                    </div>
+                    </div> */}
+
+                    <select
+                        name="sortby"
+                        id="sortby"
+                        className='select-filter'
+                        value={sortBy}
+                        onChange={handleChange}>
+                        <option value="lastModified">Last modified</option>
+                        <option value="amount">Amount</option>
+                        <option value="nbOfOrders">Nb of orders</option>
+                    </select>
                 </div>
                 <table className='orders-table'>
                     <AllCustomersThead />
