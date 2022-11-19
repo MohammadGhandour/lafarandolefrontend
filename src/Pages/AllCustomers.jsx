@@ -99,12 +99,6 @@ function AllCustomers() {
                 </div>
                 <div className="flex-between mt-l mb-l">
                     <h3>{customers.length} REGISTERED CUSTOMERS</h3>
-                    {/* <div className="switch-customer">
-                        <div className={sortBy === 'lastModified' ? 'switch-button active' : 'switch-button'} onClick={lastModified}>Last modified</div>
-                        <div className={sortBy === 'amount' ? 'switch-button active' : 'switch-button'} onClick={amount}>Amount</div>
-                        <div className={sortBy === 'nbOfOrders' ? 'switch-button active' : 'switch-button'} onClick={nbOfOrders}>Nb of orders</div>
-                    </div> */}
-
                     <select
                         name="sortby"
                         id="sortby"
@@ -116,18 +110,20 @@ function AllCustomers() {
                         <option value="nbOfOrders">Nb of orders</option>
                     </select>
                 </div>
-                <table className='orders-table'>
-                    <AllCustomersThead />
-                    {filteredCustomer.length > 0 ?
-                        <tbody>
-                            {filteredCustomer.map(customer => (
-                                <SingleCustomer key={customer.id} customer={customer} />
-                            ))}
-                        </tbody>
-                        :
-                        ''
-                    }
-                </table>
+                <div className="table-wrapper">
+                    <table className='customers-table'>
+                        <AllCustomersThead />
+                        {filteredCustomer.length > 0 ?
+                            <tbody>
+                                {filteredCustomer.map(customer => (
+                                    <SingleCustomer key={customer.id} customer={customer} />
+                                ))}
+                            </tbody>
+                            :
+                            ''
+                        }
+                    </table>
+                </div>
                 {filteredCustomer.length < 1 &&
                     <h2 className='not-found-product text-center'>There no customers related to
                         <span className='not-found-search-value'> " {searchValue} "</span>

@@ -49,14 +49,16 @@ function AllExpenses({ expenses, setExpenses, rawExpenses, setRawExpenses }) {
             <div className='expense'>
                 <h3 className='products-length'>{rawExpenses.length} REGISTERED EXPENSES</h3>
                 {expenses.length > 0 &&
-                    <table className='expenses-table'>
-                        <ExpensesThead />
-                        <ExpensesTbody
-                            days={expenses}
-                            setExpenses={setExpenses}
-                            rawExpenses={rawExpenses}
-                            setRawExpenses={setRawExpenses} />
-                    </table>
+                    <div className="table-wrapper">
+                        <table className='expenses-table'>
+                            <ExpensesThead />
+                            <ExpensesTbody
+                                days={expenses}
+                                setExpenses={setExpenses}
+                                rawExpenses={rawExpenses}
+                                setRawExpenses={setRawExpenses} />
+                        </table>
+                    </div>
                 }
             </div>
         )

@@ -5,33 +5,43 @@
     margin-bottom: var(--m-padding);
 }
 
-.switch-customer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--primary);
-    border-radius: 5px;
-    outline: 1px solid var(--dark-cyan);
-    font-weight: 500;
-    width: min-content;
-    height: 100%;
+.customers-table {
+    width: 100%;
+    min-width: 700px;
 }
 
-.switch-button {
-    white-space: nowrap;
+.customers-table tr th:not(.none-th) {
     padding: var(--m-padding);
+    font-weight: 500;
     cursor: pointer;
-    transition: all 0.2s;
 }
 
-.switch-button.active {
-    background-color: var(--dark-cyan);
-    color: var(--bg);
+.customers-table .thead tr th {
+    cursor: default;
 }
 
 @media (hover:hover) {
-    .switch-button:hover {
-        background-color: var(--dark-cyan);
-        color: var(--bg);
+    .customers-table tr:not(.none-tr):hover {
+        background-color: black;
+    }
+
+    .customers-table tr:hover th {
+        color: white;
+    }
+
+    .customers-table .thead tr:hover {
+        background-color: inherit;
+    }
+
+    .customers-table .thead tr:hover th {
+        color: var(--grey);
+    }
+
+    tr.orders-of-the-day:hover th {
+        color: var(--profit-green) !important;
+    }
+
+    tr.orders-of-the-day:hover th.back-green-profit {
+        color: white !important;
     }
 }

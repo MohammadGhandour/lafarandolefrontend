@@ -109,18 +109,20 @@ function AllSales() {
                         <option value="Ghaziyeh Store">Ghaziyeh Store</option>
                     </select>
                 </div>
-                <table className='orders-table'>
-                    <AllSalesThead />
-                    {!searchValue && unfilteredOrders.length > 0 && sortBy === 'default' && days.length > 0 ?
-                        <AllSalesTbody days={days} unfilteredOrders={unfilteredOrders} />
-                        :
-                        <tbody>
-                            {filteredOrders.map(order => (
-                                <SingleOrder key={order.id} order={order} />
-                            ))}
-                        </tbody>
-                    }
-                </table>
+                <div className="table-wrapper">
+                    <table className='orders-table'>
+                        <AllSalesThead />
+                        {!searchValue && unfilteredOrders.length > 0 && sortBy === 'default' && days.length > 0 ?
+                            <AllSalesTbody days={days} unfilteredOrders={unfilteredOrders} />
+                            :
+                            <tbody>
+                                {filteredOrders.map(order => (
+                                    <SingleOrder key={order.id} order={order} />
+                                ))}
+                            </tbody>
+                        }
+                    </table>
+                </div>
                 {searchValue && filteredOrders.length < 1 &&
                     <h2 className='not-found-product text-center'>There no order related to
                         <span className='not-found-search-value'> " {searchValue} "</span>

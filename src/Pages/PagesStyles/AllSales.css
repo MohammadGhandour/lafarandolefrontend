@@ -42,11 +42,7 @@
 
 .orders-table {
     width: 100%;
-}
-
-.order-tr a {
-    width: 100%;
-    display: block;
+    min-width: 900px;
 }
 
 .orders-table tr th:not(.none-th) {

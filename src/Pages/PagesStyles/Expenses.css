@@ -29,6 +29,7 @@
 
 .expenses-table {
     width: 100%;
+    min-width: 850px;
 }
 
 .all-time-tr {
