@@ -26,6 +26,7 @@ function UIForm({
     setFileName,
     buttonText,
     barcode,
+    setBarcode,
     priceAfterDiscount,
     emptyFields,
     duplicateProduct
@@ -64,7 +65,9 @@ function UIForm({
                     <BarcodeInput
                         name='barcode'
                         type='number'
-                        emptyFields={emptyFields} />
+                        emptyFields={emptyFields}
+                        barcode={barcode}
+                        setBarcode={setBarcode} />
                 </div>
                 <div className='form-inputs-wrapper'>
                     <LargeInput label='Name *' name='name' type='text' emptyFields={emptyFields} />

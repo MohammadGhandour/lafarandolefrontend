@@ -197,3 +197,45 @@
         width: calc(320px - var(--padding)) !important;
     }
 }
+
+.add-size-btn {
+    margin-top: var(--l-padding);
+}
+
+.submit-size-btn {
+    background-color: var(--profit-green);
+}
+
+.delete-size-btn {
+    background-color: var(--danger);
+}
+
+.form-page table {
+    width: 400px;
+}
+
+.form-page table tr {
+    height: 40px;
+    /* border-radius: 10px; */
+    background-color: var(--very-light-grey) !important;
+}
+
+.form-page table th {
+    border-radius: inherit;
+}
+
+.form-page table .delete-th {
+    background-color: var(--danger);
+    color: var(--bg);
+    cursor: pointer;
+    transition: all 0.2s;
+    width: 56px;
+}
+
+.form-page table .delete-th:hover {
+    background-color: var(--dark-danger);
+}
+
+.display-none {
+    display: none;
+}

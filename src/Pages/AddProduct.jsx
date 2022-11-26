@@ -6,10 +6,13 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ErrorMessage from "../Components/ErrorMessage";
 import { headers } from "../Config/Headers";
+import SizeForm from "../Components/AddProduct/SizeForm";
 
 function AddProduct() {
 
     const navigate = useNavigate();
+    const [arrayOfSizes, setArrayOfSizes] = useState([]);
+    const [firstMounted, setFirstMounted] = useState(true);
 
     const [imageSrcToUpload, setImageSrcToUpload] = useState('');
     const [file, setFile] = useState(null);
@@ -21,8 +24,10 @@ function AddProduct() {
     const productToDuplicate = JSON.parse(localStorage.getItem('productToDuplicate'));
 
     useEffect(() => {
-        localStorage.removeItem('productToDuplicate');
-    }, []);
+        const diffTime = new Date() - new Date(localStorage.getItem("productToDuplicateDate"));
+        if (diffTime / 1000 > 2 && firstMounted === true) localStorage.removeItem('productToDuplicate');
+        setFirstMounted(false);
+    }, [firstMounted]);
 
     const initialValues = {
         image: '',
@@ -46,6 +51,7 @@ function AddProduct() {
         const data = new FormData(productForm);
         data.append('image', file);
         data.append('photo', fileName);
+        data.append('arrayOfSizes', JSON.stringify(arrayOfSizes));
         // data.append('imgSrc', imageSrcToUpload);
         axios.post(`${api}/products`, data, { headers: headers })
             .then((res) => {
@@ -57,8 +63,12 @@ function AddProduct() {
                 setEmptyFields(err.response.data.emptyFields);
                 setError(err.response.data.error);
                 setProductAlreadyExistsId(err.response.data.productId);
-                console.log(err.response.data.productId);
             })
+    }
+
+    function deleteSize(barcode) {
+        const arrayWithoutCurrentSize = arrayOfSizes.filter(item => item.barcode !== barcode);
+        setArrayOfSizes(arrayWithoutCurrentSize);
     }
 
     return (
@@ -94,6 +104,19 @@ function AddProduct() {
 
                 emptyFields={emptyFields}
             />
+            <SizeForm arrayOfSizes={arrayOfSizes} setArrayOfSizes={setArrayOfSizes} originalBarcode={barcode} />
+            <table className="mt-l mb-m full-width">
+                <tbody>
+                    {arrayOfSizes.map((productVariant, i) => (
+                        <tr key={i}>
+                            <th>{productVariant.size}</th>
+                            <th>{productVariant.barcode}</th>
+                            <th>{productVariant.quantity}</th>
+                            <th className="delete-th" onClick={() => deleteSize(productVariant.barcode)}><i className="fa-solid fa-trash"></i></th>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
         </div>
     )
 };

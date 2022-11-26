@@ -143,7 +143,7 @@ function Products() {
                                 setBrand={setBrand}
                                 filters={filters}
                                 setFilters={setFilters} />
-                            <NavLink to='/add-product' className='primary-btn'>Add product</NavLink>
+                            <NavLink to='/add-product' query={{ prevPath: window.location.pathname }} className='primary-btn'>Add product</NavLink>
                         </div>
                     </section>
                     <h3 className='products-length'>{productsToRender ? productsToRender.length : ''} REGISTERED PRODUCTS</h3>

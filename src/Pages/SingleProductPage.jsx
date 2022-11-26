@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react';
 import UIForm from '../Components/FormComponents/UIForm';
 import * as Yup from 'yup';
 import axios from 'axios';
@@ -7,6 +7,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import Loader from '../Components/Loader';
 import ErrorMessage from "../Components/ErrorMessage";
 import { headers } from '../Config/Headers';
+import { useLayoutEffect } from 'react';
 
 function SingleProductPage() {
 
@@ -17,7 +18,7 @@ function SingleProductPage() {
     const [imageSrcToUpload, setImageSrcToUpload] = useState('');
     const [file, setFile] = useState(null);
     const [fileName, setFileName] = useState(null);
-    const [barcode, setBarcode] = useState('');
+    const [barcode, setBarcode] = useState(0);
     const [emptyFields, setEmptyFields] = useState([]);
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(true);
@@ -25,10 +26,11 @@ function SingleProductPage() {
     const params = useParams();
     const productId = params.productId;
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         axios.get(`${api}/products/byId/${productId}`, { headers: headers })
             .then(res => {
                 setProduct(res.data);
+                setBarcode(res.data.barcode);
                 setLoading(false);
             })
             .catch(err => {
@@ -42,11 +44,7 @@ function SingleProductPage() {
             })
     }, [productId]);
 
-    useEffect(() => {
-        setBarcode(product.barcode);
-    }, [product.barcode]);
-
-    useEffect(() => {
+    useLayoutEffect(() => {
         setImageSrcToUpload(product.photo);
     }, [product.photo]);
 
@@ -101,6 +99,7 @@ function SingleProductPage() {
 
     function duplicateProduct() {
         localStorage.setItem('productToDuplicate', JSON.stringify(product));
+        localStorage.setItem('productToDuplicateDate', new Date());
         navigate('/add-product');
     };
 
