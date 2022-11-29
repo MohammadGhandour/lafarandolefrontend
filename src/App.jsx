@@ -18,6 +18,9 @@ import Exchange from "./Pages/Exchange";
 import Expenses from "./Pages/Expenses";
 import AverageProgression from "./Pages/AverageProgression";
 import Promos from "./Pages/Promos";
+import { useAdminContext } from "./Hooks/useAdminContext";
+import { useEffect } from "react";
+import Page404 from "./Pages/Page404";
 
 function App() {
 
@@ -27,6 +30,18 @@ function App() {
   const [user, setUser] = useState();
   const token = localStorage.getItem('token');
   const [openNavbar, setOpenNavbar] = useState(false);
+  const { admin, dispatch } = useAdminContext();
+
+
+  useEffect(() => {
+    let isAdmin = localStorage.getItem("admin");
+    if (isAdmin === 'false') {
+      isAdmin = false;
+    } else {
+      isAdmin = true
+    }
+    dispatch({ type: "SET_USER_ADMIN", payload: isAdmin });
+  }, [dispatch]);
 
   return (
     <div className="App">
@@ -40,22 +55,24 @@ function App() {
           <div className="pages flex">
             <LeftNav
               openNavbar={openNavbar}
-              setOpenNavbar={setOpenNavbar} />
+              setOpenNavbar={setOpenNavbar}
+            />
             <Routes>
-              <Route path="/" element={<Dashboard />} />
+              {admin && <Route path="/" element={<Dashboard />} />}
               <Route path="/sales-mode" element={<SalesMode />} />
-              <Route path="/all-products" element={<AllProducts />} />
+              <Route path={admin ? "/all-products" : "/"} element={<AllProducts />} />
               <Route path="/all-sales" element={<AllSales />} />
               <Route path="/all-customers" element={<AllCustomers />} />
-              <Route path="/all-users" element={<AllUsers />} />
+              {admin && <Route path="/all-users" element={<AllUsers />} />}
               <Route path="/customer/:id/:customerName/:customerNumber" element={<Customer />} />
-              <Route path="/product/:productId" element={<SingleProductPage />} />
-              <Route path="/add-product" element={<AddProduct />} />
+              {admin && <Route path="/product/:productId" element={<SingleProductPage />} />}
+              {admin && <Route path="/add-product" element={<AddProduct />} />}
               <Route path="/order/:id" element={<Order />} />
               <Route path="/exchange/:id" element={<Exchange />} />
               <Route path="/expenses" element={<Expenses />} />
-              <Route path="/averages-progression" element={<AverageProgression />} />
-              <Route path="/promo-codes" element={<Promos />} />
+              {admin && <Route path="/averages-progression" element={<AverageProgression />} />}
+              {admin && <Route path="/promo-codes" element={<Promos />} />}
+              <Route path="*" element={<Page404 />} />
             </Routes>
           </div>
         </BrowserRouter>

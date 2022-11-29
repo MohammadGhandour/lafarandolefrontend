@@ -2,16 +2,20 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import logo from '../../assets/defaultProductImage.jpg';
 
-function SingleProductInTable({ product }) {
+function SingleProductInTable({ product, admin }) {
 
     const navigate = useNavigate();
 
     function goProduct() {
-        navigate(`/product/${product.id}`);
+        if (admin) {
+            navigate(`/product/${product.id}`);
+        } else {
+            return
+        }
     }
 
     return (
-        <tr className={Number(product.quantity) === 0 ? 'single-product-in-table quantity-0' : 'single-product-in-table'} onClick={goProduct}>
+        <tr className={Number(product.quantity) === 0 ? 'single-product-in-table quantity-0' : 'single-product-in-table'} onClick={goProduct} style={admin ? { cursor: "pointer" } : { cursor: "default" }}>
             <th className='product-in-table-img-wrapper'>
                 <img src={product.photo ? product.photo : logo} alt={product.name} />
             </th>

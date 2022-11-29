@@ -10,8 +10,11 @@ import "./PagesStyles/AllSales.css";
 import { sortArrayOfObjectsPerDay } from '../functions/sortArrayOfObjectsPerDay';
 import AllSalesTbody from '../Components/AllSales/AllSalesTbody';
 import AllSalesSearchInput from '../Components/AllSales/AllSalesSearchInput';
+import { useAdminContext } from '../Hooks/useAdminContext';
 
 function AllSales() {
+
+    const { admin } = useAdminContext();
 
     const [loading, setLoading] = useState(true);
     const [days, setDays] = useState([]);
@@ -111,9 +114,9 @@ function AllSales() {
                 </div>
                 <div className="table-wrapper">
                     <table className='orders-table'>
-                        <AllSalesThead />
+                        <AllSalesThead admin={admin} />
                         {!searchValue && unfilteredOrders.length > 0 && sortBy === 'default' && days.length > 0 ?
-                            <AllSalesTbody days={days} unfilteredOrders={unfilteredOrders} />
+                            <AllSalesTbody days={days} unfilteredOrders={unfilteredOrders} admin={admin} />
                             :
                             <tbody>
                                 {filteredOrders.map(order => (

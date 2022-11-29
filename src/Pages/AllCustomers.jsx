@@ -8,8 +8,11 @@ import { api } from '../Config/Config';
 import { headers } from '../Config/Headers';
 import "./PagesStyles/Customers.css";
 import moment from 'moment';
+import { useAdminContext } from '../Hooks/useAdminContext';
 
 function AllCustomers() {
+
+    const { admin } = useAdminContext();
 
     const [customers, setCustomers] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -112,11 +115,11 @@ function AllCustomers() {
                 </div>
                 <div className="table-wrapper">
                     <table className='customers-table'>
-                        <AllCustomersThead />
+                        <AllCustomersThead admin={admin} />
                         {filteredCustomer.length > 0 ?
                             <tbody>
                                 {filteredCustomer.map(customer => (
-                                    <SingleCustomer key={customer.id} customer={customer} />
+                                    <SingleCustomer key={customer.id} customer={customer} admin={admin} />
                                 ))}
                             </tbody>
                             :

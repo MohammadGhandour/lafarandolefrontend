@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { api } from '../../Config/Config';
 import { headers } from '../../Config/Headers';
 
-function SingleCustomer({ customer }) {
+function SingleCustomer({ customer, admin }) {
 
     const navigate = useNavigate();
     const [totalProfit, setTotalProfit] = useState(0);
@@ -34,8 +34,8 @@ function SingleCustomer({ customer }) {
             <th>{customer.customerName}</th>
             <th>{customer.customerNumber}</th>
             <th>{customer.numberOfOrders}</th>
-            <th>{customer.totalOfAllOrders} $</th>
-            <th className='back-green-profit'>{totalProfit ? totalProfit.toFixed(2) : ''} $</th>
+            {admin && <th>{customer.totalOfAllOrders} $</th>}
+            {admin && <th className='back-green-profit'>{totalProfit ? totalProfit.toFixed(2) : ''} $</th>}
         </tr>
     )
 }

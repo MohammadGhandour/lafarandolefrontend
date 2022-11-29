@@ -6,14 +6,12 @@ import { useNavigate } from 'react-router-dom';
 import { api } from '../../Config/Config';
 import { headers } from '../../Config/Headers';
 
-function OrderFooter({ order }) {
+function OrderFooter({ order, admin }) {
 
     const navigate = useNavigate();
     const [thereIsDiscount, setThereIsDiscount] = useState(false);
     const [paid, setPaid] = useState(order.paid);
     const [submitting, setSubmitting] = useState(false);
-
-    console.log(order);
 
     useEffect(() => {
         if (order.totalBeforeDiscount === order.total) {
@@ -77,14 +75,14 @@ function OrderFooter({ order }) {
                             <span>Total:</span>
                             <div className='fs-20'>{order.total} $</div>
                         </div>
-                        <div className='flex-between order-cost'>
+                        {admin && <div className='flex-between order-cost'>
                             <span>Cost:</span>
                             <div className='total'>{order.cost} $</div>
-                        </div>
-                        <div className='flex-between'>
+                        </div>}
+                        {admin && <div className='flex-between'>
                             <span>Profit:</span>
                             <div className='fs-20 order-profit'>{order.profit} $</div>
-                        </div>
+                        </div>}
                     </div>
                     <div className='flex-between gap'>
                         <input

@@ -1,14 +1,14 @@
 import React from 'react'
 
-function AllCustomersThead() {
+function AllCustomersThead({ admin }) {
     return (
         <thead className='thead'>
             <tr>
                 <th>Name</th>
                 <th>Phone Nb.</th>
                 <th>No. Of Orders</th>
-                <th>Revenue</th>
-                <th>Profit</th>
+                {admin && <th>Revenue</th>}
+                {admin && <th>Profit</th>}
             </tr>
         </thead>
     )

@@ -2,8 +2,11 @@ import React, { useEffect, useRef } from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import "./LeftNav.css";
 import useWindowDimensions from '../Hooks/useWindowDimensions';
+import { useAdminContext } from '../Hooks/useAdminContext';
 
 function LeftNav({ openNavbar, setOpenNavbar }) {
+
+    const { admin } = useAdminContext();
 
     const { width } = useWindowDimensions();
     const backdropRef = useRef(null);
@@ -31,10 +34,10 @@ function LeftNav({ openNavbar, setOpenNavbar }) {
             <nav className={openNavbar && width < 992 ? 'mobile-nav' : ''}>
                 <ul className='flex-column-start'>
                     <i className="fa-solid fa-arrow-left nav-link" onClick={() => navigate(-1)}></i>
-                    <NavLink to='/' className='nav-link'>
+                    {admin && <NavLink to='/' className='nav-link'>
                         <i className="fa-solid fa-gauge icon-margin-right"></i>Dashboard
-                    </NavLink>
-                    <NavLink to='/all-products' className='nav-link'>
+                    </NavLink>}
+                    <NavLink to={admin ? '/all-products' : '/'} className='nav-link'>
                         <i className="fa-solid fa-shirt icon-margin-right"></i>Products
                     </NavLink>
                     <NavLink to='/all-sales' className='nav-link'>
@@ -46,15 +49,15 @@ function LeftNav({ openNavbar, setOpenNavbar }) {
                     <NavLink to='/all-customers' className='nav-link'>
                         <i className="fa-solid fa-users icon-margin-right"></i>Customers
                     </NavLink>
-                    <NavLink to='/all-users' className='nav-link'>
+                    {admin && <NavLink to='/all-users' className='nav-link'>
                         <i className="fa-solid fa-unlock icon-margin-right"></i>Users
-                    </NavLink>
+                    </NavLink>}
                     <NavLink to='/sales-mode' className='nav-link mobile-link'>
                         <i className="fa-solid fa-cash-register icon-margin-right"></i>Sales Mode
                     </NavLink>
-                    <NavLink to='/promo-codes' className='nav-link mobile-link'>
+                    {admin && <NavLink to='/promo-codes' className='nav-link mobile-link'>
                         <i className="fa-solid fa-percent icon-margin-right"></i> Promo Codes
-                    </NavLink>
+                    </NavLink>}
                 </ul>
             </nav>
         </div>

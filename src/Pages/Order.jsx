@@ -10,8 +10,11 @@ import OrderFooter from '../Components/Order/OrderFooter';
 import { headers } from '../Config/Headers';
 import ErrorMessage from "../Components/ErrorMessage";
 import './PagesStyles/Order.css';
+import { useAdminContext } from '../Hooks/useAdminContext';
 
 function Order() {
+
+    const { admin } = useAdminContext();
 
     const params = useParams();
     const [order, setOrder] = useState({});
@@ -67,7 +70,7 @@ function Order() {
                         }
                     </tbody>
                 </table>
-                <OrderFooter order={order} />
+                <OrderFooter order={order} admin={admin} />
             </div>
         )
     }

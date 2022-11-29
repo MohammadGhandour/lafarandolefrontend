@@ -2,7 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import { useNavigate } from 'react-router-dom';
 
-function SingleOrder({ order, i }) {
+function SingleOrder({ order, i, admin }) {
 
     const navigate = useNavigate();
 
@@ -15,7 +15,7 @@ function SingleOrder({ order, i }) {
             <th>{order.itemsNumber}</th>
             <th className='order-total order-total-before-discount'>{Number(order.totalBeforeDiscount) === Number(order.total) ? '' : `${order.totalBeforeDiscount} $`}</th>
             <th className='order-total'>{order.total} $</th>
-            <th className={order.profit > 0 ? 'order-profit' : 'order-profit-negative'}>{order.profit} $</th>
+            {admin && <th className={order.profit > 0 ? 'order-profit' : 'order-profit-negative'}>{order.profit} $</th>}
             <th>{order.customerName}</th>
         </tr>
     )

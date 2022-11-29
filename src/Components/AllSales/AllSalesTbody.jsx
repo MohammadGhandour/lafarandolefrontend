@@ -3,7 +3,7 @@ import React from 'react'
 import AllSalesStatistics from './AllSalesStatistics';
 import SingleOrder from './SingleOrder';
 
-function AllSalesTbody({ days, unfilteredOrders }) {
+function AllSalesTbody({ days, unfilteredOrders, admin }) {
 
     const totalBeforeDiscountToday = (ordersOfTheDay) => ordersOfTheDay?.reduce((total, item) => (Number(total) + Number(item.totalBeforeDiscount)).toFixed(2), 0);
     const totalToday = (ordersOfTheDay) => ordersOfTheDay?.reduce((total, item) => (Number(total) + Number(item.total)).toFixed(2), 0);
@@ -13,7 +13,7 @@ function AllSalesTbody({ days, unfilteredOrders }) {
 
     return (
         <tbody>
-            {<AllSalesStatistics orders={unfilteredOrders} />}
+            {admin && <AllSalesStatistics orders={unfilteredOrders} />}
             {days.map((day, j) => (
                 <React.Fragment key={j}>
                     {j !== 0 &&
@@ -31,14 +31,15 @@ function AllSalesTbody({ days, unfilteredOrders }) {
                             }
                         </th>
                         <th className='order-total'>{totalToday(day.orders)} $</th>
-                        <th className={profitToday(day.orders) > 0 ? 'back-green-profit' : 'back-negative-profit'}>{profitToday(day.orders)} $</th>
+                        {admin && <th className={profitToday(day.orders) > 0 ? 'back-green-profit' : 'back-negative-profit'}>{profitToday(day.orders)} $</th>}
                         <th>-</th>
                     </tr>
                     {day.orders.map((order, i) => (
                         <SingleOrder
                             key={order.id}
                             order={order}
-                            i={i} ordersOfTheDay={i === 0 ? day.orders : null} />
+                            i={i} ordersOfTheDay={i === 0 ? day.orders : null}
+                            admin={admin} />
                     ))}
                 </React.Fragment>
             ))}

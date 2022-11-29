@@ -15,8 +15,11 @@ import SingleProductInTable from '../Components/AllProducts/SingleProductInTable
 import { headers } from '../Config/Headers';
 import SelectSize from '../Components/SelectSize';
 import SelectBrand from '../Components/SelectBrand';
+import { useAdminContext } from '../Hooks/useAdminContext';
 
 function Products() {
+
+    const { admin } = useAdminContext();
 
     const { products, dispatch } = useProductsContext();
     const [productsData, setProductsData] = useState([]);
@@ -143,7 +146,7 @@ function Products() {
                                 setBrand={setBrand}
                                 filters={filters}
                                 setFilters={setFilters} />
-                            <NavLink to='/add-product' query={{ prevPath: window.location.pathname }} className='primary-btn'>Add product</NavLink>
+                            {admin && <NavLink to='/add-product' query={{ prevPath: window.location.pathname }} className='primary-btn'>Add product</NavLink>}
                         </div>
                     </section>
                     <h3 className='products-length'>{productsToRender ? productsToRender.length : ''} REGISTERED PRODUCTS</h3>
@@ -155,7 +158,7 @@ function Products() {
                         {products && currentProducts &&
                             <tbody>
                                 {currentProducts.map(product => (
-                                    <SingleProductInTable key={product.id} product={product} />
+                                    <SingleProductInTable key={product.id} product={product} admin={admin} />
                                 ))}
                             </tbody>
                         }

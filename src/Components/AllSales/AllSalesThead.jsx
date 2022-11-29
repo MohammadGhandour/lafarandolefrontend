@@ -1,6 +1,6 @@
 import React from 'react'
 
-function AllSalesThead() {
+function AllSalesThead({ admin }) {
     return (
         <thead className='thead'>
             <tr>
@@ -9,7 +9,7 @@ function AllSalesThead() {
                 <th>items</th>
                 <th style={{ textDecoration: "line-through" }}>subtotal</th>
                 <th>total</th>
-                <th>profit</th>
+                {admin && <th>profit</th>}
                 <th>customer name</th>
             </tr>
         </thead>
