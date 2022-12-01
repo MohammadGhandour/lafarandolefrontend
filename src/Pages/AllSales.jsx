@@ -120,7 +120,7 @@ function AllSales() {
                             :
                             <tbody>
                                 {filteredOrders.map(order => (
-                                    <SingleOrder key={order.id} order={order} />
+                                    <SingleOrder key={order.id} order={order} admin={admin} />
                                 ))}
                             </tbody>
                         }
