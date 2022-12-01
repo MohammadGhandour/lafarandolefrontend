@@ -69,7 +69,7 @@ function App() {
               {admin && <Route path="/add-product" element={<AddProduct />} />}
               <Route path="/order/:id" element={<Order />} />
               <Route path="/exchange/:id" element={<Exchange />} />
-              <Route path="/expenses" element={<Expenses />} />
+              {admin && <Route path="/expenses" element={<Expenses />} />}
               {admin && <Route path="/averages-progression" element={<AverageProgression />} />}
               {admin && <Route path="/promo-codes" element={<Promos />} />}
               <Route path="*" element={<Page404 />} />

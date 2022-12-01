@@ -43,9 +43,9 @@ function LeftNav({ openNavbar, setOpenNavbar }) {
                     <NavLink to='/all-sales' className='nav-link'>
                         <i className="fa-solid fa-money-bill-wave icon-margin-right"></i>Sales
                     </NavLink>
-                    <NavLink to='/expenses' className='nav-link mobile-link'>
+                    {admin && <NavLink to='/expenses' className='nav-link mobile-link'>
                         <i className="fa-solid fa-coins icon-margin-right"></i>Expenses
-                    </NavLink>
+                    </NavLink>}
                     <NavLink to='/all-customers' className='nav-link'>
                         <i className="fa-solid fa-users icon-margin-right"></i>Customers
                     </NavLink>
