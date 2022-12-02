@@ -29,7 +29,8 @@ function UIForm({
     setBarcode,
     priceAfterDiscount,
     emptyFields,
-    duplicateProduct
+    duplicateProduct,
+    submitting
 }) {
 
     const navigate = useNavigate();
@@ -92,7 +93,7 @@ function UIForm({
                             </div>}
                     </div>
                     <div className='form-btns flex-start'>
-                        <UIButton>{buttonText}</UIButton>
+                        <UIButton>{submitting ? <i className="fa-solid fa-spinner"></i> : buttonText}</UIButton>
                         {isProductPage &&
                             <button type='button' className='primary-btn' onClick={duplicateProduct}>Duplicate</button>
                         }

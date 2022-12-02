@@ -15,6 +15,8 @@ function SingleProductPage() {
 
     const navigate = useNavigate();
 
+    const [submitting, setSubmitting] = useState(false);
+
     const [imageSrcToUpload, setImageSrcToUpload] = useState('');
     const [file, setFile] = useState(null);
     const [fileName, setFileName] = useState(null);
@@ -68,6 +70,7 @@ function SingleProductPage() {
     });
 
     function updateProduct() {
+        setSubmitting(true);
         const productForm = document.getElementById('editProductForm')
         const data = new FormData(productForm);
         data.append('image', file);
@@ -77,11 +80,13 @@ function SingleProductPage() {
                 navigate('/all-products');
                 setFile(null);
                 setFileName(null);
+                setSubmitting(false);
             })
             .catch((err) => {
                 console.log(err);
                 setEmptyFields(err.response.data.emptyFields);
                 setError(err.response.data.error);
+                setSubmitting(false);
             })
     };
 
@@ -143,6 +148,7 @@ function SingleProductPage() {
 
                     emptyFields={emptyFields}
                     duplicateProduct={duplicateProduct}
+                    submitting={submitting}
                 />
             </div>
         )

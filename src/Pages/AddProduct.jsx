@@ -14,6 +14,8 @@ function AddProduct() {
     const [arrayOfSizes, setArrayOfSizes] = useState([]);
     const [firstMounted, setFirstMounted] = useState(true);
 
+    const [submitting, setSubmitting] = useState(false);
+
     const [imageSrcToUpload, setImageSrcToUpload] = useState('');
     const [file, setFile] = useState(null);
     const [fileName, setFileName] = useState(null);
@@ -47,6 +49,7 @@ function AddProduct() {
     const validationSchema = Yup.object().shape({})
 
     function addProduct() {
+        setSubmitting(true);
         const productForm = document.getElementById('addProductForm')
         const data = new FormData(productForm);
         data.append('image', file);
@@ -58,11 +61,13 @@ function AddProduct() {
                 setFile(null);
                 setFileName(null);
                 navigate('/all-products');
+                setSubmitting(false);
             })
             .catch((err) => {
                 setEmptyFields(err.response.data.emptyFields);
                 setError(err.response.data.error);
                 setProductAlreadyExistsId(err.response.data.productId);
+                setSubmitting(false);
             })
     }
 
@@ -103,6 +108,7 @@ function AddProduct() {
                 priceAfterDiscount={Number(initialValues.price - (initialValues.price * (initialValues.discount / 100))).toFixed(2)}
 
                 emptyFields={emptyFields}
+                submitting={submitting}
             />
             <SizeForm arrayOfSizes={arrayOfSizes} setArrayOfSizes={setArrayOfSizes} originalBarcode={barcode} />
             <table className="mt-l mb-m full-width">

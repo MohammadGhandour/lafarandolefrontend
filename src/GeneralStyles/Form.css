@@ -239,3 +239,26 @@
 .display-none {
     display: none;
 }
+
+.fa-solid.fa-spinner {
+    animation: rotateLoader 1s linear infinite;
+    font-size: 16px;
+}
+
+@keyframes rotateLoader {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    40% {
+        transform: rotate(100deg);
+    }
+
+    65% {
+        transform: rotate(200deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

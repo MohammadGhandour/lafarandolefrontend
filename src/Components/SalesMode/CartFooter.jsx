@@ -23,7 +23,8 @@ function CartFooter({
     orderLocation,
     setOrderLocation,
     customers,
-    setPromoCode
+    setPromoCode,
+    submitting
 }) {
 
     const [customerNameInputFocused, setCustomerNameInputFocused] = useState(false);
@@ -144,7 +145,7 @@ function CartFooter({
                             <div className='total'>{finalTotal.toFixed(2)} $</div>
                         </div>
                     </div>
-                    <button type='submit' className='checkout-btn'>{submitButton}</button>
+                    <button type='submit' className='checkout-btn'>{submitting ? <i className="fa-solid fa-spinner"></i> : submitButton}</button>
                 </div>
             </div>
         )
@@ -202,7 +203,7 @@ function CartFooter({
                             finalTotal > 0 &&
                             totalProductsToExchange > 0 ? false : true
                         }>
-                        {submitButton}
+                        {submitting ? <i className="fa-solid fa-spinner"></i> : submitButton}
                     </button>
                 </div>
             </div>

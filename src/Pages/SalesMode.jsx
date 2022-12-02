@@ -19,6 +19,8 @@ function SalesMode() {
 
     const navigate = useNavigate();
 
+    const [submitting, setSubmitting] = useState(false);
+
     const noProductText = 'Scan barcode to add to cart';
 
     const barcodeSearchScannerRef = useRef(null);
@@ -126,6 +128,7 @@ function SalesMode() {
                 customerName: customerName,
                 customerNumber: customerNumber
             }
+            setSubmitting(true);
             axios.post(`${api}/orders`, order, { headers: headers })
                 .then(res => {
                     localStorage.removeItem('cart');
@@ -133,17 +136,21 @@ function SalesMode() {
                     setCart([]);
                     if (customerName === '' && customerNumber === '') {
                         navigate('/all-sales');
+                        setSubmitting(false);
                     } else {
                         axios.post(`${api}/customers`, { customer, finalTotal }, { headers: headers })
                             .then(response => {
                                 navigate('/all-sales');
+                                setSubmitting(false);
                             })
                             .catch(err => {
                                 console.log(err);
+                                setSubmitting(false);
                             })
                     }
                 })
                 .catch(err => {
+                    setSubmitting(false);
                     console.log(err);
                 })
         } else {
@@ -205,6 +212,7 @@ function SalesMode() {
                             orderLocation={orderLocation}
                             setOrderLocation={setOrderLocation}
                             setPromoCode={setPromoCode}
+                            submitting={submitting}
                             submitButton='Submit' />
                     </form>
                 </div>
