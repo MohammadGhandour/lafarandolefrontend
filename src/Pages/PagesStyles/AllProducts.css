@@ -189,6 +189,10 @@
     .pagination-container a {
         width: 25px;
     }
+
+    h3 {
+        font-size: 16px;
+    }
 }
 
 @media screen and (max-width: 500px) {

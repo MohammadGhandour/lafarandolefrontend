@@ -31,6 +31,8 @@ function Products() {
     const [brand, setBrand] = useState('');
     const [filters, setFilters] = useState({ category: '', gender: '', size: '', brand: '' });
     const [loading, setLoading] = useState(true);
+    const [allProductsQuantity, setAllProductsQuantity] = useState(null);
+    const [allProductsQuantitySold, setAllProductsQuantitySold] = useState(null);
 
     useEffect(() => {
         axios.get(`${api}/products`, { headers: headers })
@@ -38,6 +40,10 @@ function Products() {
                 let productsData = response.data;
                 setProductsData(productsData);
                 setProductsToRender(productsData);
+                const allProductsQuantityVar = productsData.reduce((totalItems, item) => ((Number(totalItems) + Number(item.quantity))), 0);
+                const allProductsQuantitySoldVar = productsData.reduce((totalItems, item) => ((Number(totalItems) + Number(item.quantitySold))), 0);
+                setAllProductsQuantity(allProductsQuantityVar);
+                setAllProductsQuantitySold(allProductsQuantitySoldVar);
                 setLoading(false);
             })
             .catch(err => {
@@ -149,7 +155,11 @@ function Products() {
                             {admin && <NavLink to='/add-product' query={{ prevPath: window.location.pathname }} className='primary-btn'>Add product</NavLink>}
                         </div>
                     </section>
-                    <h3 className='products-length'>{productsToRender ? productsToRender.length : ''} REGISTERED PRODUCTS</h3>
+                    <h3 className='products-length'>
+                        {productsToRender ? productsToRender.length : ''} REGISTERED PRODUCTS
+                        (<i className='fa-solid fa-layer-group icon-mr-s'></i>{allProductsQuantity},
+                        <span style={{ color: "var(--profit-green)" }}><i className='fa-solid fa-caret-down icon-mr-s icon-ml-s'></i>{allProductsQuantitySold}</span>)
+                    </h3>
                 </div>
 
                 <div className="table-wrapper">
