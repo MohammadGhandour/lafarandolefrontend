@@ -84,5 +84,14 @@ export const brands = [
     "hilalakinci",
     "dabron",
     "beybek",
-    "nisantasi"
+    "nisantasi",
+    "Zara",
+    "Vauva",
+    "Moes",
+    "Defne Bebe",
+    "Love",
+    "Iggy",
+    "West",
+    "LaCashmere",
+    "Baby Pattini"
 ];
