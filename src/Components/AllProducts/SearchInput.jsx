@@ -25,6 +25,7 @@ function SearchInput({ productsData, productsToRender, setProductsToRender }) {
                 placeholder="Search by name or barcode"
                 value={productName}
                 onChange={(e) => setProductName(e.target.value)}
+                autoFocus
             />
             <i className="flex-center fa-solid fa-magnifying-glass fa-times" onClick={() => setProductName('')}></i>
         </div>
