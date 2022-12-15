@@ -13,6 +13,7 @@ import ErrorMessage from '../Components/ErrorMessage';
 function Dashboard() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
+    const [donutsSortBy, setDonutsSortBy] = useState('quantitySold');
 
     const orders = useRef([]);
 
@@ -50,8 +51,19 @@ function Dashboard() {
                 <div className='full-page statistics-page flex-center'>
                     <StatisticsAverages orders={orders} />
                     <BarCharts orders={orders} />
-                    <h2>Donuts</h2>
-                    <Donuts orders={orders} />
+                    <div className='flex-between full-width'>
+                        <h2>Donuts</h2>
+                        <select
+                            name="sortby"
+                            id="sortby"
+                            className='select-filter'
+                            value={donutsSortBy}
+                            onChange={(e) => setDonutsSortBy(e.target.value)}>
+                            <option value="quantitySold">Quantity</option>
+                            <option value="priceSold">Price</option>
+                        </select>
+                    </div>
+                    <Donuts orders={orders} donutsSortBy={donutsSortBy} setDonutsSortBy={setDonutsSortBy} />
                 </div>
             </>
         )

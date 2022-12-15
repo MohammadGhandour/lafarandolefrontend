@@ -7,12 +7,12 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { options } from '../chartsUtils/donutsOptions';
 import { backgroundColors } from '../chartsUtils/backgroundColors';
 
-function ProductsSoldPerBrand({ rawProductsSold, itemsSold }) {
+function ProductsSoldPerBrand({ rawProductsSold, itemsSold, totalItemsSold, donutsSortBy }) {
 
     const [productsSoldPerBrand, setProductsSoldPerBrand] = useState([]);
 
     useEffect(() => {
-        let quantityPerBrand = [];
+        let productsSoldPerBrand = [];
 
         let brands = rawProductsSold.reduce((acc, product) =>
             acc.includes(product.brand) ? acc : acc.concat(product.brand),
@@ -23,39 +23,63 @@ function ProductsSoldPerBrand({ rawProductsSold, itemsSold }) {
             var singleBrand = {};
             singleBrand['brand'] = brand.charAt(0).toUpperCase() + brand.slice(1);
             singleBrand['quantitySold'] = 0;
-            return quantityPerBrand.push(singleBrand);
+            singleBrand['priceSold'] = 0;
+            return productsSoldPerBrand.push(singleBrand);
         });
 
 
-        quantityPerBrand.map(brand => {
+        productsSoldPerBrand.map(brand => {
             // eslint-disable-next-line
             return rawProductsSold.map(product => {
                 if (product.brand === brand.brand.toLowerCase()) {
                     brand.quantitySold += product.quantitySold;
+                    brand.priceSold += Math.round(Number(product.price) * Number(product.quantitySold));
                 }
             })
         });
 
-        quantityPerBrand.sort((a, b) => b.quantitySold - a.quantitySold);
+        if (donutsSortBy === 'quantitySold') {
+            productsSoldPerBrand.sort((a, b) => b.quantitySold - a.quantitySold);
 
-        const firstTenBrands = quantityPerBrand.splice(0, 10);
-        const otherBrands = quantityPerBrand;
-        const otherBrandsQuantitySold = otherBrands.reduce((totalQuantity, product) => ((totalQuantity + product.quantitySold)), 0);
+            const firstTenBrands = productsSoldPerBrand.splice(0, 10);
+            const otherBrands = productsSoldPerBrand;
+            const otherBrandsQuantitySold = otherBrands.reduce((totalQuantity, product) => ((totalQuantity + product.quantitySold)), 0);
 
-        firstTenBrands.push({ brand: "Others", quantitySold: otherBrandsQuantitySold });
-        quantityPerBrand = firstTenBrands;
+            firstTenBrands.push({ brand: "Others", quantitySold: otherBrandsQuantitySold });
+            productsSoldPerBrand = firstTenBrands;
 
-        setProductsSoldPerBrand({
-            labels: quantityPerBrand.map(brand => brand.brand),
-            datasets: [
-                {
-                    label: "Brands",
-                    data: quantityPerBrand.map(brand => brand.quantitySold),
-                    backgroundColor: backgroundColors
-                }
-            ]
-        });
-    }, [rawProductsSold]);
+            setProductsSoldPerBrand({
+                labels: productsSoldPerBrand.map(brand => brand.brand),
+                datasets: [
+                    {
+                        label: "Brands",
+                        data: productsSoldPerBrand.map(brand => brand.quantitySold),
+                        backgroundColor: backgroundColors
+                    }
+                ]
+            });
+        } else {
+            productsSoldPerBrand.sort((a, b) => b.priceSold - a.priceSold);
+
+            const firstTenBrands = productsSoldPerBrand.splice(0, 10);
+            const otherBrands = productsSoldPerBrand;
+            const otherBrandsPriceSold = otherBrands.reduce((totalQuantity, brand) => ((totalQuantity + brand.priceSold)), 0);
+
+            firstTenBrands.push({ brand: "Others", priceSold: otherBrandsPriceSold });
+            productsSoldPerBrand = firstTenBrands;
+
+            setProductsSoldPerBrand({
+                labels: productsSoldPerBrand.map(brand => brand.brand),
+                datasets: [
+                    {
+                        label: "Brands",
+                        data: productsSoldPerBrand.map(brand => brand.priceSold),
+                        backgroundColor: backgroundColors
+                    }
+                ]
+            });
+        }
+    }, [donutsSortBy, rawProductsSold]);
 
     const plugins = [ChartDataLabels];
 
@@ -63,13 +87,22 @@ function ProductsSoldPerBrand({ rawProductsSold, itemsSold }) {
         return (
             <div>Loading...</div>
         )
-    } else {
+    } else if (donutsSortBy === 'quantitySold') {
         return (
             <div className='donut'>
                 <Doughnut
                     data={productsSoldPerBrand}
                     plugins={plugins}
-                    options={options(itemsSold, 'Products sold per brand', undefined, undefined)} />
+                    options={options(itemsSold, 'Quantity sold per brand', undefined, undefined)} />
+            </div>
+        )
+    } else if (donutsSortBy === 'priceSold') {
+        return (
+            <div className='donut'>
+                <Doughnut
+                    data={productsSoldPerBrand}
+                    plugins={plugins}
+                    options={options(itemsSold, 'Price sold per brand', totalItemsSold, undefined)} />
             </div>
         )
     }

@@ -9,9 +9,10 @@ import { backgroundColors } from '../chartsUtils/backgroundColors';
 import { useEffect } from 'react';
 import { useState } from 'react';
 
-function OrdersPerLocation({ orders }) {
+function OrdersPerLocation({ orders, donutsSortBy }) {
 
     const [donutOrdersData, setDonutOrdersData] = useState([]);
+    const totalOfAllOrders = Math.round(orders.current.reduce((total, order) => total + Number(order.total), 0));
 
     useEffect(() => {
         let ordersLocationData = [];
@@ -25,6 +26,7 @@ function OrdersPerLocation({ orders }) {
             var singleLocation = {};
             singleLocation['location'] = location;
             singleLocation['numberOfOrders'] = 0;
+            singleLocation['totalSold'] = 0;
             return ordersLocationData.push(singleLocation);
         });
 
@@ -33,34 +35,57 @@ function OrdersPerLocation({ orders }) {
             return ordersLocationData.map(singleLocation => {
                 if (order.orderLocation === singleLocation.location) {
                     singleLocation.numberOfOrders += 1;
+                    singleLocation.totalSold += Math.round(Number(order.total));
                 }
             })
         });
 
-        setDonutOrdersData({
-            labels: ordersLocationData.map(orderLocation => orderLocation.location),
-            datasets: [
-                {
-                    label: "Orders Location",
-                    data: ordersLocationData.map(orderLocation => orderLocation.numberOfOrders),
-                    backgroundColor: backgroundColors
-                }
-            ]
-        });
+        if (donutsSortBy === 'quantitySold') {
+            setDonutOrdersData({
+                labels: ordersLocationData.map(orderLocation => orderLocation.location),
+                datasets: [
+                    {
+                        label: "Orders Location",
+                        data: ordersLocationData.map(orderLocation => orderLocation.numberOfOrders),
+                        backgroundColor: backgroundColors
+                    }
+                ]
+            });
+        } else {
+            setDonutOrdersData({
+                labels: ordersLocationData.map(orderLocation => orderLocation.location),
+                datasets: [
+                    {
+                        label: "Orders Location",
+                        data: ordersLocationData.map(orderLocation => orderLocation.totalSold),
+                        backgroundColor: backgroundColors
+                    }
+                ]
+            });
+        }
         // eslint-disable-next-line
-    }, []);
+    }, [donutsSortBy]);
 
     const plugins = [ChartDataLabels];
 
     if (!donutOrdersData.labels) {
         <div>Loading....</div>
-    } else {
+    } else if (donutsSortBy === 'quantitySold') {
         return (
             <div className='donut'>
                 <Doughnut
                     data={donutOrdersData}
                     plugins={plugins}
-                    options={options(orders.current.length, 'Orders Location', undefined, undefined)} />
+                    options={options(orders.current.length, 'Orders location per quantity', undefined, undefined)} />
+            </div>
+        )
+    } else if (donutsSortBy === 'priceSold') {
+        return (
+            <div className='donut'>
+                <Doughnut
+                    data={donutOrdersData}
+                    plugins={plugins}
+                    options={options(orders.current.length, 'Orders location per price', totalOfAllOrders, undefined)} />
             </div>
         )
     }

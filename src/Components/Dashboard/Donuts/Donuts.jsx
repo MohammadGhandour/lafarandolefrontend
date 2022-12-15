@@ -3,14 +3,13 @@ import React, { useEffect, useState } from 'react';
 import { api } from '../../../Config/Config';
 import { headers } from '../../../Config/Headers';
 import 'chartjs-adapter-moment';
-import ProductsSoldPerPrice from './ProductsSoldPerPrice';
 import ProductsSoldPerQuantity from './ProductsSoldPerQuantity';
 import OrdersPerLocation from './OrdersPerLocation';
 import ProductsSoldPerGender from './ProductsSoldPerGender';
 import ProductsSoldPerBrand from './ProductsSoldPerBrand';
 
 
-function Donuts({ orders }) {
+function Donuts({ orders, donutsSortBy }) {
 
     const [loading, setLoading] = useState(true);
     const [itemsSold, setItemsSold] = useState(0);
@@ -42,18 +41,22 @@ function Donuts({ orders }) {
             <div className='donut-charts-wrapper'>
                 <ProductsSoldPerQuantity
                     rawProductsSold={rawProductsSold}
-                    itemsSold={itemsSold} />
-                <ProductsSoldPerPrice
-                    rawProductsSold={rawProductsSold}
                     itemsSold={itemsSold}
-                    totalItemsSold={totalItemsSold} />
-                <ProductsSoldPerGender
-                    rawProductsSold={rawProductsSold}
-                    itemsSold={itemsSold} />
+                    totalItemsSold={totalItemsSold}
+                    donutsSortBy={donutsSortBy} />
                 <ProductsSoldPerBrand
                     rawProductsSold={rawProductsSold}
-                    itemsSold={itemsSold} />
-                <OrdersPerLocation orders={orders} />
+                    itemsSold={itemsSold}
+                    totalItemsSold={totalItemsSold}
+                    donutsSortBy={donutsSortBy} />
+                <ProductsSoldPerGender
+                    rawProductsSold={rawProductsSold}
+                    itemsSold={itemsSold}
+                    totalItemsSold={totalItemsSold}
+                    donutsSortBy={donutsSortBy} />
+                <OrdersPerLocation
+                    orders={orders}
+                    donutsSortBy={donutsSortBy} />
             </div>
         )
     }

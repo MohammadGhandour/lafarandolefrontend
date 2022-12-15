@@ -28,7 +28,11 @@ export const options = (itemsSold, title, totalItemsSold, datalabelsColor) => {
                     size: 14
                 },
                 formatter: function (value, ctx) {
-                    if (title === 'Products sold per price') {
+                    if (title === 'Products sold per price' ||
+                        title === 'Price sold per brand' ||
+                        title === 'Price sold per gender' ||
+                        title === 'Orders location per price'
+                    ) {
                         return Math.round(value * 100 / totalItemsSold) + '%'
                     } else if (title === 'Products sold per quantity' || title === 'Products sold per gender') {
                         return Math.round(value * 100 / itemsSold) + '%';
