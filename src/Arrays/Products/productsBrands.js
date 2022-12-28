@@ -93,5 +93,12 @@ export const brands = [
     "Iggy",
     "West",
     "LaCashmere",
-    "Baby Pattini"
+    "Baby Pattini",
+    "Watani",
+    "My City",
+    "Nefise",
+    "Gulseli",
+    "Masalim",
+    "Sola Rosa",
+    "Yellowmoon",
 ];
