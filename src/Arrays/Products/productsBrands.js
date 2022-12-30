@@ -101,4 +101,5 @@ export const brands = [
     "Masalim",
     "Sola Rosa",
     "Yellowmoon",
+    "Fashion",
 ];
