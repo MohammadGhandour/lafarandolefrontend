@@ -1,4 +1,4 @@
-import React from 'react'
+import { formatCurrency } from '../../functions/formatCurrency';
 
 function AllSalesStatistics({ orders }) {
 
@@ -13,9 +13,9 @@ function AllSalesStatistics({ orders }) {
                 <th className='order-id'>-</th>
                 <th>All Time</th>
                 <th>{itemsSold}</th>
-                <th className='order-total order-total-before-discount'>{totalBeforeDiscount} $</th>
-                <th className='order-total'>{total} $</th>
-                <th className='back-green-profit'>{profit} $</th>
+                <th className='order-total order-total-before-discount'>{formatCurrency(totalBeforeDiscount)}</th>
+                <th className='order-total'>{formatCurrency(total)}</th>
+                <th className='back-green-profit'>{formatCurrency(profit)}</th>
                 <th>-</th>
             </tr>
             <tr className='none-tr'>

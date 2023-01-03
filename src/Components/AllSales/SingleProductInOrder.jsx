@@ -1,5 +1,6 @@
 import React from 'react';
 import logo from '../../assets/defaultProductImage.jpg';
+import { formatCurrency } from '../../functions/formatCurrency';
 
 function SingleProductInOrder({ product }) {
     return (
@@ -13,12 +14,12 @@ function SingleProductInOrder({ product }) {
             <th className='p-i-c-name'>{product.name}</th>
             <th>
                 {product.priceAfterDiscount !== product.price &&
-                    <span className='product-original-price'>{product.price} $<br /></span>
+                    <span className='product-original-price'>{formatCurrency(product.price)}<br /></span>
                 }
-                <span>{product.priceAfterDiscount} $</span>
+                <span>{formatCurrency(product.priceAfterDiscount)}</span>
             </th>
             <th>{product.quantity}</th>
-            <th>{product.priceAfterDiscount * product.quantity} $</th>
+            <th>{formatCurrency(product.priceAfterDiscount * product.quantity)}</th>
             <th>{product.size}</th>
         </tr>
     )

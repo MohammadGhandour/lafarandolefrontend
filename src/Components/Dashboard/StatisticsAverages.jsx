@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { api } from '../../Config/Config';
 import { headers } from '../../Config/Headers';
+import { formatCurrency } from '../../functions/formatCurrency';
 
 function StatisticsAverages({ orders }) {
     const [customers, setCustomers] = useState([]);
@@ -57,10 +58,10 @@ function StatisticsAverages({ orders }) {
         const totalSold = orders.current?.reduce((items, order) => ((items + Number(order.total))), 0);
         const totalProfit = orders.current?.reduce((items, order) => ((items + Number(order.profit))), 0);
         setAverageProductsPerOder(Number(itemsSold / orders.current.length).toFixed(2));
-        setAveragePricePerOrder(Number(priceSold / orders.current.length).toFixed(2));
-        setAverageProfitPerOrder(Number(profitSold / orders.current.length).toFixed(2));
-        setTotalSold(Number(totalSold.toFixed(2)));
-        setTotalProfit(Number(totalProfit.toFixed(2)));
+        setAveragePricePerOrder(formatCurrency(priceSold / orders.current.length));
+        setAverageProfitPerOrder(formatCurrency(profitSold / orders.current.length));
+        setTotalSold((formatCurrency(totalSold)));
+        setTotalProfit(formatCurrency(totalProfit));
         // eslint-disable-next-line
     }, [orders]);
 
@@ -75,11 +76,11 @@ function StatisticsAverages({ orders }) {
                 <p>Number of customers</p>
             </div>
             <div className='average flex-column-center'>
-                <h1 className='text-center'>{totalSold} $</h1>
+                <h1 className='text-center'>{totalSold}</h1>
                 <p>Total sold</p>
             </div>
             <div className='average flex-column-center average-profit'>
-                <h1 className='text-center'>{totalProfit} $</h1>
+                <h1 className='text-center'>{totalProfit}</h1>
                 <p>Total profit sold</p>
             </div>
             <Link to='/averages-progression' className='average flex-column-center clickable-average'>
@@ -91,11 +92,11 @@ function StatisticsAverages({ orders }) {
                 <p>Average order per customer</p>
             </div>
             <Link to='/averages-progression' className='average flex-column-center clickable-average'>
-                <h1 className='text-center'>{averagePricePerOrder} $</h1>
+                <h1 className='text-center'>{averagePricePerOrder}</h1>
                 <p>Average price per order</p>
             </Link>
             <Link to='/averages-progression' className='average flex-column-center clickable-average'>
-                <h1 className='text-center'>{averageProfitPerOrder} $</h1>
+                <h1 className='text-center'>{averageProfitPerOrder}</h1>
                 <p>Average profit per order</p>
             </Link>
             <div className='average flex-column-center'>

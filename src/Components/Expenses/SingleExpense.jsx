@@ -4,6 +4,7 @@ import { sortArrayOfObjectsPerDay } from '../../functions/sortArrayOfObjectsPerD
 import axios from 'axios';
 import { api } from '../../Config/Config';
 import { headers } from '../../Config/Headers';
+import { formatCurrency } from '../../functions/formatCurrency';
 
 function SingleExpense({ expense, setExpenses, rawExpenses, setRawExpenses }) {
 
@@ -31,7 +32,7 @@ function SingleExpense({ expense, setExpenses, rawExpenses, setRawExpenses }) {
             <th>{moment(expense.createdAt).format('lll')}</th>
             <th>{expense.category}</th>
             <th className='expense-comment'>{expense.comment}</th>
-            <th className='expense-value-in-table'>$ {expense.expenseValue}</th>
+            <th className='expense-value-in-table'>{formatCurrency(expense.expenseValue)}</th>
             <th className='delete-btn-in-table' onClick={deleteExpense}><i className='fa-solid fa-trash'></i></th>
         </tr>
     )

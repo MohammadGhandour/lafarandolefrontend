@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import logo from '../../assets/defaultProductImage.jpg';
+import { formatCurrency } from '../../functions/formatCurrency';
 
 function SingleProductInTable({ product, admin }) {
 
@@ -27,7 +28,7 @@ function SingleProductInTable({ product, admin }) {
                 {product.quantity}
                 {product.quantitySold > 0 && <span className='quantity-sold-in-product-table'><i className="fa-solid fa-caret-down icon-mr-s icon-ml-s"></i>{product.quantitySold}</span>}
             </th>
-            <th>{product.priceAfterDiscount} $</th>
+            <th>{formatCurrency(product.priceAfterDiscount)}</th>
         </tr>
     )
 }

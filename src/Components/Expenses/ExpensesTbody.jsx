@@ -1,5 +1,6 @@
 import React from 'react';
 import SingleExpense from './SingleExpense';
+import { formatCurrency } from '../../functions/formatCurrency';
 
 function ExpensesTbody({ days, setExpenses, rawExpenses, setRawExpenses }) {
 
@@ -14,7 +15,7 @@ function ExpensesTbody({ days, setExpenses, rawExpenses, setRawExpenses }) {
                 <th>All Time</th>
                 <th>-</th>
                 <th>-</th>
-                <th className='expense-value-in-table'>$ {totalExpensesPerDay(rawExpenses).toFixed(2)}</th>
+                <th className='expense-value-in-table'>{formatCurrency(totalExpensesPerDay(rawExpenses))}</th>
                 <th>-</th>
             </tr>
             <tr className='none-tr'>
@@ -32,7 +33,7 @@ function ExpensesTbody({ days, setExpenses, rawExpenses, setRawExpenses }) {
                         <th>{day.date}</th>
                         <th>-</th>
                         <th>-</th>
-                        <th className='expense-value-in-table'>$ {totalExpensesPerDay(day.expenses).toFixed(2)}</th>
+                        <th className='expense-value-in-table'>{formatCurrency(totalExpensesPerDay(day.expenses))}</th>
                         <th className='expense-value-in-table'>-</th>
                     </tr>
                     {day.expenses.map((expense, i) => (

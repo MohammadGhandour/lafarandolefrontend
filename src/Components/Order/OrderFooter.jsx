@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { api } from '../../Config/Config';
 import { headers } from '../../Config/Headers';
+import { formatCurrency } from '../../functions/formatCurrency';
 
 function OrderFooter({ order, admin }) {
 
@@ -63,7 +64,7 @@ function OrderFooter({ order, admin }) {
                             <span>Subtotal:</span>
                             <div>
                                 <div className='fs-20 total-before-discount'>
-                                    {order.totalBeforeDiscount} $
+                                    {formatCurrency(order.totalBeforeDiscount)}
                                 </div>
                             </div>
                         </div>}
@@ -73,15 +74,15 @@ function OrderFooter({ order, admin }) {
                         </div>}
                         <div className='flex-between'>
                             <span>Total:</span>
-                            <div className='fs-20'>{order.total} $</div>
+                            <div className='fs-20'>{formatCurrency(order.total)}</div>
                         </div>
                         {admin && <div className='flex-between order-cost'>
                             <span>Cost:</span>
-                            <div className='total'>{order.cost} $</div>
+                            <div className='total'>{formatCurrency(order.cost)}</div>
                         </div>}
                         {admin && <div className='flex-between'>
                             <span>Profit:</span>
-                            <div className='fs-20 order-profit'>{order.profit} $</div>
+                            <div className='fs-20 order-profit'>{formatCurrency(order.profit)}</div>
                         </div>}
                     </div>
                     <div className='flex-between gap'>

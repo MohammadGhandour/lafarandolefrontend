@@ -2,10 +2,11 @@ import moment from 'moment';
 import React from 'react'
 import AllSalesStatistics from './AllSalesStatistics';
 import SingleOrder from './SingleOrder';
+import { formatCurrency } from '../../functions/formatCurrency';
 
 function AllSalesTbody({ days, unfilteredOrders, admin }) {
 
-    const totalBeforeDiscountToday = (ordersOfTheDay) => ordersOfTheDay?.reduce((total, item) => (Number(total) + Number(item.totalBeforeDiscount)).toFixed(2), 0);
+    const totalBeforeDiscountToday = (ordersOfTheDay) => ordersOfTheDay?.reduce((total, item) => (Number(total) + Number(item.totalBeforeDiscount)), 0);
     const totalToday = (ordersOfTheDay) => ordersOfTheDay?.reduce((total, item) => (Number(total) + Number(item.total)).toFixed(2), 0);
     const itemsSoldToday = (ordersOfTheDay) => ordersOfTheDay?.reduce((items, item) => ((items + item.itemsNumber)), 0);
     const profitToday = (ordersOfTheDay) => ordersOfTheDay?.reduce((total, item) => (Number(total) + Number(item.profit)).toFixed(2), 0);
@@ -27,11 +28,11 @@ function AllSalesTbody({ days, unfilteredOrders, admin }) {
                         <th>{itemsSoldToday(day.orders)}</th>
                         <th className='order-total order-total-before-discount'>
                             {Number(totalBeforeDiscountToday(day.orders)) === Number(totalToday) ? ''
-                                : `${totalBeforeDiscountToday(day.orders)} $`
+                                : formatCurrency(totalBeforeDiscountToday(day.orders))
                             }
                         </th>
-                        <th className='order-total'>{totalToday(day.orders)} $</th>
-                        {admin && <th className={profitToday(day.orders) > 0 ? 'back-green-profit' : 'back-negative-profit'}>{profitToday(day.orders)} $</th>}
+                        <th className='order-total'>{formatCurrency(totalToday(day.orders))}</th>
+                        {admin && <th className={profitToday(day.orders) > 0 ? 'back-green-profit' : 'back-negative-profit'}>{formatCurrency(profitToday(day.orders))}</th>}
                         <th>-</th>
                     </tr>
                     {day.orders.map((order, i) => (

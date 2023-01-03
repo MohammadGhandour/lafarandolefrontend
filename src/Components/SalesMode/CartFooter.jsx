@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useRef } from 'react';
 import { useState } from 'react';
 import { promoCodes } from '../../Arrays/SalesMode/promoCodes';
+import { formatCurrency } from '../../functions/formatCurrency';
 import './CartFooter.css';
 import DropMenuCustomerInfos from './DropMenuCustomerInfos';
 
@@ -140,9 +141,9 @@ function CartFooter({
                         <label className='total-wrapper-label'>Total</label>
                         <div>
                             {finalTotal !== finalTotalBeforeDiscount &&
-                                <div className='total total-before-discount'>{finalTotalBeforeDiscount.toFixed(2)} $</div>
+                                <div className='total total-before-discount'>{formatCurrency(finalTotalBeforeDiscount)}</div>
                             }
-                            <div className='total'>{finalTotal.toFixed(2)} $</div>
+                            <div className='total'>{formatCurrency(finalTotal)}</div>
                         </div>
                     </div>
                     <button type='submit' className='checkout-btn'>{submitting ? <i className="fa-solid fa-spinner"></i> : submitButton}</button>

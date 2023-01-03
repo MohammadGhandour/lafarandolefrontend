@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { api } from '../../Config/Config';
 import { headers } from '../../Config/Headers';
+import { formatCurrency } from '../../functions/formatCurrency';
 
 function SingleCustomer({ customer, admin }) {
 
@@ -34,8 +35,8 @@ function SingleCustomer({ customer, admin }) {
             <th>{customer.customerName}</th>
             <th>{customer.customerNumber}</th>
             <th>{customer.numberOfOrders}</th>
-            {admin && <th>{customer.totalOfAllOrders} $</th>}
-            {admin && <th className='back-green-profit'>{totalProfit ? totalProfit.toFixed(2) : ''} $</th>}
+            {admin && <th>{formatCurrency(customer.totalOfAllOrders)}</th>}
+            {admin && <th className='back-green-profit'>{formatCurrency(totalProfit.toFixed(2))}</th>}
         </tr>
     )
 }

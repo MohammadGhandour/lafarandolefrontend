@@ -4,6 +4,7 @@ import ErrorMessage from '../Components/ErrorMessage';
 import Loader from '../Components/Loader';
 import { api } from '../Config/Config';
 import { headers } from '../Config/Headers';
+import { formatCurrency } from '../functions/formatCurrency';
 import './PagesStyles/Promos.css';
 
 function Promos() {
@@ -89,8 +90,8 @@ function Promos() {
                         <tr key={i}>
                             <td className='order-profit'>{promo.promoCode}</td>
                             <td>{promo.numberOfUse}</td>
-                            <td>{promo.total.toFixed(2)} $</td>
-                            <td className='back-green-profit'>{promo.profit.toFixed(2)} $</td>
+                            <td>{formatCurrency(promo.total)}</td>
+                            <td className='back-green-profit'>{formatCurrency(promo.profit)}</td>
                         </tr>
                     ))}
                 </tbody>
@@ -98,8 +99,8 @@ function Promos() {
                     <tr>
                         <th>-</th>
                         <th>{getTotalOfUse(arrayOfPromoCodes)}</th>
-                        <th>{getTotal(arrayOfPromoCodes).toFixed(2)} $</th>
-                        <th className='back-green-profit'>{getProfit(arrayOfPromoCodes).toFixed(2)} $</th>
+                        <th>{formatCurrency(getTotal(arrayOfPromoCodes))}</th>
+                        <th className='back-green-profit'>{formatCurrency(getProfit(arrayOfPromoCodes))}</th>
                     </tr>
                 </tfoot>
             </table>
