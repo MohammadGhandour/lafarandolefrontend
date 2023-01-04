@@ -15,6 +15,7 @@ function BarCharts({ orders }) {
     const [ordersNumbersData, setOrdersNumbersData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [sortBy, setSortBy] = useState('Last 30 Days');
+    const [unit, setUnit] = useState('day');
 
     useEffect(() => {
         getOrdersChart(orders, setOrdersData, setOrdersNumbersData, setProfitData, sortBy);
@@ -24,6 +25,11 @@ function BarCharts({ orders }) {
 
     function handleChange(e) {
         const sortBy = e.target.value;
+        if (sortBy === 'This Year' || sortBy === 'Last 12 Months') {
+            setUnit('month')
+        } else {
+            setUnit('day')
+        }
         setSortBy(sortBy);
         getOrdersChart(orders, setOrdersData, setOrdersNumbersData, setProfitData, sortBy);
         setLoading(false);
@@ -44,7 +50,7 @@ function BarCharts({ orders }) {
             x: {
                 type: 'time',
                 time: {
-                    unit: sortBy === 'This Year' ? 'month' : 'day'
+                    unit: unit
                 }
             }
         },
@@ -73,7 +79,7 @@ function BarCharts({ orders }) {
             x: {
                 type: 'time',
                 time: {
-                    unit: sortBy === 'This Year' ? 'month' : 'day'
+                    unit: unit
                 }
             }
         },
@@ -106,6 +112,7 @@ function BarCharts({ orders }) {
                         <option value="This Month">This Month</option>
                         <option value="Last Month">Last Month</option>
                         <option value="This Year">This Year</option>
+                        <option value="Last 12 Months">Last 12 Months</option>
                     </select>
                 </div>
                 <div className='bars-container'>
