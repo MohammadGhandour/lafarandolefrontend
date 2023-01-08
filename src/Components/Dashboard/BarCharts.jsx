@@ -57,8 +57,12 @@ function BarCharts({ orders }) {
         plugins: {
             tooltip: {
                 callbacks: {
-                    beforeTitle: function (ctx) {
-                        return moment(new Date(ctx[0].label)).format('dddd')
+                    title: function (ctx) {
+                        if (unit === "month") {
+                            return moment(new Date(ctx[0].label)).format('MMMM') + ' ' + moment(new Date(ctx[0].label)).format('YYYY')
+                        } else {
+                            return moment(new Date(ctx[0].label)).format('dddd') + ' ' + ctx[0].label.split(', 12')[0]
+                        }
                     }
                 }
             }
@@ -86,8 +90,12 @@ function BarCharts({ orders }) {
         plugins: {
             tooltip: {
                 callbacks: {
-                    beforeTitle: function (ctx) {
-                        return moment(new Date(ctx[0].label)).format('dddd')
+                    title: function (ctx) {
+                        if (unit === "month") {
+                            return moment(new Date(ctx[0].label)).format('MMMM') + ' ' + moment(new Date(ctx[0].label)).format('YYYY')
+                        } else {
+                            return moment(new Date(ctx[0].label)).format('dddd') + ' ' + ctx[0].label.split(', 12')[0]
+                        }
                     }
                 }
             }
