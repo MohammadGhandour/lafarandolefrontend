@@ -16,14 +16,15 @@
     transition: all 0.2s;
 }
 
-.quantity-0 {
-    background-color: var(--danger) !important;
-    color: var(--bg);
-}
 
 .product-discount {
     background-color: #FCC201 !important;
     /* color: var(--bg); */
+}
+
+.quantity-0 {
+    background-color: var(--danger) !important;
+    color: var(--bg);
 }
 
 .product-in-table-img-wrapper {
