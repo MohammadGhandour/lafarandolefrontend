@@ -21,6 +21,11 @@
     color: var(--bg);
 }
 
+.product-discount {
+    background-color: #FCC201 !important;
+    /* color: var(--bg); */
+}
+
 .product-in-table-img-wrapper {
     width: 50px;
     height: 50px;
