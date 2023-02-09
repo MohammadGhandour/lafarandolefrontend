@@ -7,16 +7,20 @@ function SingleProductInTable({ product, admin }) {
 
     const navigate = useNavigate();
 
-    function goProduct() {
+    function goProduct(e) {
         if (admin) {
-            navigate(`/product/${product.id}`);
+            if (e.button === 0) {
+                navigate(`/product/${product.id}`);
+            } else if (e.button === 1) {
+                window.open(`${window.location.origin}/product/${product.id}`, '_blank');
+            }
         } else {
             return
         }
     }
 
     return (
-        <tr className={`single-product-in-table ${product.discount !== 0 ? "product-discount" : ""} ${Number(product.quantity) === 0 ? 'quantity-0' : ''}`} onClick={goProduct} style={admin ? { cursor: "pointer" } : { cursor: "default" }}>
+        <tr className={`single-product-in-table ${product.discount !== 0 ? "product-discount" : ""} ${Number(product.quantity) === 0 ? 'quantity-0' : ''}`} onMouseDown={goProduct} style={admin ? { cursor: "pointer" } : { cursor: "default" }}>
             <th className='product-in-table-img-wrapper'>
                 <img src={product.photo ? product.photo : logo} alt={product.name} />
             </th>

@@ -28,6 +28,14 @@ function Customer() {
             })
     }, [customerNumber]);
 
+    function goOrder(e, order) {
+        if (e.button === 0) {
+            navigate(`/order/${order.id}`)
+        } else if (e.button === 1) {
+            window.open(`${window.location.origin}/order/${order.id}`, '_blank');
+        }
+    };
+
     if (loading) {
         return (
             <div className='full-page'>
@@ -53,7 +61,7 @@ function Customer() {
                     {orders && orders.length > 0 &&
                         <tbody>
                             {orders.map(order => (
-                                <tr onClick={() => navigate(`/order/${order.id}`)} key={order.id}>
+                                <tr onMouseDown={(e) => goOrder(e, order)} key={order.id}>
                                     <th className='order-id'>{order.id}</th>
                                     <th>{moment(order.createdAt).format('lll')}</th>
                                     <th>{order.itemsNumber}</th>

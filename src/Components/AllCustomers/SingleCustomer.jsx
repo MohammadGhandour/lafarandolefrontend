@@ -24,14 +24,19 @@ function SingleCustomer({ customer, admin }) {
             })
     }, [customer.customerNumber]);
 
-    function goCustomer() {
+    function goCustomer(e) {
         const customerName = customer.customerName.replace(' ', '');
         const customerNumber = customer.customerNumber;
-        navigate(`/customer/${customer.id}/${customerName}/${customerNumber}`);
+
+        if (e.button === 0) {
+            navigate(`/customer/${customer.id}/${customerName}/${customerNumber}`);
+        } else if (e.button === 1) {
+            window.open(`${window.location.origin}/customer/${customer.id}/${customerName}/${customerNumber}`, '_blank');
+        }
     }
 
     return (
-        <tr onClick={goCustomer}>
+        <tr onMouseDown={goCustomer}>
             <th>{customer.customerName}</th>
             <th>{customer.customerNumber}</th>
             <th>{customer.numberOfOrders}</th>
