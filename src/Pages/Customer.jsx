@@ -29,10 +29,10 @@ function Customer() {
     }, [customerNumber]);
 
     function goOrder(e, order) {
-        if (e.button === 0) {
-            navigate(`/order/${order.id}`)
-        } else if (e.button === 1) {
+        if (e.button === 1 || e.ctrlKey) {
             window.open(`${window.location.origin}/order/${order.id}`, '_blank');
+        } else if (e.button === 0) {
+            navigate(`/order/${order.id}`)
         }
     };
 

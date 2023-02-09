@@ -9,10 +9,10 @@ function SingleProductInTable({ product, admin }) {
 
     function goProduct(e) {
         if (admin) {
-            if (e.button === 0) {
-                navigate(`/product/${product.id}`);
-            } else if (e.button === 1) {
+            if (e.button === 1 || e.ctrlKey) {
                 window.open(`${window.location.origin}/product/${product.id}`, '_blank');
+            } else if (e.button === 0) {
+                navigate(`/product/${product.id}`);
             }
         } else {
             return

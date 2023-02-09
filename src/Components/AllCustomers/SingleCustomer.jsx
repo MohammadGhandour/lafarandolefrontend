@@ -28,10 +28,10 @@ function SingleCustomer({ customer, admin }) {
         const customerName = customer.customerName.replace(' ', '');
         const customerNumber = customer.customerNumber;
 
-        if (e.button === 0) {
-            navigate(`/customer/${customer.id}/${customerName}/${customerNumber}`);
-        } else if (e.button === 1) {
+        if (e.button === 1 || e.ctrlKey) {
             window.open(`${window.location.origin}/customer/${customer.id}/${customerName}/${customerNumber}`, '_blank');
+        } else if (e.button === 0) {
+            navigate(`/customer/${customer.id}/${customerName}/${customerNumber}`);
         }
     }
 
