@@ -21,6 +21,7 @@ import Promos from "./Pages/Promos";
 import { useAdminContext } from "./Hooks/useAdminContext";
 import { useEffect } from "react";
 import Page404 from "./Pages/Page404";
+import User from "./Pages/User";
 
 function App() {
 
@@ -64,8 +65,9 @@ function App() {
               <Route path="/all-sales" element={<AllSales />} />
               <Route path="/all-customers" element={<AllCustomers />} />
               {admin && <Route path="/all-users" element={<AllUsers />} />}
+              {admin && <Route path="/user/:id" element={<User />} />}
               <Route path="/customer/:id/:customerName/:customerNumber" element={<Customer />} />
-              {admin && <Route path="/product/:productId" element={<SingleProductPage />} />}
+              <Route path="/product/:productId" element={<SingleProductPage />} />
               {admin && <Route path="/add-product" element={<AddProduct />} />}
               <Route path="/order/:id" element={<Order />} />
               <Route path="/exchange/:id" element={<Exchange />} />

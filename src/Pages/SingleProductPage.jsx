@@ -8,10 +8,12 @@ import Loader from '../Components/Loader';
 import ErrorMessage from "../Components/ErrorMessage";
 import { headers } from '../Config/Headers';
 import { useLayoutEffect } from 'react';
+import { useAdminContext } from "../Hooks/useAdminContext";
 
 function SingleProductPage() {
 
     const [product, setProduct] = useState({});
+    const { admin } = useAdminContext();
 
     const navigate = useNavigate();
 
@@ -70,35 +72,43 @@ function SingleProductPage() {
     });
 
     function updateProduct() {
-        setSubmitting(true);
-        const productForm = document.getElementById('editProductForm')
-        const data = new FormData(productForm);
-        data.append('image', file);
-        data.append('photo', fileName);
-        axios.put(`${api}/products/${productId}`, data, { headers: headers })
-            .then((res) => {
-                navigate('/all-products');
-                setFile(null);
-                setFileName(null);
-                setSubmitting(false);
-            })
-            .catch((err) => {
-                console.log(err);
-                setEmptyFields(err.response.data.emptyFields);
-                setError(err.response.data.error);
-                setSubmitting(false);
-            })
+        if (admin) {
+            setSubmitting(true);
+            const productForm = document.getElementById('editProductForm')
+            const data = new FormData(productForm);
+            data.append('image', file);
+            data.append('photo', fileName);
+            axios.put(`${api}/products/${productId}`, data, { headers: headers })
+                .then((res) => {
+                    navigate('/all-products');
+                    setFile(null);
+                    setFileName(null);
+                    setSubmitting(false);
+                })
+                .catch((err) => {
+                    console.log(err);
+                    setEmptyFields(err.response.data.emptyFields);
+                    setError(err.response.data.error);
+                    setSubmitting(false);
+                })
+        } else {
+            alert("You're not authorized to make this action, please contact the CTO !");
+        }
     };
 
     function deleteProduct() {
-        if (window.confirm('Are you sure you want to delete this product ? ')) {
-            axios.delete(`${api}/products/${productId}`, { headers: headers })
-                .then(res => {
-                    navigate('/all-products');
-                })
-                .catch(err => {
-                    console.log(err);
-                })
+        if (admin) {
+            if (window.confirm('Are you sure you want to delete this product ? ')) {
+                axios.delete(`${api}/products/${productId}`, { headers: headers })
+                    .then(res => {
+                        navigate('/all-products');
+                    })
+                    .catch(err => {
+                        console.log(err);
+                    })
+            }
+        } else {
+            alert("You're not authorized to make this action, please contact the CTO !");
         }
     };
 
@@ -149,6 +159,7 @@ function SingleProductPage() {
                     emptyFields={emptyFields}
                     duplicateProduct={duplicateProduct}
                     submitting={submitting}
+                    admin={admin}
                 />
             </div>
         )

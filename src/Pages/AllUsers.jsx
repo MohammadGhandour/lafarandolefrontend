@@ -5,6 +5,7 @@ import Loader from '../Components/Loader';
 import ErrorMessage from "../Components/ErrorMessage";
 import { api } from '../Config/Config'
 import { headers } from '../Config/Headers';
+import { Link } from "react-router-dom";
 
 function AllUsers() {
 
@@ -54,11 +55,11 @@ function AllUsers() {
                     </button>
                 </div>
                 {users.map(user => (
-                    <div className='single-customer-wrapper flex-between' key={user.id}>
+                    <Link to={`/user/${user.id}`} className='single-customer-wrapper flex-between' key={user.id}>
                         <h2>{user.username}</h2>
                         {/* eslint-disable-next-line */}
                         <h2>{user.admin == 0 ? 'Not admin' : 'Admin'}</h2>
-                    </div>
+                    </Link>
                 ))}
                 <Register modalOpen={modalOpen} setModalOpen={setModalOpen} users={users} />
             </div>

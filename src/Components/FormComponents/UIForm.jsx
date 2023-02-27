@@ -30,7 +30,8 @@ function UIForm({
     priceAfterDiscount,
     emptyFields,
     duplicateProduct,
-    submitting
+    submitting,
+    admin
 }) {
 
     const navigate = useNavigate();
@@ -83,7 +84,7 @@ function UIForm({
                         <SmallInput label='Quantity *' name='quantity' type='number' emptyFields={emptyFields} />
                     </div>
                     <div className='row-inputs'>
-                        <SmallInput label='Cost *' name='cost' type='number' emptyFields={emptyFields} />
+                        {admin && <SmallInput label='Cost *' name='cost' type='number' emptyFields={emptyFields} />}
                         <SmallInput label='Price *' name='price' type='number' emptyFields={emptyFields} />
                         <SmallInput label='Discount' name='discount' type='number' emptyFields={emptyFields} />
                         {location !== '/add-product' &&

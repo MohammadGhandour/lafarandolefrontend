@@ -5,7 +5,7 @@ function AllSalesSearchInput({ unfilteredOrders, setFilteredOrders, setSearchVal
     useEffect(() => {
         setSortBy('default');
         if (unfilteredOrders && unfilteredOrders.length > 0) {
-            setFilteredOrders(unfilteredOrders.filter(order => order.customerName.toLowerCase().includes(searchValue.toLowerCase()) || order.id.toString().includes(searchValue)))
+            setFilteredOrders(unfilteredOrders.filter(order => order.customerName.toLowerCase().includes(searchValue.toLowerCase()) || order.id.toString().includes(searchValue) || order.customerNumber.toString().includes(searchValue)))
         }
     }, [searchValue, unfilteredOrders, setFilteredOrders, setSortBy]);
 
@@ -19,7 +19,7 @@ function AllSalesSearchInput({ unfilteredOrders, setFilteredOrders, setSearchVal
                 className='search-input'
                 id='searchInput'
                 autoComplete="off"
-                placeholder='id or customer name'
+                placeholder='Search by id or name or phone nb.'
                 value={searchValue}
                 onChange={(e) => setSearchValue(e.target.value)}
             />
