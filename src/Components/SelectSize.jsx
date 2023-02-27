@@ -11,6 +11,7 @@ function SelectSize({ size, setSize, filters, setFilters }) {
         setSize(e.target.value);
         filters.size = e.target.value;
         setFilters(filters);
+        localStorage.setItem("size", filters.size);
     }
 
     return (

@@ -7,6 +7,7 @@ function SelectBrand({ brand, setBrand, filters, setFilters }) {
         setBrand(e.target.value);
         filters.brand = e.target.value;
         setFilters(filters);
+        localStorage.setItem("brand", filters.brand);
     }
 
     return (

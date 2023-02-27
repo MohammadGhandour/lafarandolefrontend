@@ -4,9 +4,10 @@ import { useProductsContext } from "../../Hooks/useProductsContext";
 function SearchInput({ productsData, productsToRender, setProductsToRender }) {
 
     const { products } = useProductsContext();
-    const [productName, setProductName] = useState('');
+    const [productName, setProductName] = useState(localStorage.getItem("productName") || '');
 
     useEffect(() => {
+        localStorage.setItem("productName", productName);
         setProductsToRender(products.filter(
             product => productName.toLowerCase().split(' ').every(word => (product.name.concat(' ', product.description).toLowerCase()).concat(' ', product.brand.toLowerCase()).toLowerCase().includes(word)) || productName.split(' ').every(word => product.barcode.toLowerCase().includes(word)))
         );

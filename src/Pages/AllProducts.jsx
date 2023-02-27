@@ -25,11 +25,16 @@ function Products() {
     const [productsData, setProductsData] = useState([]);
     const [productsToRender, setProductsToRender] = useState([]);
     const [error, setError] = useState('');
-    const [category, setCategory] = useState('');
-    const [gender, setGender] = useState('');
-    const [size, setSize] = useState('');
-    const [brand, setBrand] = useState('');
-    const [filters, setFilters] = useState({ category: '', gender: '', size: '', brand: '' });
+    const [category, setCategory] = useState(localStorage.getItem('category') || '');
+    const [gender, setGender] = useState(localStorage.getItem('gender') || '');
+    const [size, setSize] = useState(localStorage.getItem('size') || '');
+    const [brand, setBrand] = useState(localStorage.getItem('brand') || '');
+    const [filters, setFilters] = useState({
+        category: localStorage.getItem('category') || '',
+        gender: localStorage.getItem('gender') || '',
+        size: localStorage.getItem('size') || '',
+        brand: localStorage.getItem('brand') || ''
+    });
     const [loading, setLoading] = useState(true);
     const [allProductsQuantity, setAllProductsQuantity] = useState(null);
     const [allProductsQuantitySold, setAllProductsQuantitySold] = useState(null);

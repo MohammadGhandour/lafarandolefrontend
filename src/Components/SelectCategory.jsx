@@ -7,6 +7,7 @@ function SelectCategory({ category, setCategory, filters, setFilters }) {
         setCategory(e.target.value);
         filters.category = e.target.value;
         setFilters(filters);
+        localStorage.setItem("category", filters.category);
     }
 
     return (

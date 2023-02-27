@@ -7,6 +7,7 @@ function SelectGender({ gender, setGender, filters, setFilters }) {
         setGender(e.target.value);
         filters.gender = e.target.value;
         setFilters(filters);
+        localStorage.setItem("gender", filters.gender);
     }
 
     return (
