@@ -7,12 +7,14 @@ import { Link, useNavigate } from "react-router-dom";
 import ErrorMessage from "../Components/ErrorMessage";
 import { headers } from "../Config/Headers";
 import SizeForm from "../Components/AddProduct/SizeForm";
+import { useAdminContext } from "../Hooks/useAdminContext";
 
 function AddProduct() {
 
     const navigate = useNavigate();
     const [arrayOfSizes, setArrayOfSizes] = useState([]);
     const [firstMounted, setFirstMounted] = useState(true);
+    const { admin } = useAdminContext();
 
     const [submitting, setSubmitting] = useState(false);
 
@@ -109,6 +111,7 @@ function AddProduct() {
 
                 emptyFields={emptyFields}
                 submitting={submitting}
+                admin={admin}
             />
             <SizeForm arrayOfSizes={arrayOfSizes} setArrayOfSizes={setArrayOfSizes} originalBarcode={barcode} />
             <table className="mt-l mb-m full-width">
