@@ -106,7 +106,7 @@ export const brands = [
     "Wink Wink",
     "Converse",
     "New Balance",
-    "Channel",
+    "Chanel",
     "Tommy Hilfiger",
     "Nike",
     "Puma",
