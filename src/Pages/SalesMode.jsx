@@ -38,6 +38,7 @@ function SalesMode() {
     const [customerName, setCustomerName] = useState('');
     const [customerNumber, setCustomerNumber] = useState('');
     const [customers, setCustomers] = useState([]);
+    const [salespersonId, setSalespersonId] = useState(Number(localStorage.getItem("userId")) === 4 ? 4 : 2);
 
     function toggleCurrency() {
         if (discountCurrency === 'USD') {
@@ -122,7 +123,8 @@ function SalesMode() {
                 orderLocation: orderLocation,
                 customerName: customerName,
                 customerNumber: customerNumber,
-                promoCode: promoCode
+                promoCode: promoCode,
+                salesperson_id: Number(salespersonId)
             }
             const customer = {
                 customerName: customerName,
@@ -213,6 +215,8 @@ function SalesMode() {
                             setOrderLocation={setOrderLocation}
                             setPromoCode={setPromoCode}
                             submitting={submitting}
+                            salespersonId={salespersonId}
+                            setSalespersonId={setSalespersonId}
                             submitButton='Submit' />
                     </form>
                 </div>

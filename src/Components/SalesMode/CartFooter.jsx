@@ -25,7 +25,9 @@ function CartFooter({
     setOrderLocation,
     customers,
     setPromoCode,
-    submitting
+    submitting,
+    salespersonId,
+    setSalespersonId
 }) {
 
     const [customerNameInputFocused, setCustomerNameInputFocused] = useState(false);
@@ -118,6 +120,14 @@ function CartFooter({
                         onChange={(e) => setOrderLocation(e.target.value)}>
                         <option value="Ghaziyeh Store">Ghaziyeh Store</option>
                         <option value="Instagram Delivery">Instagram Delivery</option>
+                    </select>
+                    <select
+                        name="salesperson_id"
+                        className='select-order-location'
+                        value={salespersonId}
+                        onChange={(e) => setSalespersonId(e.target.value)}>
+                        <option value="2">Alaa Ghandour</option>
+                        <option value="4">Mira Faraj</option>
                     </select>
                 </div>
                 <div className='col flex-column discount-total-wrapper'>
