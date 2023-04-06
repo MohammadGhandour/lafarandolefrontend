@@ -127,7 +127,7 @@ function CartFooter({
                         value={salespersonId}
                         onChange={(e) => setSalespersonId(e.target.value)}>
                         <option value="2">Alaa Ghandour</option>
-                        <option value="4">Mira Faraj</option>
+                        <option value="6">Fatima Diab</option>
                     </select>
                 </div>
                 <div className='col flex-column discount-total-wrapper'>

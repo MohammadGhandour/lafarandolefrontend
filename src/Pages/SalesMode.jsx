@@ -38,7 +38,7 @@ function SalesMode() {
     const [customerName, setCustomerName] = useState('');
     const [customerNumber, setCustomerNumber] = useState('');
     const [customers, setCustomers] = useState([]);
-    const [salespersonId, setSalespersonId] = useState(Number(localStorage.getItem("userId")) === 4 ? 4 : 2);
+    const [salespersonId, setSalespersonId] = useState(Number(localStorage.getItem("userId")) > 2 ? Number(localStorage.getItem("userId")) : 2);
 
     function toggleCurrency() {
         if (discountCurrency === 'USD') {
@@ -84,7 +84,7 @@ function SalesMode() {
                 barcodeSearchScannerRef.current.focus();
             }
         });
-        axios.get(`${api}/customers`, { headers: headers })
+        axios.get(`${api}/customers/customers-drop-down`, { headers: headers })
             .then(res => {
                 setCustomers(res.data);
             })

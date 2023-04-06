@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { api } from '../../Config/Config';
 import { headers } from '../../Config/Headers';
 import { formatCurrency } from '../../functions/formatCurrency';
+import { getSalesPerson } from "../../functions/getSalesPerson";
 
 function OrderFooter({ order, admin }) {
 
@@ -56,6 +57,10 @@ function OrderFooter({ order, admin }) {
                     <div className="customer-credential">
                         <i className="fa-solid fa-percent icon-margin-right"></i>
                         {order.promoCode ? <span>{order.promoCode}</span> : 'No promo'}
+                    </div>
+                    <div className="customer-credential">
+                        <i className="fa-solid fa-people-group icon-margin-right"></i>
+                        Seller: {getSalesPerson(order.salesperson_id)}
                     </div>
                 </div>
                 <div className="flex-column-start gap-l">
