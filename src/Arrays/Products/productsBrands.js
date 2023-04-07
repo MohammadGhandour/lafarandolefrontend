@@ -123,4 +123,6 @@ export const brands = [
     "Yassmenta",
     "Alya",
     "Babyjem",
+    "Caramell",
+    "Pomp Shoes",
 ];
