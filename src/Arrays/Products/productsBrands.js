@@ -125,4 +125,5 @@ export const brands = [
     "Babyjem",
     "Caramell",
     "Pomp Shoes",
+    "Osso"
 ];
