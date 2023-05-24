@@ -126,5 +126,11 @@ export const brands = [
     "Caramell",
     "Pomp Shoes",
     "Osso",
-    "Puane"
+    "Puane",
+    "Cigit",
+    "Antique",
+    "Magazine",
+    "Soul",
+    "Ashilda",
+    "Miss Churchil",
 ];
