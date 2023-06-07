@@ -1,29 +1,23 @@
-import React, { useEffect } from 'react'
+import React from 'react';
+import styles from "../../styles";
 
-function AllSalesSearchInput({ unfilteredOrders, setFilteredOrders, setSearchValue, searchValue, setSortBy }) {
-
-    useEffect(() => {
-        setSortBy('default');
-        if (unfilteredOrders && unfilteredOrders.length > 0) {
-            setFilteredOrders(unfilteredOrders.filter(order => order.customerName.toLowerCase().includes(searchValue.toLowerCase()) || order.id.toString().includes(searchValue) || order.customerNumber.toString().includes(searchValue)))
-        }
-    }, [searchValue, unfilteredOrders, setFilteredOrders, setSortBy]);
-
+function AllSalesSearchInput({ setSearchValue, searchValue, setSortBy }) {
     return (
-        <div className='flex search-input-wrapper full-width'>
-            <label htmlFor='searchInput'>
+        <div className="w-full flex relative">
+            {/* <label htmlFor='searchInput' className={`${styles.blackButton} flex items-center justify-center rounded-r-none`}>
                 <i className="fa-solid fa-magnifying-glass"></i>
-            </label>
+            </label> */}
             <input
                 type='text'
-                className='search-input'
-                id='searchInput'
+                className={`${styles.inputClasses} !rounded-r-none !outline-none focus:!outline-none`}
+                id="searchInput"
+                autoFocus
                 autoComplete="off"
-                placeholder='Search by id or name or phone nb.'
+                placeholder="Search by id or name or phone nb."
                 value={searchValue}
                 onChange={(e) => setSearchValue(e.target.value)}
             />
-            <i className="flex-center fa-solid fa-magnifying-glass fa-times" onClick={() => setSearchValue('')}></i>
+            <button className={`${styles.redButton} rounded-l-none px-6`}><i className="flex-center fa-solid fa-magnifying-glass fa-times" onClick={() => setSearchValue('')}></i></button>
         </div>
     )
 }

@@ -18,17 +18,16 @@ function ImageInput({
 
     return (
 
-        <div className='product-image-wrapper'>
-            <label htmlFor='image' className='image-label'>
-                {imageSrcToUpload ?
-                    <div className='actual-image-wrapper'>
-                        <img className='bla' src={imageSrcToUpload} alt='bla' />
-                    </div>
-                    :
-                    <div className='empty-image-to-upload flex-column-center'>
-                        <i className="fa-solid fa-circle-plus"></i>
-                        Add a photo
-                    </div>
+        <div className='w-[300px] h-[300px] rounded-md border border-black overflow-hidden'>
+            <label htmlFor='image' className='w-full'>
+                {
+                    imageSrcToUpload ?
+                        <img className='w-full h-full object-cover' src={imageSrcToUpload} alt='' />
+                        :
+                        <div className='w-full h-full flex flex-col items-center justify-center'>
+                            <i className="fa-solid fa-circle-plus text-4xl"></i>
+                            Add a photo
+                        </div>
                 }
             </label>
 
@@ -36,7 +35,7 @@ function ImageInput({
                 id='image'
                 type='file'
                 name='image'
-                className='image-to-upload-input'
+                className='hidden'
                 onChange={(e) => showAddedImage(e)}
             />
         </div>

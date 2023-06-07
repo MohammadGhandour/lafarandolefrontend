@@ -11,13 +11,6 @@
     align-items: flex-start;
 }
 
-.barcode-image-wrapper {
-    margin: 0 auto;
-    position: relative;
-    width: 300px;
-    justify-content: flex-start;
-}
-
 .barcode-input-wrapper {
     width: 100%;
 }
@@ -200,10 +193,6 @@
 
 .add-size-btn {
     margin-top: var(--l-padding);
-}
-
-.submit-size-btn {
-    background-color: var(--profit-green);
 }
 
 .delete-size-btn {

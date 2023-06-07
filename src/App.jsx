@@ -4,7 +4,6 @@ import Header from "./Components/Header/Header";
 import Dashboard from "./Pages/Dashboard";
 import Login from "./Pages/Login";
 import "./GeneralStyles/App.css";
-import LeftNav from "./Components/LeftNav";
 import AllProducts from "./Pages/AllProducts";
 import AllSales from "./Pages/AllSales";
 import AllCustomers from "./Pages/AllCustomers";
@@ -22,6 +21,7 @@ import { useAdminContext } from "./Hooks/useAdminContext";
 import { useEffect } from "react";
 import Page404 from "./Pages/Page404";
 import User from "./Pages/User";
+import NavigationMenu from "./Components/NavigationMenu";
 
 function App() {
 
@@ -48,34 +48,35 @@ function App() {
     <div className="App">
       {token ?
         <BrowserRouter>
-          <Header
-            user={user}
-            loaded={loaded}
-            openNavbar={openNavbar}
-            setOpenNavbar={setOpenNavbar} />
-          <div className="pages flex">
-            <LeftNav
+          <div className="w-full flex flex-col items-start">
+            <Header
+              user={user}
+              loaded={loaded}
               openNavbar={openNavbar}
-              setOpenNavbar={setOpenNavbar}
-            />
-            <Routes>
-              {admin && <Route path="/" element={<Dashboard />} />}
-              <Route path="/sales-mode" element={<SalesMode />} />
-              <Route path={admin ? "/all-products" : "/"} element={<AllProducts />} />
-              <Route path="/all-sales" element={<AllSales />} />
-              <Route path="/all-customers" element={<AllCustomers />} />
-              {admin && <Route path="/all-users" element={<AllUsers />} />}
-              {admin && <Route path="/user/:id" element={<User />} />}
-              <Route path="/customer/:id/:customerName/:customerNumber" element={<Customer />} />
-              <Route path="/product/:productId" element={<SingleProductPage />} />
-              {admin && <Route path="/add-product" element={<AddProduct />} />}
-              <Route path="/order/:id" element={<Order />} />
-              <Route path="/exchange/:id" element={<Exchange />} />
-              {admin && <Route path="/expenses" element={<Expenses />} />}
-              {admin && <Route path="/averages-progression" element={<AverageProgression />} />}
-              {admin && <Route path="/promo-codes" element={<Promos />} />}
-              <Route path="*" element={<Page404 />} />
-            </Routes>
+              setOpenNavbar={setOpenNavbar} />
+            <div className="w-full flex gap-4 relative">
+              <NavigationMenu />
+              <main className="w-full px-8 self-start ml-8 lg:ml-14 my-10" style={{ width: "calc(100% - 1rem)" }}>
+                <Routes>
+                  {admin && <Route path="/" element={<Dashboard />} />}
+                  <Route path="/sales-mode" element={<SalesMode />} />
+                  <Route path={admin ? "/all-products" : "/"} element={<AllProducts />} />
+                  <Route path="/all-sales" element={<AllSales />} />
+                  <Route path="/all-customers" element={<AllCustomers />} />
+                  {admin && <Route path="/all-users" element={<AllUsers />} />}
+                  {admin && <Route path="/user/:id" element={<User />} />}
+                  <Route path="/customer/:id/:customerName/:customerNumber" element={<Customer />} />
+                  <Route path="/product/:productId" element={<SingleProductPage />} />
+                  {admin && <Route path="/add-product" element={<AddProduct />} />}
+                  <Route path="/order/:id" element={<Order />} />
+                  <Route path="/exchange/:id" element={<Exchange />} />
+                  {admin && <Route path="/expenses" element={<Expenses />} />}
+                  {admin && <Route path="/averages-progression" element={<AverageProgression />} />}
+                  {admin && <Route path="/promo-codes" element={<Promos />} />}
+                  <Route path="*" element={<Page404 />} />
+                </Routes>
+              </main>
+            </div>
           </div>
         </BrowserRouter>
         :

@@ -7,6 +7,7 @@ import { api } from '../../Config/Config';
 import { headers } from '../../Config/Headers';
 import { formatCurrency } from '../../functions/formatCurrency';
 import { getSalesPerson } from "../../functions/getSalesPerson";
+import styles from "../../styles";
 
 function OrderFooter({ order, admin }) {
 
@@ -105,7 +106,7 @@ function OrderFooter({ order, admin }) {
                 </div>
             </div>
             <div className="flex order-footer-btns">
-                <button className='delete-btn' onClick={() => navigate(`/exchange/${order.id}`)}>Exchange</button>
+                <button className={`${styles.redButton}`} onClick={() => navigate(`/exchange/${order.id}`)}>Exchange</button>
             </div>
         </div>
     )

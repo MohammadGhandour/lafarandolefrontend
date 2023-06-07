@@ -160,8 +160,6 @@ function SalesMode() {
         }
     }
 
-    const titleClassName = noProductTitle !== noProductText ? 'scan-title-sales not-found-product' : 'scan-title-sales';
-
     return (
         <div className='full-page'>
             <BarcodeGetProduct
@@ -174,29 +172,25 @@ function SalesMode() {
                 noProductText={noProductText}
                 inputDisabled={inputDisabled}
                 barcodeSearchScannerRef={barcodeSearchScannerRef}
+                emptyCart={emptyCart}
             />
-            {cart.length > 0 &&
-                <div className='delete-btn' onClick={emptyCart}>
-                    <i className='fa-solid fa-trash icon-margin-right'></i>
-                    Empty cart
-                </div>
-            }
-            <h2 className={titleClassName}>{noProductTitle}</h2>
+            <h2 className={`font-bold text-center text-xl lg:text-3xl my-4 ${noProductTitle !== noProductText ? 'not-found-product' : ''}`}>{noProductTitle}</h2>
             {cart.length > 0 &&
                 <div className='cart flex-column'>
-                    <table className='products-in-cart'>
-                        <FooterThead />
-                        <tbody>
-                            {cart.map(product => (
-                                <SingleProductInCart
-                                    key={product.id}
-                                    product={product}
-                                    deleteProduct={deleteProduct}
-                                    handleQuantity={handleQuantity} />
-                            ))
-                            }
-                        </tbody>
-                    </table>
+                    <div className='products-in-cart'>
+                        <div className="w-full overflow-x-auto">
+                            <div className="w-full flex-col flex mt-4 min-w-[800px] pb-2 lg:pb-0 gap-1">
+                                <FooterThead />
+                                {cart.map(product => (
+                                    <SingleProductInCart
+                                        key={product.id}
+                                        product={product}
+                                        deleteProduct={deleteProduct}
+                                        handleQuantity={handleQuantity} />
+                                ))}
+                            </div>
+                        </div>
+                    </div>
                     <form id='cart-form' onSubmit={checkout}>
                         <CartFooter
                             discountValue={discountValue}

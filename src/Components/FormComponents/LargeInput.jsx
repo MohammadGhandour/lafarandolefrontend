@@ -1,13 +1,14 @@
 import { Field } from 'formik';
+import styles from "../../styles";
 
 function LargeInput({ label, name, type, emptyFields }) {
     return (
-        <div className='input-wrapper flex-column-start large-input'>
+        <div className='w-full flex flex-col'>
             <label>{label}</label>
             <Field
                 name={name}
                 type={type}
-                className={emptyFields && emptyFields.includes(name) ? 'form-input error-input' : 'form-input'} />
+                className={`${styles.smallerInput} ${emptyFields && emptyFields.includes(name) ? 'error-input' : ''}`} />
         </div>
     )
 }

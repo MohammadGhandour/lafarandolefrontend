@@ -4,6 +4,7 @@ import image from '../assets/bw-clothes.webp';
 // import LoginRegisterLinks from '../Components/Credentials/LoginRegisterLinks';
 import axios from 'axios';
 import { api } from '../Config/Config';
+import styles from "../styles";
 
 function Login() {
 
@@ -53,7 +54,7 @@ function Login() {
                         value={username} onChange={(e) => setUsername(e.target.value)} />
                     <input type='password' placeholder='Password' autoComplete='off'
                         value={password} onChange={(e) => setPassword(e.target.value)} />
-                    <button className='credential-button' type='submit'>Login</button>
+                    <button className={`${styles.blackButton} w-full`} type='submit'>Login</button>
                 </form>
             </div>
         </div>

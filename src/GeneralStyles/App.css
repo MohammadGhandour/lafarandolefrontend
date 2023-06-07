@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
   --primary: #3D424A;
   /* --secondary: rgb(52, 133, 135); */
@@ -60,11 +64,6 @@ body {
 
 .fs-22 {
   font-size: 22px;
-}
-
-.flex {
-  display: flex;
-  align-items: center;
 }
 
 .flex-between {
@@ -347,4 +346,22 @@ select:focus,
   .primary-btn {
     padding: var(--m-padding) var(--m-padding);
   }
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+
+.fa-instagram {
+  color: transparent;
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+  background: -webkit-radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  font-weight: 900;
+}
+
+.fa-instagram,
+.fa-store {
+  font-size: 18px;
 }

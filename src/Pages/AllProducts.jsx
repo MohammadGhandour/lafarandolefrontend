@@ -1,201 +1,116 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import ReactPaginate from 'react-paginate';
-import { NavLink } from 'react-router-dom';
-import ErrorMessage from '../Components/ErrorMessage';
-import Loader from '../Components/Loader';
+import { NavLink, useSearchParams } from 'react-router-dom';
 import SearchInput from '../Components/AllProducts/SearchInput';
-import SelectCategory from '../Components/SelectCategory';
-import SelectGender from '../Components/SelectGender';
 import { api } from '../Config/Config';
-import { useProductsContext } from "../Hooks/useProductsContext";
-import "./PagesStyles/AllProducts.css";
-import Thead from '../Components/AllProducts/Thead';
-import SingleProductInTable from '../Components/AllProducts/SingleProductInTable';
 import { headers } from '../Config/Headers';
-import SelectSize from '../Components/SelectSize';
-import SelectBrand from '../Components/SelectBrand';
 import { useAdminContext } from '../Hooks/useAdminContext';
+import Filters from "../Components/AllProducts/Filters";
+import { productCategories } from "../Arrays/Products/productsCategories";
+import { brands } from "../Arrays/Products/productsBrands";
+import styles from "../styles";
+import { useInfiniteQuery } from "react-query";
+import ProductsTable from "../Components/AllProducts/ProductsTable";
+import { sizes } from "../Arrays/Sizes/sizes";
 
 function Products() {
 
     const { admin } = useAdminContext();
 
-    const { products, dispatch } = useProductsContext();
-    const [productsData, setProductsData] = useState([]);
-    const [productsToRender, setProductsToRender] = useState([]);
-    const [error, setError] = useState('');
-    const [category, setCategory] = useState(localStorage.getItem('category') || '');
-    const [gender, setGender] = useState(localStorage.getItem('gender') || '');
-    const [size, setSize] = useState(localStorage.getItem('size') || '');
-    const [brand, setBrand] = useState(localStorage.getItem('brand') || '');
-    const [filters, setFilters] = useState({
-        category: localStorage.getItem('category') || '',
-        gender: localStorage.getItem('gender') || '',
-        size: localStorage.getItem('size') || '',
-        brand: localStorage.getItem('brand') || ''
-    });
-    const [loading, setLoading] = useState(true);
-    const [allProductsQuantity, setAllProductsQuantity] = useState(null);
-    const [allProductsQuantitySold, setAllProductsQuantitySold] = useState(null);
+    const realFilters = [
+        {
+            type: "checkbox",
+            filterBy: "category",
+            title: "Category",
+            options: productCategories.map(category => ({ key: category, value: category }))
+        },
+        {
+            type: "checkbox",
+            filterBy: "gender",
+            title: "Gender",
+            options: [
+                { key: "Boy", value: "Boy" },
+                { key: "Girl", value: "Girl" },
+                { key: "Women", value: "Women" },
+                { key: "Unisex", value: "Unisex" },
+            ]
+        },
+        {
+            type: "checkbox",
+            filterBy: "size",
+            title: "Size",
+            options: sizes
 
-    useEffect(() => {
-        axios.get(`${api}/products`, { headers: headers })
-            .then(response => {
-                let productsData = response.data;
-                setProductsData(productsData);
-                setProductsToRender(productsData);
-                const allProductsQuantityVar = productsData.reduce((totalItems, item) => ((Number(totalItems) + Number(item.quantity))), 0);
-                const allProductsQuantitySoldVar = productsData.reduce((totalItems, item) => ((Number(totalItems) + Number(item.quantitySold))), 0);
-                setAllProductsQuantity(allProductsQuantityVar);
-                setAllProductsQuantitySold(allProductsQuantitySoldVar);
-                setLoading(false);
-            })
-            .catch(err => {
-                console.log(err);
-                if (err.response.status === 404) {
-                    setError(err.response.data.error)
-                } else {
-                    setError('An error occured while communicating with the server.');
-                }
-                setLoading(false);
-            })
-    }, [loading, setLoading]);
+        },
+        {
+            type: "checkbox",
+            filterBy: "brand",
+            title: "Brand",
+            options: brands.sort((a, b) => a.localeCompare(b)).map(brand => ({ key: brand, value: brand }))
+        },
+    ];
 
-    useEffect(() => {
-        setProductsToRender(productsToRender);
-        // eslint-disable-next-line
-    }, [productsToRender, dispatch]);
+    const [searchParams] = useSearchParams();
+    const query = searchParams.get("q");
+    const filtersQ = searchParams.get("filters") || "";
 
-    const [currentPage, setCurrentPage] = useState(0);
-    const productsPerPage = 50;
-    const indexOfLastProduct = currentPage * productsPerPage;
-    const currentProducts = productsToRender ? productsToRender.slice(indexOfLastProduct, indexOfLastProduct + productsPerPage) : null;
-    const pageNumbers = productsToRender ? Math.ceil(productsToRender.length / productsPerPage) : 0;
-    function changePage({ selected }) {
-        setCurrentPage(selected)
+    const limit = 50;
+    async function fetchProducts(pageParam) {
+        const data = await axios.get(`${api}/products`, {
+            headers: headers,
+            params: {
+                limit,
+                page: pageParam,
+                searchParams: query,
+                filters: filtersQ
+            }
+        });
+        return data.data;
     };
 
-    useEffect(() => {
-        const filtersKeys = Object.keys(filters);
-        let filledFilters = [];
-        filtersKeys.map(filterKey => {
-            if (filters[filterKey]) filledFilters.push(filterKey);
-            return filledFilters
-        });
-
-        let categorisedProducts = [];
-        let statement = '';
-
-        if (filledFilters.length > 0) {
-            if (filters.category) {
-                statement += ' product.category === filters.category &&'
+    const { isLoading: isLoadingForTable, data: tableData, hasNextPage, fetchNextPage, isFetchingNextPage, isError } = useInfiniteQuery(
+        ["products", query, filtersQ],
+        ({ pageParam = 1 }) => fetchProducts(pageParam),
+        {
+            refetchOnWindowFocus: false,
+            getNextPageParam: (lastPage, allPages) => {
+                const remainingItems = lastPage.count - allPages.length * limit;
+                if (remainingItems <= 0) {
+                    return undefined;
+                }
+                const nextPage = allPages.length + 1;
+                return nextPage;
             }
-            if (filters.gender) {
-                statement += ' product.gender === filters.gender &&'
-            }
-            if (filters.size) {
-                statement += ' product.size === filters.size &&'
-            }
-            if (filters.brand) {
-                statement += ' product.brand === filters.brand &&'
-            }
-            statement = statement.slice(0, -3);
-            categorisedProducts = productsData.filter(product =>
-                // eslint-disable-next-line
-                eval(statement)
-            )
-            dispatch({ type: 'SET_PRODUCTS', payload: categorisedProducts })
-        } else {
-            dispatch({ type: 'SET_PRODUCTS', payload: productsData })
         }
-    }, [category, size, gender, brand, filters, dispatch, productsData]);
+    );
 
-    if (loading) {
+    if (isError) {
         return (
             <div className='full-page'>
-                <Loader />
-            </div>
-        )
-    } else if (error) {
-        return (
-            <div className='full-page'>
-                <ErrorMessage classes='general-error'>{error}</ErrorMessage>
+                {/* <ErrorMessage classes='general-error'>{error}</ErrorMessage> */}
             </div>
         )
     } else {
         return (
-            <div className='full-page'>
-                <div className='all-products-header'>
-                    <section className='flex-between'>
-                        <SearchInput
-                            productsData={productsData}
-                            productsToRender={productsToRender}
-                            setProductsToRender={setProductsToRender} />
-                        <div className='flex-center all-products-btns'>
-                            <SelectCategory
-                                productsData={productsData}
-                                category={category}
-                                setCategory={setCategory}
-                                filters={filters}
-                                setFilters={setFilters} />
-                            <SelectGender
-                                productsData={productsData}
-                                gender={gender}
-                                setGender={setGender}
-                                filters={filters}
-                                setFilters={setFilters} />
-                            <SelectSize
-                                productsData={productsData}
-                                size={size}
-                                setSize={setSize}
-                                filters={filters}
-                                setFilters={setFilters} />
-                            <SelectBrand
-                                productsData={productsData}
-                                brand={brand}
-                                setBrand={setBrand}
-                                filters={filters}
-                                setFilters={setFilters} />
-                            {admin && <NavLink to='/add-product' query={{ prevPath: window.location.pathname }} className='primary-btn'>Add product</NavLink>}
-                        </div>
-                    </section>
-                    <h3 className='products-length'>
-                        {productsToRender ? productsToRender.length : ''} REGISTERED PRODUCTS
-                        (<i className='fa-solid fa-layer-group icon-mr-s'></i>{allProductsQuantity},
-                        <span style={{ color: "var(--profit-green)" }}><i className='fa-solid fa-caret-down icon-mr-s icon-ml-s'></i>{allProductsQuantitySold}</span>)
-                    </h3>
+            <div className="w-full">
+                <section className="w-full flex lg:justify-between flex-col items-start gap-4 lg:flex-row lg:items-center">
+                    <SearchInput placeholder="Search by barcode or name" />
+                    <div className="flex items-center gap-4 flex-wrap lg:flex-nowrap">
+                        <Filters filters={realFilters} />
+                        {admin && <NavLink to='/add-product' query={{ prevPath: window.location.pathname }} className={`${styles.blackButton}`}>Add product</NavLink>}
+                    </div>
+                </section>
+
+                <div className="w-full overflow-x-auto">
+                    <div className="w-full flex-col flex mt-4 min-w-[800px]">
+                        <ProductsTable
+                            isLoading={isLoadingForTable}
+                            data={tableData}
+                            hasNextPage={hasNextPage}
+                            isFetchingNextPage={isFetchingNextPage}
+                            fetchNextPage={fetchNextPage}
+                        />
+                    </div>
                 </div>
-
-                <div className="table-wrapper">
-                    <table className='all-products-table'>
-                        <Thead />
-                        {products && currentProducts &&
-                            <tbody>
-                                {currentProducts.map(product => (
-                                    <SingleProductInTable key={product.id} product={product} admin={admin} />
-                                ))}
-                            </tbody>
-                        }
-                    </table>
-                </div>
-
-                {products &&
-                    products.length === 0 &&
-                    <ErrorMessage classes='no-items-message'>Result not found.</ErrorMessage>
-                }
-
-                <ReactPaginate
-                    previousLabel={<i className="fa-solid fa-arrow-left"></i>}
-                    nextLabel={<i className="fa-solid fa-arrow-right"></i>}
-                    pageCount={pageNumbers}
-                    onPageChange={changePage}
-                    containerClassName='pagination-container flex-center'
-                    previousLinkClassName='previous-btn'
-                    nextLinkClassName='next-btn'
-                    disabledClassName='disabled-pagination-btn'
-                    activeClassName='active-pagination-btn'
-                />
             </div>
         )
     }

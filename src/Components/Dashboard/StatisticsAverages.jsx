@@ -65,43 +65,45 @@ function StatisticsAverages({ orders }) {
         // eslint-disable-next-line
     }, [orders]);
 
+    const titleClass = "text-3xl font-bold text-custom-dark-cyan";
+
     return (
-        <div className='statistic-row averages'>
-            <div className='average flex-column-center'>
-                <h1 className='text-center'>{orders.current.length}</h1>
-                <p>Number of orders</p>
+        <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 shadow-customShadow py-2 px-4 rounded-lg">
+            <div className='flex flex-col items-center py-2'>
+                <h1 className={titleClass}>{orders.current.length}</h1>
+                <p className="text-gray-500">Number of orders</p>
             </div>
-            <div className='average flex-column-center'>
-                <h1 className='text-center'>{customers.length}</h1>
-                <p>Number of customers</p>
+            <div className='flex flex-col items-center py-2'>
+                <h1 className={titleClass}>{customers.length}</h1>
+                <p className="text-gray-500">Number of customers</p>
             </div>
-            <div className='average flex-column-center'>
-                <h1 className='text-center'>{totalSold}</h1>
-                <p>Total sold</p>
+            <div className='flex flex-col items-center py-2'>
+                <h1 className={titleClass}>{totalSold}</h1>
+                <p className="text-gray-500">Total sold</p>
             </div>
-            <div className='average flex-column-center average-profit'>
-                <h1 className='text-center'>{totalProfit}</h1>
-                <p>Total profit sold</p>
+            <div className='flex flex-col items-center py-2 average-profit'>
+                <h1 className={titleClass}>{totalProfit}</h1>
+                <p className="text-gray-500">Total profit sold</p>
             </div>
-            <Link to='/averages-progression' className='average flex-column-center clickable-average'>
-                <h1 className='text-center'>{averageProductsPerOder}</h1>
-                <p>Average product per order</p>
+            <Link to='/averages-progression' className='flex flex-col items-center py-2 bg-custom-gray rounded-lg'>
+                <h1 className={titleClass}>{averageProductsPerOder}</h1>
+                <p className="text-gray-500">Average product per order</p>
             </Link>
-            <div className='average flex-column-center'>
-                <h1 className='text-center'>{averageOrderPerCustomer}</h1>
-                <p>Average order per customer</p>
+            <div className='flex flex-col items-center py-2'>
+                <h1 className={titleClass}>{averageOrderPerCustomer}</h1>
+                <p className="text-gray-500">Average order per customer</p>
             </div>
-            <Link to='/averages-progression' className='average flex-column-center clickable-average'>
-                <h1 className='text-center'>{averagePricePerOrder}</h1>
-                <p>Average price per order</p>
+            <Link to='/averages-progression' className='flex flex-col items-center py-2 bg-custom-gray rounded-lg'>
+                <h1 className={titleClass}>{averagePricePerOrder}</h1>
+                <p className="text-gray-500">Average price per order</p>
             </Link>
-            <Link to='/averages-progression' className='average flex-column-center clickable-average'>
-                <h1 className='text-center'>{averageProfitPerOrder}</h1>
-                <p>Average profit per order</p>
+            <Link to='/averages-progression' className='flex flex-col items-center py-2 bg-custom-gray rounded-lg'>
+                <h1 className={titleClass}>{averageProfitPerOrder}</h1>
+                <p className="text-gray-500">Average profit per order</p>
             </Link>
-            <div className='average flex-column-center'>
-                <h1 className='text-center'>{averageDifference} days</h1>
-                <p>Average repurchase time</p>
+            <div className='flex flex-col items-center py-2'>
+                <h1 className={titleClass}>{averageDifference} days</h1>
+                <p className="text-gray-500">Average repurchase time</p>
             </div>
         </div>
     )

@@ -4,16 +4,12 @@ import { generalSizes } from "../../Arrays/Sizes/generalSizes";
 import { kidsSizes } from "../../Arrays/Sizes/kidsSizes";
 import { numberSizes } from "../../Arrays/Sizes/numberSizes";
 import { preMature } from "../../Arrays/Sizes/preMature";
+import styles from "../../styles";
 
 function SelectSize({ emptyFields }) {
     return (
         <Field as='select'
-            className={emptyFields && emptyFields.includes('size') ?
-                'select-category-single-product error-input'
-                :
-                'select-category-single-product'}
-            name='size'
-        >
+            className={`${styles.smallerInput} ${emptyFields && emptyFields.includes('size') ? 'error-input' : ''}`} name='size'>
             <option value=''>Size</option>
             <optgroup label="premature">
                 {preMature.map(label => (

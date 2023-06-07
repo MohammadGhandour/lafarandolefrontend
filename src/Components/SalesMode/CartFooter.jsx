@@ -5,6 +5,7 @@ import { promoCodes } from '../../Arrays/SalesMode/promoCodes';
 import { formatCurrency } from '../../functions/formatCurrency';
 import './CartFooter.css';
 import DropMenuCustomerInfos from './DropMenuCustomerInfos';
+import styles from "../../styles";
 
 function CartFooter({
     discountValue,
@@ -81,7 +82,7 @@ function CartFooter({
                     <h3>Client Infos:</h3>
                     <div className='row flex-column'>
                         <input
-                            className='client-credential-input'
+                            className={`${styles.smallerInput}`}
                             type='text'
                             id='client-name'
                             placeholder='Client Name'
@@ -93,7 +94,7 @@ function CartFooter({
                     </div>
                     <div className='row flex-column'>
                         <input
-                            className='client-credential-input'
+                            className={`${styles.smallerInput}`}
                             type='number'
                             id='client-number'
                             placeholder='Client Number'
@@ -115,7 +116,7 @@ function CartFooter({
                     </div>
                     <select
                         name="order_location"
-                        className='select-order-location'
+                        className={`${styles.smallerInput} mb-4`}
                         value={orderLocation}
                         onChange={(e) => setOrderLocation(e.target.value)}>
                         <option value="Ghaziyeh Store">Ghaziyeh Store</option>
@@ -123,7 +124,7 @@ function CartFooter({
                     </select>
                     <select
                         name="salesperson_id"
-                        className='select-order-location'
+                        className={`${styles.smallerInput}`}
                         value={salespersonId}
                         onChange={(e) => setSalespersonId(e.target.value)}>
                         <option value="2">Alaa Ghandour</option>
@@ -137,14 +138,14 @@ function CartFooter({
                             <span className='currency-toggler' onClick={toggleCurrency}>({discountCurrency})</span>
                         </label>
                         <input
-                            type='number' className='discount-input' value={discountValue} min='0' max={discountCurrency === 'USD' ? finalTotalBeforeDiscount : ''}
+                            type='number' className={`${styles.smallerInput}`} value={discountValue} min='0' max={discountCurrency === 'USD' ? finalTotalBeforeDiscount : ''}
                             id='discount-input' onChange={(e) => setDiscountValue(e.target.value)} />
                     </div>
                     <div className='row flex-column-start'>
                         <label htmlFor='promo-input' className='flex-between'>PROMO CODE</label>
                         <div className="flex-between promo-wrapper">
-                            <input type='text' className='discount-input' id='promo-input' ref={promoRef} />
-                            <button onClick={getPromoCode} type='button'>Set</button>
+                            <input type='text' className={`${styles.smallerInput} rounded-r-none`} id='promo-input' ref={promoRef} />
+                            <button onClick={getPromoCode} type='button' className={`${styles.blackButton} !py-2`}>Set</button>
                         </div>
                     </div>
                     <div className='row total-wrapper flex-between'>
@@ -156,7 +157,7 @@ function CartFooter({
                             <div className='total'>{formatCurrency(finalTotal)}</div>
                         </div>
                     </div>
-                    <button type='submit' className='checkout-btn'>{submitting ? <i className="fa-solid fa-spinner"></i> : submitButton}</button>
+                    <button type='submit' className={`${styles.redButton}`}>{submitting ? <i className="fa-solid fa-spinner"></i> : submitButton}</button>
                 </div>
             </div>
         )

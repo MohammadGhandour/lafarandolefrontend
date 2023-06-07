@@ -1,36 +1,66 @@
-import { useEffect, useState } from "react";
-import { useProductsContext } from "../../Hooks/useProductsContext";
+import { useSearchParams } from "react-router-dom";
+import styles from "../../styles";
+import { useEffect, useMemo, useState } from "react";
 
-function SearchInput({ productsData, productsToRender, setProductsToRender }) {
+function SearchInput({ placeholder }) {
 
-    const { products } = useProductsContext();
-    const [productName, setProductName] = useState(localStorage.getItem("productName") || '');
+    function useDebounceValue(value, time = 500) {
+        const [debounceValue, setDebounceValue] = useState(value);
 
-    useEffect(() => {
-        localStorage.setItem("productName", productName);
-        setProductsToRender(products.filter(
-            product => productName.toLowerCase().split(' ').every(word => (product.name.concat(' ', product.description).toLowerCase()).concat(' ', product.brand.toLowerCase()).toLowerCase().includes(word)) || productName.split(' ').every(word => product.barcode.toLowerCase().includes(word)))
-        );
-    }, [productName, products, setProductsToRender]);
+        useEffect(() => {
+            const timeout = setTimeout(() => {
+                setDebounceValue(value);
+            }, time);
+
+            return () => {
+                clearTimeout(timeout);
+            }
+        }, [value, time]);
+
+        return debounceValue;
+    };
+
+    const [searchParams, setSearchParams] = useSearchParams();
+    const searchParamsVar = useMemo(() => {
+        return new URLSearchParams(window.location.search)
+    }, []);
+    const [searchQuery, setSearchQuery] = useState(searchParamsVar.get("q") || "");
+    const debounceQuery = useDebounceValue(searchQuery);
+
+    useMemo(() => {
+        searchParamsVar.set("q", debounceQuery);
+        setSearchParams(searchParamsVar);
+        if (debounceQuery === "") {
+            searchParamsVar.delete("q");
+            setSearchParams(searchParamsVar);
+        }
+    }, [debounceQuery, setSearchParams, searchParamsVar]);
 
     return (
-        <div className='flex search-input-wrapper'>
-            <label htmlFor='searchInput'>
-                <i className="fa-solid fa-magnifying-glass"></i>
-            </label>
-            <input
-                type='text'
-                className='search-input'
-                id='searchInput'
-                autoComplete="off"
-                placeholder="Search by name or barcode"
-                value={productName}
-                onChange={(e) => setProductName(e.target.value)}
-                autoFocus
-            />
-            <i className="flex-center fa-solid fa-magnifying-glass fa-times" onClick={() => setProductName('')}></i>
+        <div className="flex-items-center justify-between w-full xl:w-[40%] min-w-[300px]">
+            <div className="relative group w-full">
+                <input
+                    type="text"
+                    name="searchValue"
+                    id="searchValue"
+                    autoFocus
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder={placeholder}
+                    className={`${styles.inputClasses} w-full pr-10`}
+                />
+                {searchParams.get("q") !== null ?
+                    <label htmlFor="searchValue" className="cursor-pointer absolute top-0 right-0 text-black/50 aspect-square flex items-center justify-center h-full" onClick={() => setSearchQuery("")}>
+                        <i className="fa-solid fa-times text-xl"></i>
+                    </label>
+                    :
+                    <label htmlFor="searchValue" className="cursor-pointer absolute top-0 right-0 text-black/50 aspect-square flex items-center justify-center group-focus-within:hidden h-full">
+                        <i className="fa-solid fa-magnifying-glass"></i>
+                    </label>
+                }
+            </div>
         </div>
-    )
+    );
 }
 
 export default SearchInput;

@@ -6,6 +6,7 @@ import ErrorMessage from "../Components/ErrorMessage";
 import { api } from '../Config/Config'
 import { headers } from '../Config/Headers';
 import { Link } from "react-router-dom";
+import styles from "../styles";
 
 function AllUsers() {
 
@@ -49,18 +50,19 @@ function AllUsers() {
                 <div className="flex-between mb-l">
                     <h3>{users.length} REGISTERED USER{users.length > 1 ? 'S' : ''}</h3>
                     <button
-                        className='primary-btn'
+                        className={`${styles.blackButton}`}
                         onClick={() => setModalOpen(true)}>
                         Add user
                     </button>
                 </div>
-                {users.map(user => (
-                    <Link to={`/user/${user.id}`} className='single-customer-wrapper flex-between' key={user.id}>
-                        <h2>{user.username}</h2>
-                        {/* eslint-disable-next-line */}
-                        <h2>{user.admin == 0 ? 'Not admin' : 'Admin'}</h2>
-                    </Link>
-                ))}
+                <div className="w-full flex flex-col gap-2">
+                    {users.map(user => (
+                        <Link to={`/user/${user.id}`} className="flex items-center justify-between" key={user.id}>
+                            {/* eslint-disable-next-line */}
+                            <h2 className={`${user.admin != 0 && "text-custom-green"} w-full bg-custom-gray rounded-md py-2 px-4`}>{user.username}</h2>
+                        </Link>
+                    ))}
+                </div>
                 <Register modalOpen={modalOpen} setModalOpen={setModalOpen} users={users} />
             </div>
         )

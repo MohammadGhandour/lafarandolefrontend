@@ -46,18 +46,18 @@ function AllExpenses({ expenses, setExpenses, rawExpenses, setRawExpenses }) {
         )
     } else {
         return (
-            <div className='expense'>
-                <h3 className='products-length'>{rawExpenses.length} REGISTERED EXPENSES</h3>
+            <div>
+                <h3 className="font-bold text-lg">{rawExpenses.length} REGISTERED EXPENSES</h3>
                 {expenses.length > 0 &&
-                    <div className="table-wrapper">
-                        <table className='expenses-table'>
+                    <div className="w-full overflow-x-auto">
+                        <div className="w-full flex-col flex mt-4 min-w-[800px]">
                             <ExpensesThead />
                             <ExpensesTbody
                                 days={expenses}
                                 setExpenses={setExpenses}
                                 rawExpenses={rawExpenses}
                                 setRawExpenses={setRawExpenses} />
-                        </table>
+                        </div>
                     </div>
                 }
             </div>

@@ -7,6 +7,7 @@ import { getOrdersChart } from '../../functions/ordersChart';
 import { useEffect } from 'react';
 import AverageRevenuePerDayOfTheWeek from './AverageRevenuePerDayOfTheWeek';
 import moment from 'moment';
+import styles from "../../styles";
 
 function BarCharts({ orders }) {
 
@@ -107,12 +108,10 @@ function BarCharts({ orders }) {
     } else {
         return (
             <div className='statistic-row bar-charts-container flex-column gap-l'>
-                <div className='flex-center'>
-                    <h2>Sales</h2>
+                <div className="w-full flex items-center">
+                    <h2 className="font-bold text-3xl">Sales</h2>
                     <select
-                        name="sortby"
-                        id="sortby"
-                        className='select-filter'
+                        className={`${styles.inputClasses} w-[200px]`}
                         value={sortBy}
                         onChange={handleChange}>
                         <option value="Last 90 Days">Last 90 Days</option>

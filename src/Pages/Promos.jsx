@@ -75,35 +75,31 @@ function Promos() {
         )
     }
     return (
-        <div className='full-page promos-page'>
-            <table>
-                <thead className='thead'>
-                    <tr>
-                        <th>Promo Code</th>
-                        <th>Nb of use</th>
-                        <th>Total</th>
-                        <th>Profit</th>
-                    </tr>
-                </thead>
-                <tbody>
+        <div className="w-full overflow-x-auto">
+            <div className="w-full flex-col flex mt-4 min-w-[800px]">
+                <div className="w-full flex items-center font-bold bg-custom-light-gray rounded-md py-2 mb-8">
+                    <p className="flex-1 text-center">Promo Code</p>
+                    <p className="flex-1 text-center">Nb of use</p>
+                    <p className="flex-1 text-center">Total</p>
+                    <p className="flex-1 text-center">Profit</p>
+                </div>
+                <div className="flex flex-col gap-2">
                     {arrayOfPromoCodes.map((promo, i) => (
-                        <tr key={i}>
-                            <td className='order-profit'>{promo.promoCode}</td>
-                            <td>{promo.numberOfUse}</td>
-                            <td>{formatCurrency(promo.total)}</td>
-                            <td className='back-green-profit'>{formatCurrency(promo.profit)}</td>
-                        </tr>
+                        <div key={i} className="w-full flex items-center bg-custom-gray rounded-md overflow-hidden hover:bg-[#eee]">
+                            <p className="flex-1 text-center">{promo.promoCode}</p>
+                            <p className="flex-1 text-center">{promo.numberOfUse}</p>
+                            <p className="flex-1 text-center">{formatCurrency(promo.total)}</p>
+                            <p className="flex-1 text-center py-2 bg-custom-green text-white">{formatCurrency(promo.profit)}</p>
+                        </div>
                     ))}
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <th>-</th>
-                        <th>{getTotalOfUse(arrayOfPromoCodes)}</th>
-                        <th>{formatCurrency(getTotal(arrayOfPromoCodes))}</th>
-                        <th className='back-green-profit'>{formatCurrency(getProfit(arrayOfPromoCodes))}</th>
-                    </tr>
-                </tfoot>
-            </table>
+                </div>
+                <div className="w-full flex items-center bg-custom-light-gray overflow-hidden rounded-md mt-8 font-bold">
+                    <p className="flex-1 text-center">-</p>
+                    <p className="flex-1 text-center">{getTotalOfUse(arrayOfPromoCodes)}</p>
+                    <p className="flex-1 text-center">{formatCurrency(getTotal(arrayOfPromoCodes))}</p>
+                    <p className="flex-1 text-center py-2 bg-custom-green text-white">{formatCurrency(getProfit(arrayOfPromoCodes))}</p>
+                </div>
+            </div>
         </div>
     )
 }

@@ -1,14 +1,15 @@
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-import AllCustomersThead from '../Components/AllCustomers/AllCustomersThead';
-import SingleCustomer from '../Components/AllCustomers/SingleCustomer';
-import ErrorMessage from '../Components/ErrorMessage';
-import Loader from '../Components/Loader';
-import { api } from '../Config/Config';
-import { headers } from '../Config/Headers';
+import axios from "axios"
+import React, { useEffect, useState } from "react"
+import AllCustomersThead from "../Components/AllCustomers/AllCustomersThead";
+import SingleCustomer from "../Components/AllCustomers/SingleCustomer";
+import ErrorMessage from "../Components/ErrorMessage";
+import Loader from "../Components/Loader";
+import { api } from "../Config/Config";
+import { headers } from "../Config/Headers";
 import "./PagesStyles/Customers.css";
-import moment from 'moment';
-import { useAdminContext } from '../Hooks/useAdminContext';
+import moment from "moment";
+import { useAdminContext } from "../Hooks/useAdminContext";
+import styles from "../styles";
 
 function AllCustomers() {
 
@@ -16,11 +17,11 @@ function AllCustomers() {
 
     const [customers, setCustomers] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [searchValue, setSearchValue] = useState('');
+    const [searchValue, setSearchValue] = useState("");
     const [filteredCustomer, setFilteredCustomer] = useState([]);
-    const [sortBy, setSortBy] = useState('lastModified');
+    const [sortBy, setSortBy] = useState("lastModified");
     const [rawCustomers, setRawCustomers] = useState([]);
-    const [error, setError] = useState('');
+    const [error, setError] = useState("");
 
     useEffect(() => {
         axios.get(`${api}/customers`, { headers: headers })
@@ -35,8 +36,8 @@ function AllCustomers() {
                 console.log(err);
                 if (err.response.status === 404) {
                     setError(err.response.data.error)
-                } else if (err.message === 'Network Error') {
-                    setError('An error occured while communicating with the server.');
+                } else if (err.message === "Network Error") {
+                    setError("An error occured while communicating with the server.");
                 }
                 setLoading(false);
             })
@@ -64,48 +65,49 @@ function AllCustomers() {
     function handleChange(e) {
         const sortby = e.target.value;
         setSortBy(sortby);
-        if (sortby === 'amount') amount();
-        if (sortby === 'lastModified') lastModified();
-        if (sortby === 'nbOfOrders') nbOfOrders();
+        if (sortby === "amount") amount();
+        if (sortby === "lastModified") lastModified();
+        if (sortby === "nbOfOrders") nbOfOrders();
         else return;
     }
 
     if (loading) {
         return (
-            <div className='full-page'>
+            <div className="full-page">
                 <Loader />
             </div>
         )
     } else if (error) {
         return (
-            <div className='full-page'>
-                <ErrorMessage classes='general-error'>{error}</ErrorMessage>
+            <div className="full-page">
+                <ErrorMessage classes="general-error">{error}</ErrorMessage>
             </div>
         )
     } else {
         return (
-            <div className='full-page'>
-                <div className='flex search-input-wrapper full-width'>
-                    <label htmlFor='searchInput'>
+            <div className="w-full">
+                <div className="w-full flex items-center">
+                    {/* <label htmlFor="searchInput" className={`${styles.blackButton} py-3 rounded-r-none`}>
                         <i className="fa-solid fa-magnifying-glass"></i>
-                    </label>
+                    </label> */}
                     <input
-                        type='text'
-                        className='search-input'
-                        id='searchInput'
+                        type="text"
+                        className={`${styles.inputClasses} focus:!outline-none rounded-r-none`}
+                        autoFocus
                         autoComplete="off"
-                        placeholder='name or phone nb.'
+                        placeholder="name or phone nb."
                         value={searchValue}
-                        onChange={(e) => setSearchValue(e.target.value)}
-                    />
-                    <i className="flex-center fa-solid fa-magnifying-glass fa-times" onClick={() => setSearchValue('')}></i>
+                        onChange={(e) => setSearchValue(e.target.value)} />
+                    <button className={`${styles.redButton} !py-4 px-6 rounded-l-none`} onClick={() => setSearchValue("")}>
+                        <i className={`fa-solid fa-times`}></i>
+                    </button>
                 </div>
-                <div className="flex-between mt-l mb-l">
-                    <h3>{customers.length} REGISTERED CUSTOMERS</h3>
+                <div className="flex items-center justify-end my-4">
+                    {/* <h3>{customers.length} REGISTERED CUSTOMERS</h3> */}
                     <select
                         name="sortby"
                         id="sortby"
-                        className='select-filter'
+                        className={`${styles.inputClasses} max-w-[180px]`}
                         value={sortBy}
                         onChange={handleChange}>
                         <option value="lastModified">Last modified</option>
@@ -113,23 +115,23 @@ function AllCustomers() {
                         <option value="nbOfOrders">Nb of orders</option>
                     </select>
                 </div>
-                <div className="table-wrapper">
-                    <table className='customers-table'>
+                <div className="w-full overflow-x-auto">
+                    <div className="w-full flex-col flex mt-4 min-w-[800px]">
                         <AllCustomersThead admin={admin} />
                         {filteredCustomer.length > 0 ?
-                            <tbody>
+                            <div className="w-full flex flex-col gap-1">
                                 {filteredCustomer.map(customer => (
                                     <SingleCustomer key={customer.id} customer={customer} admin={admin} />
                                 ))}
-                            </tbody>
+                            </div>
                             :
-                            ''
+                            ""
                         }
-                    </table>
+                    </div>
                 </div>
                 {filteredCustomer.length < 1 &&
-                    <h2 className='not-found-product text-center'>There no customers related to
-                        <span className='not-found-search-value'> " {searchValue} "</span>
+                    <h2 className="not-found-product text-center">There no customers related to
+                        <span className="not-found-search-value"> " {searchValue} "</span>
                     </h2>
                 }
             </div>

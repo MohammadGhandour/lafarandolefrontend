@@ -9,6 +9,7 @@ import StatisticsAverages from '../Components/Dashboard/StatisticsAverages';
 import BarCharts from '../Components/Dashboard/BarCharts';
 import Donuts from '../Components/Dashboard/Donuts/Donuts';
 import ErrorMessage from '../Components/ErrorMessage';
+import styles from "../styles";
 
 function Dashboard() {
     const [loading, setLoading] = useState(true);
@@ -54,9 +55,7 @@ function Dashboard() {
                     <div className='flex-between full-width'>
                         <h2>Donuts</h2>
                         <select
-                            name="sortby"
-                            id="sortby"
-                            className='select-filter'
+                            className={`${styles.inputClasses} max-w-[200px]`}
                             value={donutsSortBy}
                             onChange={(e) => setDonutsSortBy(e.target.value)}>
                             <option value="quantitySold">Quantity</option>

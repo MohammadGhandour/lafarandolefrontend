@@ -18,8 +18,10 @@
     "react-chartjs-2": "^4.3.1",
     "react-dom": "^18.2.0",
     "react-paginate": "^8.1.3",
+    "react-query": "^3.39.3",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
+    "use-debounce": "^9.0.4",
     "web-vitals": "^2.1.4",
     "yup": "^0.32.11"
   },
@@ -46,5 +48,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.3.2"
   }
 }

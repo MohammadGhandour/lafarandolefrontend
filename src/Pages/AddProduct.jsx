@@ -8,6 +8,7 @@ import ErrorMessage from "../Components/ErrorMessage";
 import { headers } from "../Config/Headers";
 import SizeForm from "../Components/AddProduct/SizeForm";
 import { useAdminContext } from "../Hooks/useAdminContext";
+import styles from "../styles";
 
 function AddProduct() {
 
@@ -114,18 +115,18 @@ function AddProduct() {
                 admin={admin}
             />
             <SizeForm arrayOfSizes={arrayOfSizes} setArrayOfSizes={setArrayOfSizes} originalBarcode={barcode} />
-            <table className="mt-l mb-m full-width">
-                <tbody>
+            <div className="w-full mt-8">
+                <div className="w-full flex flex-col gap-4">
                     {arrayOfSizes.map((productVariant, i) => (
-                        <tr key={i}>
-                            <th>{productVariant.size}</th>
-                            <th>{productVariant.barcode}</th>
-                            <th>{productVariant.quantity}</th>
-                            <th className="delete-th" onClick={() => deleteSize(productVariant.barcode)}><i className="fa-solid fa-trash"></i></th>
-                        </tr>
+                        <div key={i} className="w-full flex flex-col lg:flex-row items-center gap-1 lg:gap-4">
+                            <div className="w-full flex-1 whitespace-nowrap bg-custom-gray py-2 px-4 rounded-md lg:max-w-[150px]">{productVariant.size}</div>
+                            <div className="w-full flex-1 whitespace-nowrap bg-custom-gray py-2 px-4 rounded-md">{productVariant.barcode}</div>
+                            <div className="w-full flex-1 whitespace-nowrap bg-custom-gray py-2 px-4 rounded-md">{productVariant.quantity}</div>
+                            <button className={`whitespace-nowrap ${styles.redButton} w-full lg:w-auto`} onClick={() => deleteSize(productVariant.barcode)}><i className="fa-solid fa-trash"></i></button>
+                        </div>
                     ))}
-                </tbody>
-            </table>
+                </div>
+            </div>
         </div>
     )
 };

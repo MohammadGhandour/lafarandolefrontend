@@ -2,14 +2,13 @@ import axios from 'axios';
 import React from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { api } from '../../Config/Config';
 import { headers } from '../../Config/Headers';
 import { formatCurrency } from '../../functions/formatCurrency';
 
 function SingleCustomer({ customer, admin }) {
 
-    const navigate = useNavigate();
     const [totalProfit, setTotalProfit] = useState(0);
 
     useEffect(() => {
@@ -24,25 +23,14 @@ function SingleCustomer({ customer, admin }) {
             })
     }, [customer.customerNumber]);
 
-    function goCustomer(e) {
-        const customerName = customer.customerName.replace(' ', '');
-        const customerNumber = customer.customerNumber;
-
-        if (e.button === 1 || e.ctrlKey) {
-            window.open(`${window.location.origin}/customer/${customer.id}/${customerName}/${customerNumber}`, '_blank');
-        } else if (e.button === 0) {
-            navigate(`/customer/${customer.id}/${customerName}/${customerNumber}`);
-        }
-    }
-
     return (
-        <tr onMouseDown={goCustomer}>
-            <th>{customer.customerName}</th>
-            <th>{customer.customerNumber}</th>
-            <th>{customer.numberOfOrders}</th>
-            {admin && <th>{formatCurrency(customer.totalOfAllOrders)}</th>}
-            {admin && <th className='back-green-profit'>{formatCurrency(totalProfit.toFixed(2))}</th>}
-        </tr>
+        <Link to={`/customer/${customer.id}/${customer.customerName}/${customer.customerNumber}`} className="w-full flex items-center rounded-md capitalize overflow-hidden bg-custom-gray hover:bg-[#eee]">
+            <div className="flex-1 text-center py-2 whitespace-nowrap truncate">{customer.customerName}</div>
+            <div className="flex-1 text-center py-2">{customer.customerNumber}</div>
+            <div className="flex-1 text-center py-2">{customer.numberOfOrders}</div>
+            {admin && <div className="flex-1 text-center py-2">{formatCurrency(customer.totalOfAllOrders)}</div>}
+            {admin && <div className="flex-1 text-center py-2 bg-custom-green text-white">{formatCurrency(totalProfit.toFixed(2))}</div>}
+        </Link>
     )
 }
 

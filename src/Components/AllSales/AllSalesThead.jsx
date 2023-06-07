@@ -1,18 +1,16 @@
-import React from 'react'
+import React from "react"
 
-function AllSalesThead({ admin }) {
+function AllSalesThead({ admin, orderIdClass }) {
     return (
-        <thead className='thead'>
-            <tr>
-                <th>id</th>
-                <th>date</th>
-                <th>items</th>
-                <th style={{ textDecoration: "line-through" }}>subtotal</th>
-                <th>total</th>
-                {admin && <th>profit</th>}
-                <th>customer name</th>
-            </tr>
-        </thead>
+        <div className="w-full capitalize flex items-center font-bold">
+            <div className={orderIdClass}>id</div>
+            <div className="flex-1 text-center">date</div>
+            <div className="flex-1 text-center">items</div>
+            <div className="flex-1 text-center line-through">subtotal</div>
+            <div className="flex-1 text-center">total</div>
+            {admin && <div className="flex-1 text-center">profit</div>}
+            <div className="flex-1 text-center">customer name</div>
+        </div>
     )
 }
 

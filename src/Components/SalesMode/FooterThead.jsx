@@ -2,16 +2,15 @@ import React from 'react'
 
 function FooterThead() {
     return (
-        <thead className='thead'>
-            <tr className='p-i-c-labels'>
-                <th className='text-left p-i-c-photo'>Photo</th>
-                <th className='text-center p-i-c-name'>Name</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Subtotal</th>
-                <th>Size</th>
-            </tr>
-        </thead>
+        <div className="w-full flex items-center font-bold">
+            <div className="w-14">Photo</div>
+            <div className="w-[300px] ml-4">Name</div>
+            <div className="flex-1 text-center">Price</div>
+            <div className="flex-1 text-center">Quantity</div>
+            <div className="flex-1 text-center">Subtotal</div>
+            <div className="flex-1 text-center">Size</div>
+            <div className="w-12 aspect-square"></div>
+        </div>
     )
 }
 

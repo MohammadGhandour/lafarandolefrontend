@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
-import { numberSizes } from "../../Arrays/Sizes/numberSizes";
-import { generalSizes } from "../../Arrays/Sizes/generalSizes";
-import { kidsSizes } from "../../Arrays/Sizes/kidsSizes";
-import { babySizes } from "../../Arrays/Sizes/babySizes";
-import { preMature } from "../../Arrays/Sizes/preMature";
 import axios from 'axios';
 import { api } from '../../Config/Config';
 import { headers } from '../../Config/Headers';
+import { sizes } from "../../Arrays/Sizes/sizes";
+import styles from "../../styles";
 
 function SizeForm({ arrayOfSizes, setArrayOfSizes, originalBarcode }) {
 
@@ -18,9 +15,6 @@ function SizeForm({ arrayOfSizes, setArrayOfSizes, originalBarcode }) {
     function submitSizeBarcode(e) {
         e.preventDefault();
         const productVariant = { size, barcode, quantity };
-
-        console.log(originalBarcode);
-
         const barcodeAlreadyAdded = arrayOfSizes.find((item) => item.barcode === barcode);
         if (size === '' || barcode === '' || quantity === 0) alert("Please fill both size and barcode");
         else if (barcodeAlreadyAdded || barcode === originalBarcode) {
@@ -49,37 +43,15 @@ function SizeForm({ arrayOfSizes, setArrayOfSizes, originalBarcode }) {
                 onClick={() => setShowSizeForm(!showSizeForm)}>
                 <i className={showSizeForm ? "fa-solid fa-minus" : "fa-solid fa-plus"}></i>
             </button>
-            {showSizeForm && <form onSubmit={submitSizeBarcode} className="flex-between gap-l mt-l">
-                <select className='select-category-single-product' style={{ marginBottom: 0 }} value={size} onChange={(e) => setSize(e.target.value)}>
-                    <option value=''>Size</option>
-                    <optgroup label="premature">
-                        {preMature.map(label => (
-                            <option value={label} key={label}>{label}</option>
+            {showSizeForm &&
+                <form onSubmit={submitSizeBarcode} className="flex flex-col lg:flex-row gap-4 mt-4">
+                    <select className={`${styles.inputClasses} lg:max-w-[150px]`} value={size} onChange={(e) => setSize(e.target.value)}>
+                        <option value=''>Size</option>
+                        {sizes.map(size => (
+                            <option value={size.key} key={size.key}>{size.key}</option>
                         ))}
-                    </optgroup>
-                    <optgroup label='Baby'>
-                        {babySizes.map(label => (
-                            <option value={label} key={label}>{label}</option>
-                        ))}
-                    </optgroup>
-                    <optgroup label='Kids'>
-                        {kidsSizes.map(label => (
-                            <option value={label} key={label}>{label}</option>
-                        ))}
-                    </optgroup>
-                    <optgroup label='Generals'>
-                        {generalSizes.map(label => (
-                            <option value={label} key={label}>{label}</option>
-                        ))}
-                    </optgroup>
-                    <optgroup label='Generals'>
-                        {numberSizes.map(label => (
-                            <option value={label} key={label}>{label}</option>
-                        ))}
-                    </optgroup>
-                </select>
-                <input type="number" className="form-input" value={barcode} onChange={(e) => setBarcode(e.target.value)} placeholder="barcode..." />
-                <div className="small-input">
+                    </select>
+                    <input type="number" className={`${styles.inputClasses}`} value={barcode} onChange={(e) => setBarcode(e.target.value)} placeholder="barcode..." />
                     <input name="quanitity"
                         type="number"
                         autoComplete='off'
@@ -87,10 +59,10 @@ function SizeForm({ arrayOfSizes, setArrayOfSizes, originalBarcode }) {
                         step='any'
                         value={quantity}
                         onChange={(e) => setQuantity(e.target.value)}
-                        className='form-input' />
-                </div>
-                <button type='submit' className="primary-btn submit-size-btn"><i className="fa-solid fa-check"></i></button>
-            </form>}
+                        className={`${styles.inputClasses}`} />
+                    <button type='submit' className={`${styles.blackButton} bg-custom-green text-xl py-3`}><i className="fa-solid fa-check"></i></button>
+                </form>
+            }
         </>
     )
 }

@@ -1,10 +1,9 @@
 import moment from 'moment';
 import React from 'react'
-import AllSalesStatistics from './AllSalesStatistics';
 import SingleOrder from './SingleOrder';
 import { formatCurrency } from '../../functions/formatCurrency';
 
-function AllSalesTbody({ days, unfilteredOrders, admin }) {
+function AllSalesTbody({ days, admin, orderIdClass }) {
 
     const totalBeforeDiscountToday = (ordersOfTheDay) => ordersOfTheDay?.reduce((total, item) => (Number(total) + Number(item.totalBeforeDiscount)), 0);
     const totalToday = (ordersOfTheDay) => ordersOfTheDay?.reduce((total, item) => (Number(total) + Number(item.total)).toFixed(2), 0);
@@ -13,38 +12,33 @@ function AllSalesTbody({ days, unfilteredOrders, admin }) {
     const singleDayDate = (day) => moment(day.date).format('dddd') + ' ' + moment(day.date).format('ll');
 
     return (
-        <tbody>
-            {admin && <AllSalesStatistics orders={unfilteredOrders} />}
+        <div className="w-full">
             {days.map((day, j) => (
-                <React.Fragment key={j}>
-                    {j !== 0 &&
-                        <tr className='none-tr'>
-                            <th><br /></th>
-                        </tr>
-                    }
-                    <tr className='orders-of-the-day'>
-                        <th className='order-id'>-</th>
-                        <th>{singleDayDate(day)}</th>
-                        <th>{itemsSoldToday(day.orders)}</th>
-                        <th className='order-total order-total-before-discount'>
-                            {Number(totalBeforeDiscountToday(day.orders)) === Number(totalToday) ? ''
+                <div key={j} className={`w-full flex flex-col gap-1 ${j !== 0 && "my-12"}`}>
+                    <div className="w-full flex bg-custom-light-gray items-center rounded-md">
+                        <div className={orderIdClass}>-</div>
+                        <div className="flex-1 text-center py-2">{singleDayDate(day)}</div>
+                        <div className="flex-1 text-center py-2">{itemsSoldToday(day.orders)}</div>
+                        <div className="flex-1 text-center py-2 order-total order-total-before-discount">
+                            {Number(totalBeforeDiscountToday(day.orders)) === Number(totalToday) ? ""
                                 : formatCurrency(totalBeforeDiscountToday(day.orders))
                             }
-                        </th>
-                        <th className='order-total'>{formatCurrency(totalToday(day.orders))}</th>
-                        {admin && <th className={profitToday(day.orders) > 0 ? 'back-green-profit' : 'back-negative-profit'}>{formatCurrency(profitToday(day.orders))}</th>}
-                        <th>-</th>
-                    </tr>
+                        </div>
+                        <div className="order-total flex-1 text-center py-2">{formatCurrency(totalToday(day.orders))}</div>
+                        {admin && <div className={`flex-1 text-center py-2 text-white ${profitToday(day.orders) > 0 ? "bg-custom-green" : "bg-crimson"}`}>{formatCurrency(profitToday(day.orders))}</div>}
+                        <div className="flex-1 text-center">-</div>
+                    </div>
                     {day.orders.map((order, i) => (
                         <SingleOrder
                             key={order.id}
                             order={order}
                             i={i} ordersOfTheDay={i === 0 ? day.orders : null}
-                            admin={admin} />
+                            admin={admin}
+                            orderIdClass={orderIdClass} />
                     ))}
-                </React.Fragment>
+                </div>
             ))}
-        </tbody>
+        </div>
     )
 }
 

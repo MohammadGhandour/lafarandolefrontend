@@ -1,14 +1,4 @@
 /* BARCODE INPUT FORM */
-#scanner-input {
-    all: unset;
-    width: calc(100% - var(--l-padding));
-    padding: var(--m-padding);
-    border-radius: 5px;
-    outline: 1px solid var(--light-grey);
-    transition: all 0.2s;
-    margin-bottom: var(--l-padding);
-}
-
 .scan-title {
     text-align: center;
     color: var(--grey);
@@ -94,12 +84,6 @@
 
 /* BARCODE INPUT FORM */
 
-
-.cart {
-    position: relative;
-    margin: auto;
-    transition: all 0.2s;
-}
 
 .thead:not(.none-thead)::after {
     content: '';
@@ -213,9 +197,6 @@ tbody tr:nth-child(odd):not(.none-tr) {
 }
 
 @media screen and (max-width: 768px) {
-    .cart {
-        padding: var(--m-padding);
-    }
 
     .product-in-cart {
         font-size: 14px;

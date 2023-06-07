@@ -2,16 +2,14 @@ import React from 'react'
 
 function OrderThead() {
     return (
-        <thead className='thead'>
-            <tr>
-                <th>Photo</th>
-                <th className='p-i-c-name'>Name</th>
-                <th>Price</th>
-                <th>Quantity</th>
-                <th>Total</th>
-                <th>Size</th>
-            </tr>
-        </thead>
+        <div className='flex font-bold'>
+            <span>Photo</span>
+            <span>Name</span>
+            <span>Price</span>
+            <span>Quantity</span>
+            <span>Total</span>
+            <span>Size</span>
+        </div>
     )
 }
 

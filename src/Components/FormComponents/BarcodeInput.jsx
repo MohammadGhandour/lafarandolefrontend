@@ -11,7 +11,7 @@ function BarcodeInput({ name, type, emptyFields, barcode, setBarcode }) {
                 onKeyPress={(e) => { e.key === 'Enter' && e.preventDefault(); }}
                 onChange={(e) => setBarcode(e.target.value)}
                 value={barcode}
-                className={emptyFields && emptyFields.includes(name) ? 'barcode-input barcode-error-input' : 'barcode-input'} />
+                className={`${emptyFields && emptyFields.includes(name) ? 'barcode-input barcode-error-input' : 'barcode-input'}`} />
         </div>
     )
 }

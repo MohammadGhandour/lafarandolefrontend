@@ -1,136 +1,153 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import AllSalesThead from '../Components/AllSales/AllSalesThead';
-import SingleOrder from '../Components/AllSales/SingleOrder';
+import React, { useEffect, useMemo, useState } from 'react';
 import ErrorMessage from '../Components/ErrorMessage';
 import Loader from '../Components/Loader';
 import { api } from '../Config/Config';
 import { headers } from '../Config/Headers';
-import "./PagesStyles/AllSales.css";
-import { sortArrayOfObjectsPerDay } from '../functions/sortArrayOfObjectsPerDay';
-import AllSalesTbody from '../Components/AllSales/AllSalesTbody';
-import AllSalesSearchInput from '../Components/AllSales/AllSalesSearchInput';
 import { useAdminContext } from '../Hooks/useAdminContext';
+import styles from "../styles";
+import { useInfiniteQuery } from "react-query";
+import { useSearchParams } from "react-router-dom";
+import AllSalesThead from "../Components/AllSales/AllSalesThead";
+import OneDayStats from "../Components/AllSales/OneDayStats";
+import SearchInput from "../Components/AllProducts/SearchInput";
+
+
+export const orderIdClass = "w-[100px] max-w-[100px] min-w-[100px] whitespace-nowrap truncate text-center";
 
 function AllSales() {
 
     const { admin } = useAdminContext();
 
-    const [loading, setLoading] = useState(true);
-    const [days, setDays] = useState([]);
-    const [filteredOrders, setFilteredOrders] = useState();
-    const [unfilteredOrders, setUnfilteredOrders] = useState([]);
-    const [searchValue, setSearchValue] = useState('');
+    // eslint-disable-next-line
     const [sortBy, setSortBy] = useState('default');
-    const [rawOrders, setRawOrders] = useState([]);
-    const [error, setError] = useState('');
+
+    const [searchParams] = useSearchParams();
+    const query = searchParams.get("q");
+    const [filter, setFilter] = useState("last_added");
+
+    const limit = 50;
+
+    async function fetchOrders(pageParam) {
+        const data = await axios.get(`${api}/orders`, {
+            headers: headers,
+            params: {
+                limit,
+                page: pageParam,
+                searchParams: query,
+                filter: filter
+            }
+        });
+        return data.data;
+    }
+
+    const { isLoading: isLoadingForTable, data, hasNextPage, fetchNextPage, isFetchingNextPage, isError } = useInfiniteQuery(
+        ["products", query, filter],
+        ({ pageParam = 1 }) => fetchOrders(pageParam),
+        {
+            refetchOnWindowFocus: false,
+            getNextPageParam: (lastPage, allPages) => {
+                const remainingItems = lastPage.count - allPages.length * limit;
+                if (remainingItems <= 0) {
+                    return undefined;
+                }
+                const nextPage = allPages.length + 1;
+                return nextPage;
+            }
+        }
+    );
 
     useEffect(() => {
-        axios.get(`${api}/orders`, { headers: headers })
-            .then(response => {
-                let orders = response.data;
-                setRawOrders(response.data);
-                setUnfilteredOrders(orders);
-                // FILTER ORDERS ARRAYS
-                setDays(sortArrayOfObjectsPerDay(orders, 'orders'));
-                setLoading(false);
-            })
-            .catch(err => {
-                console.log(err);
-                if (err.response.status === 404) {
-                    setError(err.response.data.error)
-                } else if (err.message === 'Network Error') {
-                    setError('An error occured while communicating with the server.');
+        let fetching = false;
+        const onScroll = async (event) => {
+            const { scrollHeight, scrollTop, clientHeight } = event.target.scrollingElement;
+            if (!fetching && scrollHeight - scrollTop <= clientHeight * 2 && data?.pages.length > 0) {
+                fetching = true;
+                if (data) {
+                    if (hasNextPage) await fetchNextPage();
                 }
-                setLoading(false);
-            })
-    }, [loading, setLoading]);
+                fetching = false;
+            }
+        };
 
-    function sortDefault() {
-        setSearchValue('');
-    }
+        window.addEventListener("scroll", onScroll);
+        window.addEventListener("touchmove", onScroll);
 
-    function instagramOrders() {
-        setFilteredOrders(rawOrders.filter(order => {
-            return order.orderLocation === 'Instagram Delivery'
-        }));
-    }
+        return () => {
+            window.removeEventListener("scroll", onScroll);
+            window.removeEventListener("touchmove", onScroll);
+        };
+    }, [data, fetchNextPage, hasNextPage]);
 
-    function ghaziyehOrders() {
-        setFilteredOrders(rawOrders.filter(order => {
-            return order.orderLocation === 'Ghaziyeh Store'
-        }));
-    }
+    const groupOrdersByDay = (orders) => {
+        const groupedOrders = [];
 
-    function handleChange(e) {
-        setSortBy(e.target.value);
-        if (e.target.value === 'default') {
-            sortDefault();
-        } else if (e.target.value === 'Instagram Delivery') {
-            instagramOrders();
-        } else {
-            ghaziyehOrders();
+        orders.forEach((order) => {
+            const orderDate = new Date(order.createdAt).toDateString();
+            const lastGroup = groupedOrders[groupedOrders.length - 1];
+
+            if (lastGroup && lastGroup.date === orderDate) {
+                lastGroup.orders.push(order);
+            } else {
+                groupedOrders.push({
+                    date: orderDate,
+                    orders: [order],
+                });
+            }
+        });
+
+        return groupedOrders;
+    };
+
+    const groupedData = useMemo(() => {
+        if (data) {
+            const allOrders = data.pages.flatMap((page) => page.rows);
+            return groupOrdersByDay(allOrders);
         }
-    }
+        return [];
+    }, [data]);
 
-    if (loading) {
+
+
+    if (isError) {
         return (
             <div className='full-page'>
-                <Loader />
-            </div>
-        )
-    } else if (error) {
-        return (
-            <div className='full-page'>
-                <ErrorMessage classes='general-error'>{error}</ErrorMessage>
-            </div>
-        )
-    } else if (days && days.length < 1) {
-        return (
-            <div className='full-page'>
-                <ErrorMessage classes='no-items-message'>No registered sales yet.</ErrorMessage>
+                <ErrorMessage classes='general-error'>An error happened</ErrorMessage>
             </div>
         )
     } else {
         return (
-            <div className='full-page'>
-                <AllSalesSearchInput
-                    unfilteredOrders={unfilteredOrders}
-                    setFilteredOrders={setFilteredOrders}
-                    searchValue={searchValue}
-                    setSearchValue={setSearchValue}
-                    setSortBy={setSortBy} />
-                <div className='flex-between mt-l mb-l'>
-                    <h3>{sortBy === 'default' ? unfilteredOrders.length : filteredOrders.length} REGISTERED ORDERS</h3>
+            <div className="w-full">
+
+                <SearchInput placeholder="Search by id, name or phone number" />
+
+                <div className="flex justify-end my-4">
                     <select
                         name="sortby"
                         id="sortby"
-                        className='select-filter'
-                        onChange={handleChange}>
-                        <option value="default">Last added</option>
+                        className={`${styles.inputClasses} max-w-[180px]`}
+                        onChange={(e) => setFilter(e.target.value)}>
+                        <option value="last_added">Last added</option>
                         <option value="Instagram Delivery">Instagram Delivery</option>
                         <option value="Ghaziyeh Store">Ghaziyeh Store</option>
                     </select>
                 </div>
-                <div className="table-wrapper">
-                    <table className='orders-table'>
-                        <AllSalesThead admin={admin} />
-                        {!searchValue && unfilteredOrders.length > 0 && sortBy === 'default' && days.length > 0 ?
-                            <AllSalesTbody days={days} unfilteredOrders={unfilteredOrders} admin={admin} />
-                            :
-                            <tbody>
-                                {filteredOrders.map(order => (
-                                    <SingleOrder key={order.id} order={order} admin={admin} />
+
+                <div className="w-full overflow-x-auto">
+                    <div className="w-full flex-col flex mt-4 min-w-[1100px]">
+                        <AllSalesThead admin={admin} orderIdClass={orderIdClass} />
+                        {isLoadingForTable ? <Loader /> : groupedData && groupedData.length > 0 ?
+                            <div className={`w-full flex flex-col ${query ? "gap-1" : "gap-12"}`}>
+                                {groupedData.map(day => (
+                                    <OneDayStats key={day.date} day={day} admin={admin} orderIdClass={orderIdClass} query={query} />
                                 ))}
-                            </tbody>
+                            </div>
+                            :
+                            ""
                         }
-                    </table>
+                    </div>
                 </div>
-                {searchValue && filteredOrders.length < 1 &&
-                    <h2 className='not-found-product text-center'>There no order related to
-                        <span className='not-found-search-value'> " {searchValue} "</span>
-                    </h2>
-                }
+                {isFetchingNextPage && <Loader />}
             </div>
         )
     }

@@ -1,11 +1,12 @@
 import axios from 'axios';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Loader from '../Components/Loader';
 import { api } from '../Config/Config';
 import { headers } from '../Config/Headers';
 import { formatCurrency } from '../functions/formatCurrency';
+import { orderIdClass } from "./AllSales";
 
 function Customer() {
 
@@ -13,7 +14,6 @@ function Customer() {
     const [orders, setOrders] = useState([]);
 
     const route = useParams();
-    const navigate = useNavigate();
     const customerNumber = route.customerNumber;
 
     useEffect(() => {
@@ -28,14 +28,6 @@ function Customer() {
             })
     }, [customerNumber]);
 
-    function goOrder(e, order) {
-        if (e.button === 1 || e.ctrlKey) {
-            window.open(`${window.location.origin}/order/${order.id}`, '_blank');
-        } else if (e.button === 0) {
-            navigate(`/order/${order.id}`)
-        }
-    };
-
     if (loading) {
         return (
             <div className='full-page'>
@@ -45,33 +37,32 @@ function Customer() {
     } else {
         return (
             <div className='full-page'>
-                <h2>{orders[orders.length - 1].customerName}</h2>
-                <h2 className='mt'>{orders[orders.length - 1].customerNumber}</h2>
-                <h3 className='mt-l'>{orders.length} REGISTERED ORDERS</h3>
-                <table className='orders-table'>
-                    <thead className='thead'>
-                        <tr>
-                            <th>id</th>
-                            <th>date</th>
-                            <th>items</th>
-                            <th style={{ textDecoration: "line-through" }}>subtotal</th>
-                            <th>total</th>
-                        </tr>
-                    </thead>
-                    {orders && orders.length > 0 &&
-                        <tbody>
-                            {orders.map(order => (
-                                <tr onMouseDown={(e) => goOrder(e, order)} key={order.id}>
-                                    <th className='order-id'>{order.id}</th>
-                                    <th>{moment(order.createdAt).format('lll')}</th>
-                                    <th>{order.itemsNumber}</th>
-                                    <th className='order-total order-total-before-discount'>{formatCurrency(order.totalBeforeDiscount)}</th>
-                                    <th className='order-total'>{formatCurrency(order.total)}</th>
-                                </tr>
-                            ))}
-                        </tbody>
-                    }
-                </table>
+                <p>{orders[orders.length - 1].customerName} - {orders[orders.length - 1].customerNumber}</p>
+                <h3 className="mt-4 font-bold text-xl">{orders.length} REGISTERED ORDERS</h3>
+                <div className="w-full overflow-x-auto">
+                    <div className="w-full flex-col flex mt-4 min-w-[800px]">
+                        <div className="w-full flex items-center capitalize font-bold">
+                            <div className={orderIdClass}>id</div>
+                            <div className="flex-1 text-center">date</div>
+                            <div className="flex-1 text-center">items</div>
+                            <div className="flex-1 text-center line-through">subtotal</div>
+                            <div className="flex-1 text-center">total</div>
+                        </div>
+                        {orders && orders.length > 0 &&
+                            <div className="w-full flex gap-1 mt-4">
+                                {orders.map(order => (
+                                    <Link to={`/order/${order.id}`} className="w-full flex items-center bg-custom-gray rounded-md py-2">
+                                        <div className={orderIdClass}>{order.id}</div>
+                                        <div className="flex-1 text-center">{moment(order.createdAt).format('lll')}</div>
+                                        <div className="flex-1 text-center">{order.itemsNumber}</div>
+                                        <div className="flex-1 text-center">{formatCurrency(order.totalBeforeDiscount)}</div>
+                                        <div className="flex-1 text-center">{formatCurrency(order.total)}</div>
+                                    </Link>
+                                ))}
+                            </div>
+                        }
+                    </div>
+                </div>
             </div>
         )
     }

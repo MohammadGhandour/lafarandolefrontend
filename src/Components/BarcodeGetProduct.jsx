@@ -3,6 +3,7 @@ import React from 'react';
 import { api } from '../Config/Config';
 import { headers } from '../Config/Headers';
 import { cartToSet } from '../functions/cartToSet';
+import styles from "../styles";
 
 function BarcodeGetProduct({
     setInputDisabled,
@@ -13,7 +14,8 @@ function BarcodeGetProduct({
     setNoProductTitle,
     noProductText,
     inputDisabled,
-    barcodeSearchScannerRef
+    barcodeSearchScannerRef,
+    emptyCart
 }) {
 
     function handleSubmit(e) {
@@ -46,18 +48,23 @@ function BarcodeGetProduct({
     }
 
     return (
-
-        <form className='sales-mode-form' onSubmit={handleSubmit}>
-            <input
-                type='number'
-                ref={barcodeSearchScannerRef}
-                id='scanner-input'
-                className={inputDisabled ? 'input-disabled' : ''}
-                value={productBarcode}
-                autoFocus
-                disabled={inputDisabled ? true : false}
-                onInput={(e) => setProductBarcode(e.target.value)} />
-        </form>
+        <div className="w-full flex flex-col lg:flex-row items-center gap-4">
+            <form onSubmit={handleSubmit} className="w-full">
+                <input
+                    type='number'
+                    placeholder="Barcode..."
+                    ref={barcodeSearchScannerRef}
+                    className={`${styles.inputClasses} ${inputDisabled ? 'input-disabled' : ''}`}
+                    value={productBarcode}
+                    autoFocus
+                    disabled={inputDisabled ? true : false}
+                    onInput={(e) => setProductBarcode(e.target.value)} />
+            </form>
+            {
+                cart.length > 0 &&
+                <div className={`${styles.redButton} w-full lg:w-max py-3`} onClick={emptyCart}><i className='fa-solid fa-trash mr-1'></i> Empty cart</div>
+            }
+        </div>
     )
 }
 

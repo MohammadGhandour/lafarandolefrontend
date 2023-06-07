@@ -5,6 +5,7 @@ import axios from 'axios';
 import { api } from '../../Config/Config';
 import { headers } from '../../Config/Headers';
 import { formatCurrency } from '../../functions/formatCurrency';
+import { orderIdClass } from "../../Pages/AllSales";
 
 function SingleExpense({ expense, setExpenses, rawExpenses, setRawExpenses }) {
 
@@ -27,14 +28,14 @@ function SingleExpense({ expense, setExpenses, rawExpenses, setRawExpenses }) {
     }
 
     return (
-        <tr className='single-expense-in-table'>
-            <th>{expense.id}</th>
-            <th>{moment(expense.createdAt).format('lll')}</th>
-            <th>{expense.category}</th>
-            <th className='expense-comment'>{expense.comment}</th>
-            <th className='expense-value-in-table'>{formatCurrency(expense.expenseValue)}</th>
-            <th className='delete-btn-in-table' onClick={deleteExpense}><i className='fa-solid fa-trash'></i></th>
-        </tr>
+        <div className="w-full flex items-center bg-custom-gray rounded-md overflow-hidden">
+            <p className={orderIdClass}>{expense.id}</p>
+            <p className="flex-1 text-center">{moment(expense.createdAt).format('lll')}</p>
+            <p className="flex-1 text-center">{expense.category}</p>
+            <p className="flex-1 text-center" >{expense.comment}</p>
+            <p className="flex-1 text-center">{formatCurrency(expense.expenseValue)}</p>
+            <p className="flex-1 text-center bg-crimson py-2 text-white cursor-pointer" onClick={deleteExpense}><i className='fa-solid fa-trash'></i></p>
+        </div>
     )
 }
 

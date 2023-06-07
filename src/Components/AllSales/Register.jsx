@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
 import { api } from '../../Config/Config';
 import './Register.css';
+import styles from "../../styles";
 
 function Register({ modalOpen, setModalOpen, users }) {
 
@@ -56,7 +57,7 @@ function Register({ modalOpen, setModalOpen, users }) {
                             value={username} onChange={(e) => setUsername(e.target.value)} />
                         <input type='password' placeholder='Password' autoComplete='off'
                             value={password} onChange={(e) => setPassword(e.target.value)} />
-                        <button className='credential-button' type='submit'>Submit</button>
+                        <button className={`${styles.blackButton} w-full`} type='submit'>Submit</button>
                     </form>
                 </div>
             }
