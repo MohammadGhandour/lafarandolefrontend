@@ -49,7 +49,7 @@ function Customer() {
                             <div className="flex-1 text-center">total</div>
                         </div>
                         {orders && orders.length > 0 &&
-                            <div className="w-full flex gap-1 mt-4">
+                            <div className="w-full flex flex-col gap-1 mt-4">
                                 {orders.map(order => (
                                     <Link to={`/order/${order.id}`} className="w-full flex items-center bg-custom-gray rounded-md py-2">
                                         <div className={orderIdClass}>{order.id}</div>
