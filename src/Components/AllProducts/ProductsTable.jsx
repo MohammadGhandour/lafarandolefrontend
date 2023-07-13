@@ -67,7 +67,7 @@ function ProductsTable({ isLoading, data, hasNextPage, fetchNextPage, isFetching
                 <div className="w-full flex flex-col gap-1">
                     {data.pages.map(page =>
                         page.rows.map((product, idx) => (
-                            <Link key={product.id} to={`/product/${product.id}`} className={`w-full flex items-center hover:bg-[#eee] rounded-md  hover:text-black transition-all overflow-hidden ${product.inStock === 0 ? "bg-crimson text-white" : "bg-custom-gray"}`}>
+                            <Link key={product.id} to={`/product/${product.id}`} className={`w-full flex items-center hover:bg-[#eee] rounded-md  hover:text-black transition-all overflow-hidden ${product.inStock === 0 ? "bg-crimson text-white" : product.discount ? "bg-yellow-500" : "bg-custom-gray"}`}>
                                 <img src={product.photo ? product.photo : logo} alt={product.name} className="w-14 aspect-square object-cover" />
                                 <div className="w-[300px] whitespace-nowrap truncate mx-4">{product.name}</div>
                                 <div className={`flex-1 text-center border-x whitespace-nowrap truncate px-1 ${borderColor}`}>{product.brand.toUpperCase()}</div>

@@ -18,7 +18,7 @@ function AverageProgression() {
     const [suitableArrayOfOrders, setSuitableArrayOfOrders] = useState([]);
 
     useEffect(() => {
-        axios.get(`${api}/orders`, { headers: headers })
+        axios.get(`${api}/orders/average-progression`, { headers: headers })
             .then(res => {
 
                 let days = res.data.reduce((acc, object) =>

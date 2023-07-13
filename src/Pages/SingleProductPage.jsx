@@ -72,28 +72,24 @@ function SingleProductPage() {
     });
 
     function updateProduct() {
-        if (admin) {
-            setSubmitting(true);
-            const productForm = document.getElementById('editProductForm')
-            const data = new FormData(productForm);
-            data.append('image', file);
-            data.append('photo', fileName);
-            axios.put(`${api}/products/${productId}`, data, { headers: headers })
-                .then((res) => {
-                    navigate('/all-products');
-                    setFile(null);
-                    setFileName(null);
-                    setSubmitting(false);
-                })
-                .catch((err) => {
-                    console.log(err);
-                    setEmptyFields(err.response.data.emptyFields);
-                    setError(err.response.data.error);
-                    setSubmitting(false);
-                })
-        } else {
-            alert("You're not authorized to make this action, please contact the CTO !");
-        }
+        setSubmitting(true);
+        const productForm = document.getElementById('editProductForm')
+        const data = new FormData(productForm);
+        data.append('image', file);
+        data.append('photo', fileName);
+        axios.put(`${api}/products/${productId}`, data, { headers: headers })
+            .then((res) => {
+                navigate(admin ? '/all-products' : "/");
+                setFile(null);
+                setFileName(null);
+                setSubmitting(false);
+            })
+            .catch((err) => {
+                console.log(err);
+                setEmptyFields(err.response.data.emptyFields);
+                setError(err.response.data.error);
+                setSubmitting(false);
+            })
     };
 
     function deleteProduct() {

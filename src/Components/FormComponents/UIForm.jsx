@@ -83,7 +83,7 @@ function UIForm({
                     </div>
                     <div className="w-full flex flex-col lg:flex-row items-center gap-4">
                         <SmallInput label='Quantity *' name='quantity' type='number' emptyFields={emptyFields} />
-                        {admin ? <SmallInput label='Cost *' name='cost' type='number' emptyFields={emptyFields} /> : null}
+                        <SmallInput label='Cost *' name='cost' type='number' emptyFields={emptyFields} />
                         <SmallInput label='Price *' name='price' type='number' emptyFields={emptyFields} />
                         <SmallInput label='Discount' name='discount' type='number' emptyFields={emptyFields} />
                     </div>
