@@ -34,7 +34,7 @@ function Filters({ filters }) {
 
     return (
         <div className="flex items-center gap-4 w-full group">
-            <div className="flex items-center gap-4">
+            <div className="flex items-center flex-wrap lg:flex-nowrap gap-4">
                 {filters.map((filter) => (
                     <button className={`flex items-center justify-center flex-nowrap gap-2 py-2 px-4 focus:outline-none w-max disabled:cursor-not-allowed rounded-xl transition-all bg-white dark:bg-bg-dark-hover`} key={filter.title} onClick={() => {
                         setActiveFilterModal(filter);

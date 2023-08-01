@@ -93,9 +93,9 @@ function FiltersModal({ isModalOpen, setIsModalOpen, activeFilterModal, setActiv
         setIsModalOpen(false);
     }
 
-    return (
-        <article className={`fixed top-0 left-0 w-full h-screen z-[200] bg-black/40 bg-opacity-20 backdrop-blur-lg drop-shadow-lg cursor-auto items-center justify-center ${isModalOpen ? "flex" : "hidden"} overflow-y-scroll`} onClick={outsideClickCloseNav}>
-            <div className="w-full h-full py-12" ref={backdropRef}>
+    if (isModalOpen) {
+        return (
+            <article className={`scrollable-modal`} ref={backdropRef} onClick={outsideClickCloseNav}>
                 <div className="max-w-lg w-[80%] mx-auto my-auto bg-white rounded-3xl flex flex-col justify-between h-max">
                     <div className="overflow-hidden w-full">
                         <div className="flex items-center justify-between w-full px-8 py-6 pb-4 border-b border-black">
@@ -155,9 +155,9 @@ function FiltersModal({ isModalOpen, setIsModalOpen, activeFilterModal, setActiv
                         <button className={`${styles.primaryButton} ml-auto`} onClick={fetchFilteredData}>Filter</button>
                     </div>
                 </div>
-            </div>
-        </article>
-    );
+            </article>
+        );
+    }
 }
 
 export default FiltersModal;

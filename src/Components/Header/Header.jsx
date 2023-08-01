@@ -24,9 +24,14 @@ function Header() {
             <div className='header-left flex'>
                 <Link to='/' className="font-bold text-xl">LAFARANDOLE</Link>
             </div>
-            <div className='flex text-lg items-center'>
-                {location !== '/sales-mode' && <NavLink to='/sales-mode' className={`${styles.redButton} text-base`}>Sales Mode</NavLink>}
-                <p className="mx-4">{username}</p>
+            <div className='flex text-lg items-center gap-4'>
+                {location !== '/sales-mode' &&
+                    <NavLink to='/sales-mode' className={`${styles.redButton} text-base`}>
+                        <span className="hidden md:block">Sales Mode</span>
+                        <i className="md:hidden fa-solid fa-cart-shopping"></i>
+                    </NavLink>
+                }
+                <p className="hidden sm:block">{username}</p>
                 <i className="fa-solid fa-arrow-right-from-bracket" onClick={logout}></i>
             </div>
         </header>

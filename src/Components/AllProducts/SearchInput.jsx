@@ -37,7 +37,7 @@ function SearchInput({ placeholder }) {
     }, [debounceQuery, setSearchParams, searchParamsVar]);
 
     return (
-        <div className="flex-items-center justify-between w-full xl:w-[40%] min-w-[300px]">
+        <div className="flex-items-center justify-between w-full xl:w-[40%] min-w-[250px]">
             <div className="relative group w-full">
                 <input
                     type="text"
