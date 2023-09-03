@@ -136,5 +136,10 @@ export const brands = [
     "Koala",
     "RG kids",
     "Azizbebe",
-    "Bi baby"
+    "Bibaby",
+    "Biorganic",
+    "Seviebébé",
+    "Cumino",
+    "Bébé konfor",
+    "M&Y"
 ];
