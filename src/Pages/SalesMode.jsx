@@ -126,10 +126,7 @@ function SalesMode() {
                 promoCode: promoCode,
                 salesperson_id: Number(salespersonId)
             }
-            const customer = {
-                customerName: customerName,
-                customerNumber: customerNumber
-            }
+            const customer = { customerName: customerName, customerNumber: customerNumber }
             setSubmitting(true);
             axios.post(`${api}/orders`, order, { headers: headers })
                 .then(res => {

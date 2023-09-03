@@ -136,4 +136,5 @@ export const brands = [
     "Koala",
     "RG kids",
     "Azizbebe",
+    "Bi baby"
 ];
