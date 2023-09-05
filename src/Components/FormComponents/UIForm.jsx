@@ -28,7 +28,11 @@ function UIForm({
     buttonText,
     barcode,
     setBarcode,
-    priceAfterDiscount,
+    finalPrice,
+    price,
+    setPrice,
+    discount,
+    setDiscount,
     emptyFields,
     duplicateProduct,
     submitting,
@@ -48,6 +52,14 @@ function UIForm({
             setIsProductPage(false);
         }
     }, [params.productId]);
+
+    function handleDiscountChange(value) {
+        if (value <= 100) {
+            setDiscount(value);
+        } else {
+            setDiscount(100);
+        }
+    };
 
     return (
         <Formik
@@ -84,17 +96,43 @@ function UIForm({
                     <div className="w-full flex flex-col lg:flex-row items-center gap-4">
                         <SmallInput label='Quantity *' name='quantity' type='number' emptyFields={emptyFields} />
                         <SmallInput label='Cost *' name='cost' type='number' emptyFields={emptyFields} />
-                        <SmallInput label='Price *' name='price' type='number' emptyFields={emptyFields} />
-                        <SmallInput label='Discount' name='discount' type='number' emptyFields={emptyFields} />
+                        {/* <SmallInput label='Price *' name='price' type='number' emptyFields={emptyFields} /> */}
+                        <div className='flex flex-col w-full'>
+                            <label>Price *</label>
+                            <input
+                                value={price}
+                                onChange={(e) => setPrice(e.target.value)}
+                                name="price"
+                                type="number"
+                                autoComplete="off"
+                                min="0"
+                                step="any"
+                                className={`${styles.smallerInput} ${emptyFields && emptyFields.includes("price") ? 'error-input' : ''} min-w-[4rem]`}
+                            />
+                        </div>
+                        <div className='flex flex-col w-full'>
+                            <label>Discount</label>
+                            <input
+                                value={discount}
+                                onChange={(e) => handleDiscountChange(e.target.value)}
+                                name="discount"
+                                type="number"
+                                autoComplete="off"
+                                min="0"
+                                max="100"
+                                step="any"
+                                className={`${styles.smallerInput} ${emptyFields && emptyFields.includes("discount") ? 'error-input' : ''} min-w-[4rem]`}
+                            />
+                        </div>
                     </div>
                     {location !== '/add-product' &&
                         <div className={`flex flex-col items-start gap-2 whitespace-nowrap`}>
                             <label>Final price</label>
-                            <div className={`${styles.smallerInput} max-w-[120px]`}>{priceAfterDiscount}</div>
+                            <div className={`${styles.smallerInput} max-w-[120px]`}>{finalPrice}</div>
                         </div>
                     }
                     <div className='flex items-center gap-4 mt-2'>
-                        <UIButton>{submitting ? <i className="fa-solid fa-spinner"></i> : buttonText}</UIButton>
+                        <UIButton submitting={submitting}>{submitting ? <i className="fa-solid fa-spinner"></i> : buttonText}</UIButton>
                         {isProductPage && <button type='button' className={`${styles.blackButton}`} onClick={duplicateProduct}>Duplicate</button>}
                         {isProductPage && <button type='button' className={`${styles.redButton}`} onClick={deleteProduct}>Delete</button>}
                         <button type='button' className={`${styles.grayButton}`} onClick={() => navigate(-1)}>Cancel</button>

@@ -1,30 +1,44 @@
-import React, { useState } from 'react';
-import UIForm from '../Components/FormComponents/UIForm';
-import * as Yup from 'yup';
-import axios from 'axios';
-import { api } from '../Config/Config';
-import { useNavigate, useParams } from 'react-router-dom';
-import Loader from '../Components/Loader';
+import React, { useEffect, useState } from "react";
+import UIForm from "../Components/FormComponents/UIForm";
+import * as Yup from "yup";
+import axios from "axios";
+import { api } from "../Config/Config";
+import { useNavigate, useParams } from "react-router-dom";
+import Loader from "../Components/Loader";
 import ErrorMessage from "../Components/ErrorMessage";
-import { headers } from '../Config/Headers';
-import { useLayoutEffect } from 'react';
+import { headers } from "../Config/Headers";
+import { useLayoutEffect } from "react";
 import { useAdminContext } from "../Hooks/useAdminContext";
+
+export function calculateFinalPrice(initialPrice, discountPercentage) {
+    initialPrice = Number(initialPrice);
+    discountPercentage = Number(discountPercentage);
+    if (discountPercentage < 0 || discountPercentage > 100) {
+        return initialPrice;
+    }
+    const discountAmount = (initialPrice * discountPercentage) / 100;
+    const finalPrice = initialPrice - discountAmount;
+    return Number(finalPrice.toFixed(2));
+}
 
 function SingleProductPage() {
 
     const [product, setProduct] = useState({});
+    const [price, setPrice] = useState(0);
+    const [finalPrice, setFinalPrice] = useState(0);
+    const [discount, setDiscount] = useState(0);
     const { admin } = useAdminContext();
 
     const navigate = useNavigate();
 
     const [submitting, setSubmitting] = useState(false);
 
-    const [imageSrcToUpload, setImageSrcToUpload] = useState('');
+    const [imageSrcToUpload, setImageSrcToUpload] = useState("");
     const [file, setFile] = useState(null);
     const [fileName, setFileName] = useState(null);
     const [barcode, setBarcode] = useState(0);
     const [emptyFields, setEmptyFields] = useState([]);
-    const [error, setError] = useState('');
+    const [error, setError] = useState("");
     const [loading, setLoading] = useState(true);
 
     const params = useParams();
@@ -33,16 +47,23 @@ function SingleProductPage() {
     useLayoutEffect(() => {
         axios.get(`${api}/products/byId/${productId}`, { headers: headers })
             .then(res => {
-                setProduct(res.data);
-                setBarcode(res.data.barcode);
+                const productVar = res.data;
+                const price = productVar.price;
+                const discountVar = productVar.discount;
+                const finalPriceVar = calculateFinalPrice(price, discountVar);
+                setProduct(productVar);
+                setBarcode(productVar.barcode);
+                setPrice(Number(productVar.price));
+                setDiscount(discountVar);
+                setFinalPrice(finalPriceVar);
                 setLoading(false);
             })
             .catch(err => {
                 console.log(err);
                 if (err.response.status === 404) {
                     setError(err.response.data.error)
-                } else if (err.message === 'Network Error') {
-                    setError('An error occured while communicating with the server.');
+                } else if (err.message === "Network Error") {
+                    setError("An error occured while communicating with the server.");
                 }
                 setLoading(false);
             })
@@ -53,7 +74,7 @@ function SingleProductPage() {
     }, [product.photo]);
 
     const initialValues = {
-        image: '',
+        image: "",
         barcode: product.barcode,
         name: product.name,
         description: product.description,
@@ -73,13 +94,13 @@ function SingleProductPage() {
 
     function updateProduct() {
         setSubmitting(true);
-        const productForm = document.getElementById('editProductForm')
+        const productForm = document.getElementById("editProductForm")
         const data = new FormData(productForm);
-        data.append('image', file);
-        data.append('photo', fileName);
+        data.append("image", file);
+        data.append("photo", fileName);
         axios.put(`${api}/products/${productId}`, data, { headers: headers })
             .then((res) => {
-                navigate(admin ? '/all-products' : "/");
+                navigate(admin ? "/all-products" : "/");
                 setFile(null);
                 setFileName(null);
                 setSubmitting(false);
@@ -94,10 +115,10 @@ function SingleProductPage() {
 
     function deleteProduct() {
         if (admin) {
-            if (window.confirm('Are you sure you want to delete this product ? ')) {
+            if (window.confirm("Are you sure you want to delete this product ? ")) {
                 axios.delete(`${api}/products/${productId}`, { headers: headers })
                     .then(res => {
-                        navigate('/all-products');
+                        navigate("/all-products");
                     })
                     .catch(err => {
                         console.log(err);
@@ -109,34 +130,30 @@ function SingleProductPage() {
     };
 
     function duplicateProduct() {
-        localStorage.setItem('productToDuplicate', JSON.stringify(product));
-        localStorage.setItem('productToDuplicateDate', new Date());
-        navigate('/add-product');
+        localStorage.setItem("productToDuplicate", JSON.stringify(product));
+        localStorage.setItem("productToDuplicateDate", new Date());
+        navigate("/add-product");
     };
 
+    useEffect(() => {
+        setFinalPrice(calculateFinalPrice(price || 0, discount));
+    }, [discount, price]);
+
     if (loading) {
-        return (
-            <div className='full-page'>
-                <Loader />
-            </div>
-        )
+        return <div className="full-page"><Loader /></div>
     } else if (error) {
-        return (
-            <div className='full-page form-page'>
-                <ErrorMessage classes='general-error'>{error}</ErrorMessage>
-            </div>
-        )
+        return <div className="full-page form-page"><ErrorMessage classes="general-error">{error}</ErrorMessage></div>
     } else {
         return (
-            <div className='full-page form-page'>
-                {error && <ErrorMessage classes='product-error'>{error}</ErrorMessage>}
+            <div className="full-page form-page">
+                {error && <ErrorMessage classes="product-error">{error}</ErrorMessage>}
                 <h3># {product.id}</h3>
                 <UIForm
                     initialValues={initialValues}
                     validationSchema={validationSchema}
                     onSubmit={updateProduct}
                     deleteProduct={deleteProduct}
-                    id='editProductForm'
+                    id="editProductForm"
 
                     imageSrcToUpload={imageSrcToUpload}
                     setImageSrcToUpload={setImageSrcToUpload}
@@ -145,12 +162,16 @@ function SingleProductPage() {
                     fileName={fileName}
                     setFileName={setFileName}
 
-                    buttonText='Save'
+                    buttonText="Save"
 
                     barcode={barcode}
                     setBarcode={setBarcode}
 
-                    priceAfterDiscount={product.priceAfterDiscount}
+                    price={price}
+                    setPrice={setPrice}
+                    finalPrice={finalPrice}
+                    discount={discount}
+                    setDiscount={setDiscount}
 
                     emptyFields={emptyFields}
                     duplicateProduct={duplicateProduct}
