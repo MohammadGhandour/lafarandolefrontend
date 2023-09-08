@@ -38,7 +38,6 @@ function UIForm({
     submitting,
     admin
 }) {
-
     const navigate = useNavigate();
     const params = useParams();
     const location = useLocation().pathname;
@@ -125,12 +124,10 @@ function UIForm({
                             />
                         </div>
                     </div>
-                    {location !== '/add-product' &&
-                        <div className={`flex flex-col items-start gap-2 whitespace-nowrap`}>
-                            <label>Final price</label>
-                            <div className={`${styles.smallerInput} max-w-[120px]`}>{finalPrice}</div>
-                        </div>
-                    }
+                    <div className={`flex flex-col items-start gap-2 whitespace-nowrap`}>
+                        <label>Final price</label>
+                        <div className={`${styles.smallerInput} max-w-[120px]`}>{finalPrice}</div>
+                    </div>
                     <div className='flex items-center gap-4 mt-2'>
                         <UIButton submitting={submitting}>{submitting ? <i className="fa-solid fa-spinner"></i> : buttonText}</UIButton>
                         {isProductPage && <button type='button' className={`${styles.blackButton}`} onClick={duplicateProduct}>Duplicate</button>}

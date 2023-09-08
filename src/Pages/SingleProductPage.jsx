@@ -49,7 +49,7 @@ function SingleProductPage() {
             .then(res => {
                 const productVar = res.data;
                 const price = productVar.price;
-                const discountVar = productVar.discount;
+                const discountVar = productVar.discount || 0;
                 const finalPriceVar = calculateFinalPrice(price, discountVar);
                 setProduct(productVar);
                 setBarcode(productVar.barcode);
@@ -98,31 +98,29 @@ function SingleProductPage() {
         const data = new FormData(productForm);
         data.append("image", file);
         data.append("photo", fileName);
-        axios.put(`${api}/products/${productId}`, data, { headers: headers })
-            .then((res) => {
-                navigate(admin ? "/all-products" : "/");
-                setFile(null);
-                setFileName(null);
-                setSubmitting(false);
-            })
-            .catch((err) => {
-                console.log(err);
-                setEmptyFields(err.response.data.emptyFields);
-                setError(err.response.data.error);
-                setSubmitting(false);
-            })
+        try {
+            axios.put(`${api}/products/${productId}`, data, { headers: headers });
+            navigate(admin ? "/all-products" : "/");
+            setFile(null);
+            setFileName(null);
+        } catch (error) {
+            console.log(error);
+            setEmptyFields(error.response.data.emptyFields);
+            setError(error.response.data.error);
+        } finally {
+            setSubmitting(false);
+        }
     };
 
     function deleteProduct() {
         if (admin) {
             if (window.confirm("Are you sure you want to delete this product ? ")) {
-                axios.delete(`${api}/products/${productId}`, { headers: headers })
-                    .then(res => {
-                        navigate("/all-products");
-                    })
-                    .catch(err => {
-                        console.log(err);
-                    })
+                try {
+                    axios.delete(`${api}/products/${productId}`, { headers: headers });
+                    navigate("/all-products");
+                } catch (error) {
+                    console.log(error);
+                }
             }
         } else {
             alert("You're not authorized to make this action, please contact the CTO !");

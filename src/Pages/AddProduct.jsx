@@ -9,6 +9,7 @@ import { headers } from "../Config/Headers";
 import SizeForm from "../Components/AddProduct/SizeForm";
 import { useAdminContext } from "../Hooks/useAdminContext";
 import styles from "../styles";
+import { calculateFinalPrice } from "./SingleProductPage";
 
 function AddProduct() {
 
@@ -27,6 +28,13 @@ function AddProduct() {
     const [error, setError] = useState('');
     const [productAlreadyExistsId, setProductAlreadyExistsId] = useState('');
     const productToDuplicate = JSON.parse(localStorage.getItem('productToDuplicate'));
+    const [price, setPrice] = useState(productToDuplicate && productToDuplicate.price ? productToDuplicate.price : 0);
+    const [discount, setDiscount] = useState(productToDuplicate && productToDuplicate.discount ? productToDuplicate.discount : 0);
+    const [finalPrice, setFinalPrice] = useState(0);
+
+    useEffect(() => {
+        setFinalPrice(calculateFinalPrice(price || 0, discount));
+    }, [discount, price]);
 
     useEffect(() => {
         const diffTime = new Date() - new Date(localStorage.getItem("productToDuplicateDate"));
@@ -45,8 +53,6 @@ function AddProduct() {
         gender: productToDuplicate && productToDuplicate.gender ? productToDuplicate.gender : '',
         quantity: productToDuplicate && productToDuplicate.quantity ? productToDuplicate.quantity : 1,
         cost: productToDuplicate && productToDuplicate.cost ? productToDuplicate.cost : 0,
-        price: productToDuplicate && productToDuplicate.price ? productToDuplicate.price : 0,
-        discount: productToDuplicate && productToDuplicate.discount ? productToDuplicate.discount : 0,
     }
 
     const validationSchema = Yup.object().shape({})
@@ -94,7 +100,7 @@ function AddProduct() {
                 initialValues={initialValues}
                 validationSchema={validationSchema}
                 onSubmit={addProduct}
-                id='addProductForm'
+                id="addProductForm"
 
                 imageSrcToUpload={imageSrcToUpload}
                 setImageSrcToUpload={setImageSrcToUpload}
@@ -103,10 +109,16 @@ function AddProduct() {
                 fileName={fileName}
                 setFileName={setFileName}
 
-                buttonText='Add product'
+                buttonText="Add product"
 
                 barcode={barcode}
                 setBarcode={setBarcode}
+
+                price={price}
+                setPrice={setPrice}
+                finalPrice={finalPrice}
+                discount={discount}
+                setDiscount={setDiscount}
 
                 priceAfterDiscount={Number(initialValues.price - (initialValues.price * (initialValues.discount / 100))).toFixed(2)}
 
