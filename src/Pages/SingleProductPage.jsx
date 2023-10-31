@@ -92,14 +92,14 @@ function SingleProductPage() {
         name: Yup.string().required("Required"),
     });
 
-    function updateProduct() {
+    async function updateProduct() {
         setSubmitting(true);
         const productForm = document.getElementById("editProductForm")
         const data = new FormData(productForm);
         data.append("image", file);
         data.append("photo", fileName);
         try {
-            axios.put(`${api}/products/${productId}`, data, { headers: headers });
+            await axios.put(`${api}/products/${productId}`, data, { headers: headers });
             navigate(admin ? "/all-products" : "/");
             setFile(null);
             setFileName(null);
