@@ -22,6 +22,7 @@ import { useEffect } from "react";
 import Page404 from "./Pages/Page404";
 import User from "./Pages/User";
 import NavigationMenu from "./Components/NavigationMenu";
+import Test from "./Pages/Test";
 
 function App() {
 
@@ -73,6 +74,7 @@ function App() {
                   {admin && <Route path="/expenses" element={<Expenses />} />}
                   {admin && <Route path="/averages-progression" element={<AverageProgression />} />}
                   {admin && <Route path="/promo-codes" element={<Promos />} />}
+                  {admin && <Route path="/test" element={<Test />} />}
                   <Route path="*" element={<Page404 />} />
                 </Routes>
               </main>
